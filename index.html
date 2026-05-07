@@ -470,14 +470,18 @@ async function getPrice(){
   try{
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
-    const res=await fetch('https://workers-playground-hidden-sunset-44c7.workers.dev',{
+    // Try direct API call with browser access header
+    const reqBody = JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
+      mode:'cors',
       headers:{
         'Content-Type':'application/json',
         'x-api-key':apiKey,
-        'anthropic-version':'2023-06-01'
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
       },
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]})
+      body:reqBody
     });
     if(!res.ok){
       const err=await res.json().catch(()=>({}));
