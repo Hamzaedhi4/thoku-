@@ -472,9 +472,25 @@ async function getPrice(){
     if(!apiKey){showApiScreen();return;}
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]})
     });
+    if(!res.ok){
+      const err=await res.json().catch(()=>({}));
+      const msg=err?.error?.message||'API error '+res.status;
+      if(res.status===401){
+        localStorage.removeItem('thoku_api_key');
+        showApiScreen();
+        document.getElementById('result').innerHTML='<div class="bridge"></div><div class="dark-wrap" style="color:#f87171;font-size:13px">❌ Invalid API key — please re-enter your key.</div>';
+        return;
+      }
+      throw new Error(msg);
+    }
     const data=await res.json();
     const text=data.content?.[0]?.text||'Something went wrong.';
     b?renderBuyer(text):renderLister(text);
