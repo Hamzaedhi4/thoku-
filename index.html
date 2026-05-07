@@ -150,6 +150,21 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 @keyframes sp{to{transform:rotate(360deg);}}
 @keyframes up{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .fade{animation:up 0.25s ease forwards;}
+
+/* API KEY SCREEN */
+#api-screen{padding:32px 20px;flex:1;display:flex;flex-direction:column;background:#ffffff;}
+#api-screen h2{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;}
+#api-screen p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;}
+.api-input-wrap{position:relative;margin-bottom:10px;}
+.api-input-wrap input{width:100%;padding:12px 44px 12px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--text);font-family:var(--mono);transition:border-color 0.15s;letter-spacing:0.02em;}
+.api-input-wrap input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(14,165,233,0.08);}
+.api-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px;}
+.api-btn{width:100%;padding:13px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;background:var(--sky);color:white;font-family:var(--font);transition:all 0.15s;box-shadow:0 2px 8px rgba(14,165,233,0.25);}
+.api-btn:hover{background:var(--sky-dark);transform:translateY(-1px);}
+.api-note{font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;text-align:center;}
+.api-note a{color:var(--sky);text-decoration:none;}
+.api-note a:hover{text-decoration:underline;}
+.api-saved{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:12px;}
 </style>
 </head>
 <body>
@@ -201,6 +216,27 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
     <span class="badge bg">Live</span>
     <span class="badge bd">3 stores</span>
   </div>
+</div>
+
+
+<div id="api-screen" style="display:none">
+  <div style="margin-bottom:24px">
+    <div style="width:44px;height:44px;background:var(--sky-light);border:1.5px solid var(--sky-mid);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px">🔑</div>
+    <h2>Enter your API key</h2>
+    <p>Thoku needs an Anthropic API key to power the pricing. Your key is saved locally on your device only — never sent anywhere else.</p>
+  </div>
+  <div id="api-saved-msg" class="api-saved" style="display:none">
+    <span>✓</span><span>API key saved — Thoku is ready</span>
+  </div>
+  <div class="api-input-wrap">
+    <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." />
+    <button class="api-toggle" onclick="toggleApiVis()" id="api-vis-btn">👁</button>
+  </div>
+  <button class="api-btn" onclick="saveApiKey()">Save & continue →</button>
+  <p class="api-note">
+    Get your key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
+    Create account → API Keys → Create Key → Copy & paste above
+  </p>
 </div>
 
 <div id="role-screen">
@@ -346,29 +382,29 @@ THOKU SAYS: [direct recommendation — one sentence]
 
 WATCH: [single biggest risk — one line]`;
 
-const LISTER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Price to sell in 7-10 days.
-${SYG}
-Apply ALL deductions to base first. No markdown or asterisks.
+const LISTER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Price to sell in 7-10 days. Be SHORT and PUNCHY — no essays.
 
-OUTPUT FORMAT:
+${SYG}
+
+OUTPUT FORMAT — keep every section to one line maximum, no exceptions:
 
 LIST AT: $[X]
 Accept offers down to: $[X]
 eBay condition: [Used / For parts or not working]
 
 PRICE BREAKDOWN:
-Base $[X] → [deductions] → Sell value $[X]
+$[base] → [deduction -X%] → $[final]
 
 MARGIN:
-Sell $[X] → costs 27% ($[X]) → paid $[X] → profit $[X] ([X]%)
+Sell $[X] → keep $[X after 27%] → paid $[X] → profit $[X] ([X]%)
 
-WHY: [2-3 lines]
+WHY: [One sentence only — the key reason for this price]
 
 CONDITION DESCRIPTION:
-[Paste-ready paragraph]
+[2-3 sentences max. Honest. Paste-ready.]
 
 WATCH:
-[max 2 bullets]`;
+• [One line max per bullet, 2 bullets max]`;
 
 function setRole(r){
   role=r;
@@ -432,8 +468,11 @@ async function getPrice(){
   photoData.forEach(pd=>content.push({type:'image',source:{type:'base64',media_type:pd.type,data:pd.b64}}));
   content.push({type:'text',text:`${b?'BUYING':'LISTING'}: ${product}${cost?`\n${b?'Customer asking':'SYG paid'}: $${cost}`:''}`});
   try{
+    const apiKey = localStorage.getItem('thoku_api_key') || '';
+    if(!apiKey){showApiScreen();return;}
     const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]})
     });
     const data=await res.json();
@@ -563,9 +602,10 @@ function renderLister(text){
   h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">`;
 
   if(breakdown){
+    const bShort = breakdown.trim().split('Note:')[0].trim();
     h+=`<div style="background:#0a1628;border:1.5px solid #1e3a5f;border-radius:14px;padding:13px 12px;">
       <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:6px">Price breakdown</div>
-      <div style="font-size:11px;color:#93c5fd;font-family:var(--mono);line-height:1.6">${breakdown.trim()}</div>
+      <div style="font-size:12px;color:#93c5fd;font-family:var(--mono);line-height:1.6">${bShort}</div>
     </div>`;
   }
 
@@ -580,9 +620,9 @@ function renderLister(text){
 
   // Why this price
   if(why){
-    h+=`<div style="background:#111827;border:1px solid #1f2937;border-radius:14px;padding:13px 14px;margin-bottom:12px">
-      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280;margin-bottom:6px">Why this price</div>
-      <div style="font-size:12.5px;color:#e5e7eb;line-height:1.6">${why.trim()}</div>
+    h+=`<div style="background:#111827;border:1px solid #1f2937;border-radius:14px;padding:11px 14px;margin-bottom:12px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280;margin-bottom:5px">Why</div>
+      <div style="font-size:13px;color:#e5e7eb;line-height:1.5">${why.trim()}</div>
     </div>`;
   }
 
@@ -619,6 +659,62 @@ function resetTool(){
   renderPhotos();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+function showApiScreen(){
+  document.getElementById('api-screen').style.display='flex';
+  document.getElementById('api-screen').style.flexDirection='column';
+  document.getElementById('role-screen').style.display='none';
+  document.getElementById('main').style.display='none';
+  // Show saved key if exists
+  const saved = localStorage.getItem('thoku_api_key');
+  if(saved){
+    document.getElementById('api-key-input').value=saved;
+    document.getElementById('api-saved-msg').style.display='flex';
+  }
+}
+
+function saveApiKey(){
+  const key = document.getElementById('api-key-input').value.trim();
+  if(!key||!key.startsWith('sk-')){
+    alert('Please enter a valid Anthropic API key (starts with sk-)');
+    return;
+  }
+  localStorage.setItem('thoku_api_key',key);
+  document.getElementById('api-saved-msg').style.display='flex';
+  setTimeout(()=>{
+    document.getElementById('api-screen').style.display='none';
+    document.getElementById('role-screen').style.display='flex';
+  },800);
+}
+
+function toggleApiVis(){
+  const inp=document.getElementById('api-key-input');
+  const btn=document.getElementById('api-vis-btn');
+  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
+  else{inp.type='password';btn.textContent='👁';}
+}
+
+// Check for API key on load — show API screen if missing
+window.addEventListener('load',()=>{
+  const key=localStorage.getItem('thoku_api_key');
+  if(!key){
+    showApiScreen();
+  }
+});
+
+// Add settings gear to header to change API key
+document.addEventListener('DOMContentLoaded',()=>{
+  const header=document.getElementById('header');
+  if(header){
+    const gear=document.createElement('button');
+    gear.innerHTML='⚙️';
+    gear.title='Change API key';
+    gear.style.cssText='background:none;border:none;cursor:pointer;font-size:16px;margin-left:6px;opacity:0.5;';
+    gear.onclick=showApiScreen;
+    header.appendChild(gear);
+  }
+});
+
 </script>
 </body>
 </html>
