@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thoku — SYG Pricing Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f7fa;
+  --white: #ffffff;
+  --border: #e2e8f0;
+  --border2: #cbd5e1;
+  --text: #0f172a;
+  --text2: #475569;
+  --text3: #94a3b8;
+  --sky: #0ea5e9;
+  --sky-dark: #0369a1;
+  --sky-light: #f0f9ff;
+  --sky-mid: #bae6fd;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --green-border: #bbf7d0;
+  --amber: #d97706;
+  --amber-bg: #fffbeb;
+  --amber-border: #fde68a;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --red-border: #fecaca;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --r: 12px;
+  --rl: 16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;}
+#shell{min-height:100vh;display:flex;flex-direction:column;max-width:480px;margin:0 auto;padding-bottom:0;}
+
+/* HEADER */
+#header{padding:14px 20px;display:flex;align-items:center;gap:10px;background:#ffffff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+#logo{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+#header h1{font-size:17px;font-weight:800;color:var(--text);}
+#header p{font-size:11px;color:var(--text3);margin-top:1px;}
+#badges{margin-left:auto;display:flex;gap:5px;}
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;font-family:var(--mono);font-weight:500;white-space:nowrap;}
+.bg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
+.bd{background:var(--bg);color:var(--text2);border:1px solid var(--border);}
+
+/* ROLE SCREEN */
+#role-screen{padding:28px 20px;flex:1;display:flex;flex-direction:column;background:#ffffff;}
+#role-screen h2{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;}
+#role-screen p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;}
+.rbtn{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);cursor:pointer;margin-bottom:10px;text-align:left;width:100%;transition:all 0.15s;}
+.rbtn:hover{border-color:var(--sky);background:var(--sky-light);transform:translateY(-1px);}
+.ricon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.ri-b{background:#f0fdf4;}.ri-l{background:var(--sky-light);}
+.rtitle{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.rsub{font-size:12px;color:var(--text2);line-height:1.4;}
+.rarrow{margin-left:auto;color:var(--text3);font-size:20px;flex-shrink:0;}
+
+/* MAIN */
+#main{display:none;flex-direction:column;flex:1;}
+#mode-bar{padding:8px 20px;display:flex;align-items:center;gap:8px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:65px;z-index:9;}
+#mode-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-family:var(--mono);font-weight:500;}
+.mb-b{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
+.mb-l{background:var(--sky-light);color:var(--sky-dark);border:1px solid var(--sky-mid);}
+#mode-desc{font-size:11px;color:var(--text3);}
+#sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:none;border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-family:var(--font);transition:all 0.15s;}
+#sw:hover{border-color:var(--sky);color:var(--sky);}
+
+/* FORM */
+#body{padding:20px;background:#ffffff;}
+.field{margin-bottom:14px;}
+.flabel{font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text2);font-family:var(--mono);margin-bottom:6px;display:block;}
+.flabel span{font-weight:400;text-transform:none;letter-spacing:0;color:var(--text3);}
+textarea,input[type=text]{width:100%;padding:11px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--text);font-family:var(--font);resize:none;line-height:1.5;transition:border-color 0.15s;}
+textarea:focus,input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(14,165,233,0.08);}
+textarea::placeholder,input::placeholder{color:var(--text3);}
+
+/* PHOTOS */
+.prow{display:flex;gap:8px;flex-wrap:wrap;}
+.thumb{width:60px;height:60px;border-radius:10px;overflow:hidden;border:1.5px solid var(--border);position:relative;flex-shrink:0;}
+.thumb img{width:100%;height:100%;object-fit:cover;}
+.tdel{position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,.5);color:white;border:none;cursor:pointer;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.aphoto{width:60px;height:60px;border:1.5px dashed var(--border2);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:3px;transition:all 0.15s;background:var(--white);}
+.aphoto:hover{border-color:var(--sky);background:var(--sky-light);}
+.aphoto svg{width:18px;height:18px;stroke:var(--text3);}
+.aphoto span{font-size:9px;color:var(--text3);font-family:var(--mono);}
+
+/* GO BUTTON */
+#gobtn{width:100%;padding:14px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font);transition:all 0.15s;margin-top:4px;background:var(--sky);color:white;box-shadow:0 2px 8px rgba(14,165,233,0.25);}
+#gobtn:hover{background:var(--sky-dark);box-shadow:0 4px 14px rgba(14,165,233,0.35);transform:translateY(-1px);}
+#gobtn:disabled{background:var(--border);color:var(--text3);box-shadow:none;transform:none;cursor:not-allowed;}
+
+/* RESULT — DARK SECTION */
+#result{display:none;}
+.bridge{height:36px;background:linear-gradient(to bottom,#ffffff,#0d1117);}.dark-wrap{background:#0d1117;padding:20px 20px 48px;}
+
+/* Sell value */
+.sv-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
+.sv-label{font-size:11px;color:#6b7280;font-family:var(--mono);font-weight:500;}
+.sv-note{font-size:10px;color:#4b5563;font-family:var(--mono);margin-top:3px;max-width:200px;line-height:1.45;}
+.sv-num{font-size:38px;font-weight:800;color:#ffffff;letter-spacing:-2px;flex-shrink:0;margin-left:12px;}
+
+/* Offer cards */
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.ocard{border-radius:14px;padding:16px 10px;text-align:center;border:1.5px solid;position:relative;transition:transform 0.15s;}
+.ocard:hover{transform:translateY(-2px);}
+.og{background:#0a1a0e;border-color:#166534;}
+.ob{background:#0a1628;border-color:#0ea5e9;border-width:2px;}
+.oa{background:#1a1200;border-color:#92400e;}
+.rec-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#7c3aed;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:var(--mono);white-space:nowrap;letter-spacing:0.04em;}
+.otag{font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);margin-bottom:7px;}
+.og .otag{color:#4ade80;}.ob .otag{color:#38bdf8;}.oa .otag{color:#fbbf24;}
+.oprice{font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:5px;}
+.og .oprice{color:#4ade80;}.ob .oprice{color:#a78bfa;}.oa .oprice{color:#fbbf24;}
+.oprofit{font-size:11px;font-family:var(--mono);margin-bottom:2px;}
+.og .oprofit{color:#4ade80;}.ob .oprofit{color:#a78bfa;}.oa .oprofit{color:#fbbf24;}
+.omargin{font-size:10px;font-family:var(--mono);}
+.og .omargin{color:#166534;}.ob .omargin{color:#4c1d95;}.oa .omargin{color:#78350f;}
+.owhy{font-size:10px;color:#9ca3af;margin-top:8px;line-height:1.5;}
+
+/* Dark alerts */
+.dal{border-radius:12px;padding:11px 13px;display:flex;gap:9px;margin-bottom:8px;line-height:1.6;font-size:12.5px;align-items:flex-start;border:1px solid;}
+.dal-ok{background:#0a1f0a;border-color:#166534;color:#4ade80;}
+.dal-warn{background:#1a1200;border-color:#92400e;color:#fbbf24;}
+.dal-err{background:#1a0505;border-color:#991b1b;color:#f87171;}
+.dai{flex-shrink:0;font-size:14px;margin-top:1px;}
+
+/* Dark list hero */
+.lhero{background:#111827;border:1px solid #1f2937;border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.lprice{font-size:44px;font-weight:800;color:#0ea5e9;letter-spacing:-2px;line-height:1;}
+.lsub{font-size:11px;color:#6b7280;font-family:var(--mono);margin-top:4px;}
+.ldate{font-size:11px;color:#4b5563;font-family:var(--mono);}
+
+/* Dark misc */
+.dsl{font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6b7280;font-family:var(--mono);margin:14px 0 6px;display:block;}
+.dline{font-size:13px;color:#e5e7eb;padding:3px 0;line-height:1.6;}
+.dmuted{font-size:12px;color:#6b7280;padding:3px 0;font-family:var(--mono);}
+.dcopy{background:#111827;border:1px solid #1f2937;border-radius:10px;padding:11px 13px;font-size:11.5px;font-family:var(--mono);line-height:1.65;cursor:pointer;color:#9ca3af;white-space:pre-wrap;word-break:break-word;transition:all 0.15s;}
+.dcopy:hover{border-color:#0ea5e9;color:#e5e7eb;}
+.chint{font-size:10px;color:#4b5563;margin-top:4px;margin-bottom:8px;font-family:var(--mono);}
+
+#rstbtn{width:100%;padding:12px;margin-top:12px;border:1px solid #1f2937;border-radius:12px;font-size:13px;cursor:pointer;background:#111827;color:#6b7280;font-family:var(--font);transition:all 0.15s;}
+#rstbtn:hover{border-color:#0ea5e9;color:#0ea5e9;background:#0a1628;}
+
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);border-top-color:white;animation:sp .7s linear infinite;flex-shrink:0;}
+.spinc{width:24px;height:24px;border-radius:50%;border:2px solid #1f2937;border-top-color:#0ea5e9;animation:sp .7s linear infinite;margin:0 auto 12px;}
+#loading{background:#0d1117;padding:40px;text-align:center;color:#6b7280;font-size:13px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+@keyframes up{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:up 0.25s ease forwards;}
+
+/* API KEY SCREEN */
+#api-screen{padding:32px 20px;flex:1;display:flex;flex-direction:column;background:#ffffff;}
+#api-screen h2{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;}
+#api-screen p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;}
+.api-input-wrap{position:relative;margin-bottom:10px;}
+.api-input-wrap input{width:100%;padding:12px 44px 12px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--text);font-family:var(--mono);transition:border-color 0.15s;letter-spacing:0.02em;}
+.api-input-wrap input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(14,165,233,0.08);}
+.api-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px;}
+.api-btn{width:100%;padding:13px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;background:var(--sky);color:white;font-family:var(--font);transition:all 0.15s;box-shadow:0 2px 8px rgba(14,165,233,0.25);}
+.api-btn:hover{background:var(--sky-dark);transform:translateY(-1px);}
+.api-note{font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;text-align:center;}
+.api-note a{color:var(--sky);text-decoration:none;}
+.api-note a:hover{text-decoration:underline;}
+.api-saved{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+</style>
+</head>
+<body>
+<div id="shell">
+
+<div id="header">
+  <div id="logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="12" fill="#0ea5e9"/>
+      <g transform="translate(50,54)">
+        <ellipse cx="-10" cy="28" rx="8" ry="16" fill="#c0392b"/>
+        <ellipse cx="10" cy="28" rx="8" ry="16" fill="#c0392b"/>
+        <ellipse cx="-8" cy="40" rx="6" ry="9" fill="#922b21"/>
+        <ellipse cx="8" cy="40" rx="6" ry="9" fill="#922b21"/>
+        <rect x="-22" y="6" width="44" height="28" rx="10" fill="#c0392b"/>
+        <rect x="-18" y="20" width="36" height="9" rx="4" fill="#7f1d1d"/>
+        <circle cx="0" cy="25" r="4" fill="#0ea5e9"/>
+        <circle cx="0" cy="25" r="2" fill="#0369a1"/>
+        <rect x="-20" y="8" width="13" height="22" rx="7" fill="#c0392b"/>
+        <rect x="7" y="8" width="13" height="22" rx="7" fill="#c0392b"/>
+        <rect x="-20" y="24" width="13" height="7" rx="3.5" fill="#0ea5e9"/>
+        <rect x="7" y="24" width="13" height="7" rx="3.5" fill="#0ea5e9"/>
+        <line x1="-28" y1="12" x2="-28" y2="-2" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+        <rect x="-33" y="-5" width="10" height="5" rx="1.5" fill="#cbd5e1"/>
+        <line x1="28" y1="12" x2="28" y2="-2" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+        <rect x="23" y="-5" width="10" height="5" rx="1.5" fill="#cbd5e1"/>
+        <ellipse cx="0" cy="-10" rx="26" ry="28" fill="#c0392b"/>
+        <ellipse cx="0" cy="-14" rx="26" ry="28" fill="#c0392b"/>
+        <ellipse cx="-8" cy="-12" rx="9" ry="10" fill="#1a1a1a"/>
+        <ellipse cx="8" cy="-12" rx="9" ry="10" fill="#1a1a1a"/>
+        <rect x="-24" y="-19" width="48" height="10" rx="5" fill="#0ea5e9"/>
+        <ellipse cx="-8" cy="-12" rx="5.5" ry="6.5" fill="white"/>
+        <ellipse cx="8" cy="-12" rx="5.5" ry="6.5" fill="white"/>
+        <ellipse cx="-6" cy="-13" rx="3" ry="3.5" fill="#0369a1"/>
+        <ellipse cx="10" cy="-13" rx="3" ry="3.5" fill="#0369a1"/>
+        <circle cx="-5" cy="-15" r="1" fill="white"/>
+        <circle cx="11" cy="-15" r="1" fill="white"/>
+        <path d="M-6 0 Q0 5 6 0" fill="none" stroke="#922b21" stroke-width="1.5" stroke-linecap="round"/>
+        <ellipse cx="-22" cy="-20" rx="7" ry="11" fill="#c0392b"/>
+        <ellipse cx="22" cy="-20" rx="7" ry="11" fill="#c0392b"/>
+        <path d="M-8 -36 Q0 -48 8 -36 Z" fill="#c0392b"/>
+        <path d="M-18 -30 Q-10 -40 -4 -33" fill="none" stroke="#922b21" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M18 -30 Q10 -40 4 -33" fill="none" stroke="#922b21" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+  <div><h1>Thoku</h1><p>SYG pricing intelligence</p></div>
+  <div id="badges">
+    <span class="badge bg">Live</span>
+    <span class="badge bd">3 stores</span>
+  </div>
+</div>
+
+
+<div id="api-screen" style="display:none">
+  <div style="margin-bottom:24px">
+    <div style="width:44px;height:44px;background:var(--sky-light);border:1.5px solid var(--sky-mid);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px">🔑</div>
+    <h2>Enter your API key</h2>
+    <p>Thoku needs an Anthropic API key to power the pricing. Your key is saved locally on your device only — never sent anywhere else.</p>
+  </div>
+  <div id="api-saved-msg" class="api-saved" style="display:none">
+    <span>✓</span><span>API key saved — Thoku is ready</span>
+  </div>
+  <div class="api-input-wrap">
+    <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." />
+    <button class="api-toggle" onclick="toggleApiVis()" id="api-vis-btn">👁</button>
+  </div>
+  <button class="api-btn" onclick="saveApiKey()">Save & continue →</button>
+  <p class="api-note">
+    Get your key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
+    Create account → API Keys → Create Key → Copy & paste above
+  </p>
+</div>
+
+<div id="role-screen">
+  <h2>Who are you today?</h2>
+  <p>Pick your role — Thoku gives you exactly what you need.</p>
+  <button class="rbtn" onclick="setRole('buyer')">
+    <div class="ricon ri-b">🛒</div>
+    <div><div class="rtitle">Buyer</div><div class="rsub">Customer at the counter — what do I offer?</div></div>
+    <div class="rarrow">›</div>
+  </button>
+  <button class="rbtn" onclick="setRole('lister')">
+    <div class="ricon ri-l">🏷️</div>
+    <div><div class="rtitle">Lister</div><div class="rsub">Item in the back — what do I list it for?</div></div>
+    <div class="rarrow">›</div>
+  </button>
+</div>
+
+<div id="main">
+  <div id="mode-bar">
+    <div id="mode-badge"></div>
+    <span id="mode-desc"></span>
+    <button id="sw" onclick="switchRole()">↩ Switch</button>
+  </div>
+  <div id="body">
+    <div class="field">
+      <label class="flabel">What is it?</label>
+      <textarea id="product" rows="2" placeholder=""></textarea>
+    </div>
+    <div class="field">
+      <label class="flabel">Photos <span>(optional)</span></label>
+      <div class="prow" id="prow">
+        <div class="aphoto" onclick="document.getElementById('pinp').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="13" r="3"/><path d="M3 16.8V9.2A1.2 1.2 0 0 1 4.2 8h1.4l1.6-2h9.6l1.6 2h1.4A1.2 1.2 0 0 1 21 9.2v7.6a1.2 1.2 0 0 1-1.2 1.2H4.2A1.2 1.2 0 0 1 3 16.8Z"/></svg>
+          <span>Add</span>
+        </div>
+      </div>
+      <input type="file" id="pinp" multiple accept="image/*" style="display:none" onchange="addPhotos(this)">
+    </div>
+    <div class="field" id="cost-field"></div>
+    <button id="gobtn" onclick="getPrice()"></button>
+  </div>
+  <div id="result"></div>
+</div>
+
+</div>
+<script>
+let role=null;
+const photos=[],photoData=[];
+
+const SYG=`
+SYG BUSINESS RULES — FIXED, APPLY EVERY TIME:
+- eBay fees + shipping: 17% of sell price
+- License royalty: 10% of sell price
+- Total out: 27% of sell price
+- SYG net = (sell price × 0.73) minus what we paid
+- HOT ITEMS CAP: iPhones, PS5, MacBooks — max offer $300-$350 regardless of math
+
+OFFER TIERS — USE THESE EXACT PERCENTAGES:
+- Offer 1 (Strong play): 22-25% of adjusted sell value
+- Offer 2 (Fair deal): 38-42% of adjusted sell value  
+- Offer 3 (Win the deal): 52-55% of adjusted sell value — this is your real max
+- NEVER go above 55% of sell value — you will lose money after costs
+
+WHY THESE TIERS: Real SYG buying data shows:
+- PS5 $360 sell → buyer pays $80-$200 in practice (22% to 55%)
+- iPhone 15 Pro Max $550 sell → buyer pays $120-$300 in practice
+- MacBook M4 Pro $1,400 sell → buyer pays $300-$770 in practice
+
+SELL VALUE CALCULATION — IN ORDER:
+1. BASE value (perfect condition, all accessories, unlocked)
+2. Apply ALL condition deductions → ADJUSTED sell value
+3. Calculate 3 offers from ADJUSTED value only
+
+IPHONE BASE VALUES (perfect, unlocked, 90%+ battery):
+15 Pro Max 256GB:$750|15 Pro Max 128GB:$710|15 Pro 256GB:$620|15 Pro 128GB:$590
+15 256GB:$420|15 128GB:$390|14 Pro Max 256GB:$560|14 Pro Max 128GB:$530
+14 Pro 256GB:$440|14 Pro 128GB:$410|14 256GB:$320|14 128GB:$295
+13 Pro Max 256GB:$410|13 Pro Max 128GB:$365|13 Pro:$295|13 256GB:$255|13 128GB:$220
+12 Pro Max:$245|12 Pro:$200|12:$170|11 Pro Max:$180|11 128GB:$145|11 64GB:$135
+XS Max:$115|XS:$95|X:$85|SE 2022:$170|SE 2020:$95
+
+MACBOOK BASE VALUES (good used):
+M4 Pro 14" 24GB 512GB:$1,400|M4 Pro 14" 24GB 1TB:$1,600
+M3 Pro 14" 18GB 512GB:$1,100|M2 Pro 14":$850
+Air M2 8GB 256GB:$580|Air M2 16GB:$780|Air M1:$420
+
+GAMING BASE VALUES:
+PS5 disc:$370|PS5 Slim disc:$350|PS5 digital:$320|PS5 Slim digital:$300
+PS4 Pro:$195|PS4 Slim:$155|Xbox Series X:$290|Xbox Series S:$190
+Switch OLED:$235|Switch V2:$195|Switch V1:$165|Switch Lite:$120
+
+CONDITION DEDUCTIONS:
+Battery 90%+:0%|Battery 85-90%:-5%|Battery 80-85%:-10%|Battery <80%:-15%
+Scuffs/scratches only:-8%|Cracked screen only:-25%|Cracked back only:-12%
+Cracked front+back (works):-33%|Missing charger/cables:-5%|Missing accessories:-10to15%
+iCloud locked:-65%|Dead/not powering on:-70%|Functional issue: extra -10to15%
+
+REAL SOLD COMPS (verified):
+iPhone 13 Pro Max 128GB bad port+cracked back → $229.99 sold May 7 2026
+iPhone 13 Pro Max 128GB cracked front+back WORKS → $210-$230
+MacBook Pro M4 Pro 14" 24GB 512GB good → $1,350-$1,450
+PS5 disc → $360-$375|PS5 Slim disc → $340-$360
+
+SYG PAST SALES:
+Irvington:$91K YTD,335 orders,$272 avg
+Elizabeth:$1M YTD,5927 orders,$188 avg
+Elmwood Park:$468K YTD,2531 orders,$205 avg
+`;
+
+const BUYER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Customer is at the counter NOW. Be fast, sharp, profitable.
+
+${SYG}
+
+CRITICAL — USE THE NEW OFFER TIERS:
+- Offer 1: ~22-25% of adjusted sell value (not 18% — too low)
+- Offer 2: ~38-42% of adjusted sell value (not 27% — too low)
+- Offer 3: ~52-55% of adjusted sell value (not 36% — too low)
+These reflect real SYG buying behavior. PS5 Slim $333 sell → Offer 1 ~$80, Offer 2 ~$130, Offer 3 ~$180.
+
+ALWAYS OUTPUT THIS EXACT FORMAT — no markdown, no asterisks, no extra lines:
+
+SELL VALUE: $[number]
+([Base $X: deduction1 deduction2 = $adjusted])
+
+OFFER 1 — STRONG PLAY
+Offer customer: $[X] ([Y]% of sell)
+After all costs: $[Z] profit | [M]% margin
+Use when: [one sentence]
+
+OFFER 2 — FAIR DEAL RECOMMENDED
+Offer customer: $[X] ([Y]% of sell)
+After all costs: $[Z] profit | [M]% margin
+Use when: [one sentence]
+
+OFFER 3 — WIN THE DEAL
+Offer customer: $[X] ([Y]% of sell)
+After all costs: $[Z] profit | [M]% margin
+Use when: [one sentence]
+
+CUSTOMER ASKING $[X]: [FAIR / TOO HIGH / WALK AWAY] — [one sentence]
+
+THOKU SAYS: [direct recommendation — one sentence]
+
+WATCH: [single biggest risk — one line]`;
+
+const LISTER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Price to sell in 7-10 days. Be SHORT and PUNCHY — no essays.
+
+${SYG}
+
+OUTPUT FORMAT — keep every section to one line maximum, no exceptions:
+
+LIST AT: $[X]
+Accept offers down to: $[X]
+eBay condition: [Used / For parts or not working]
+
+PRICE BREAKDOWN:
+$[base] → [deduction -X%] → $[final]
+
+MARGIN:
+Sell $[X] → keep $[X after 27%] → paid $[X] → profit $[X] ([X]%)
+
+WHY: [One sentence only — the key reason for this price]
+
+CONDITION DESCRIPTION:
+[2-3 sentences max. Honest. Paste-ready.]
+
+WATCH:
+• [One line max per bullet, 2 bullets max]`;
+
+function setRole(r){
+  role=r;
+  document.getElementById('role-screen').style.display='none';
+  const m=document.getElementById('main');
+  m.style.display='flex';m.style.flexDirection='column';
+  const b=r==='buyer';
+  const badge=document.getElementById('mode-badge');
+  badge.textContent=b?'Buyer mode':'Lister mode';
+  badge.className=b?'mb-b':'mb-l';
+  document.getElementById('mode-desc').textContent=b?'Customer at the counter':'Item in the back';
+  document.getElementById('product').placeholder=b
+    ?'e.g. PS5 Slim Disc no cables one controller / iPhone 15 Pro Max 256GB 83% battery scratches'
+    :'e.g. iPhone 13 Pro Max 128GB unlocked cracked front back 87% battery no charger';
+  document.getElementById('cost-field').innerHTML=b
+    ?`<label class="flabel">Customer asking <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 250" style="max-width:140px">`
+    :`<label class="flabel">SYG paid</label><input type="text" id="cost" placeholder="e.g. 90" style="max-width:140px">`;
+  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':'🏷️ Get list price';
+  document.getElementById('result').style.display='none';
+  photos.length=0;photoData.length=0;renderPhotos();
+}
+
+function switchRole(){
+  role=null;
+  document.getElementById('role-screen').style.display='flex';
+  document.getElementById('main').style.display='none';
+  document.getElementById('product').value='';
+  document.getElementById('result').style.display='none';
+  photos.length=0;photoData.length=0;
+}
+
+function addPhotos(inp){
+  Array.from(inp.files).forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{photos.push(e.target.result);photoData.push({b64:e.target.result.split(',')[1],type:f.type});renderPhotos();};
+    r.readAsDataURL(f);
+  });
+}
+function removePhoto(i){photos.splice(i,1);photoData.splice(i,1);renderPhotos();}
+function renderPhotos(){
+  const row=document.getElementById('prow');if(!row)return;
+  row.innerHTML=photos.map((s,i)=>`<div class="thumb"><img src="${s}"><button class="tdel" onclick="removePhoto(${i})">✕</button></div>`).join('')+
+    `<div class="aphoto" onclick="document.getElementById('pinp').click()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.5"><circle cx="12" cy="13" r="3"/><path d="M3 16.8V9.2A1.2 1.2 0 0 1 4.2 8h1.4l1.6-2h9.6l1.6 2h1.4A1.2 1.2 0 0 1 21 9.2v7.6a1.2 1.2 0 0 1-1.2 1.2H4.2A1.2 1.2 0 0 1 3 16.8Z"/></svg>
+      <span>Add</span>
+    </div>`;
+}
+
+async function getPrice(){
+  const product=document.getElementById('product').value.trim();
+  const costEl=document.getElementById('cost');
+  const cost=costEl?costEl.value.trim():'';
+  if(!product){document.getElementById('product').focus();return;}
+  const b=role==='buyer';
+  const btn=document.getElementById('gobtn');
+  btn.disabled=true;btn.innerHTML=`<div class="spin"></div> ${b?'Getting offers…':'Pricing…'}`;
+  const result=document.getElementById('result');
+  result.style.display='block';
+  result.innerHTML=`<div class="bridge"></div><div id="loading" style="background:#0d1117"><div class="spinc"></div>Thoku is thinking…</div>`;
+  const content=[];
+  photoData.forEach(pd=>content.push({type:'image',source:{type:'base64',media_type:pd.type,data:pd.b64}}));
+  content.push({type:'text',text:`${b?'BUYING':'LISTING'}: ${product}${cost?`\n${b?'Customer asking':'SYG paid'}: $${cost}`:''}`});
+  try{
+    const apiKey = localStorage.getItem('thoku_api_key') || '';
+    if(!apiKey){showApiScreen();return;}
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]})
+    });
+    const data=await res.json();
+    const text=data.content?.[0]?.text||'Something went wrong.';
+    b?renderBuyer(text):renderLister(text);
+  }catch(e){
+    result.innerHTML=`<div class="dark-wrap" style="color:#f87171;font-size:13px">Connection failed. Please try again.</div>`;
+  }
+  btn.disabled=false;btn.innerHTML=b?'💰 Get 3 offers':'🏷️ Get list price';
+}
+
+function renderBuyer(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  let sellVal=null,svNote='',offers=[],cur=null,rec='',watch='',custLine='';
+
+  for(let i=0;i<lines.length;i++){
+    const l=lines[i];
+    // Sell value
+    const svm=l.match(/^SELL VALUE[:\s]+\$?([\d,]+)/i);
+    if(svm){sellVal=parseInt(svm[1].replace(/,/g,''));continue;}
+    // Sell value note in parens
+    if(l.startsWith('(')&&l.includes('$')&&!svNote){svNote=l;continue;}
+    // Offer blocks
+    if(/^OFFER 1/i.test(l)){cur={cls:'og',tag:'Strong play',rec:false};continue;}
+    if(/^OFFER 2/i.test(l)){if(cur&&cur.price)offers.push(cur);cur={cls:'ob',tag:'Fair deal',rec:true};continue;}
+    if(/^OFFER 3/i.test(l)){if(cur&&cur.price)offers.push(cur);cur={cls:'oa',tag:'Win the deal',rec:false};continue;}
+    // End of offers
+    if(/^(CUSTOMER ASKING|THOKU SAYS|WATCH)/i.test(l)){
+      if(cur&&cur.price)offers.push(cur);cur=null;
+    }
+    if(cur){
+      const pm=l.match(/Offer customer[:\s]+\$?([\d,]+)/i);
+      const prm=l.match(/profit[:\s|]+\$?([\d,]+)/i);
+      const mm=l.match(/([\d]+)%\s*margin/i);
+      const um=l.match(/Use when[:\s]+(.+)/i);
+      if(pm)cur.price=parseInt(pm[1].replace(/,/g,''));
+      if(prm)cur.profit=parseInt(prm[1].replace(/,/g,''));
+      if(mm)cur.margin=mm[1];
+      if(um)cur.why=um[1];
+    }
+    const cm=l.match(/^CUSTOMER ASKING[^\n]*?[:\-\—]+\s*(.+)/i);
+    if(cm)custLine=cm[1].trim();
+    const tm=l.match(/^THOKU SAYS[:\s]+(.+)/i);
+    if(tm)rec=tm[1].trim();
+    const wm=l.match(/^WATCH[:\s]+(.+)/i);
+    if(wm)watch=wm[1].trim();
+  }
+
+  let h=`<div class="bridge"></div><div class="dark-wrap fade">`;
+  if(sellVal){
+    h+=`<div class="sv-row">
+      <div><div class="sv-label">SYG sell value</div>${svNote?`<div class="sv-note">${svNote}</div>`:''}</div>
+      <div class="sv-num">$${sellVal.toLocaleString()}</div>
+    </div>`;
+  }
+  if(offers.length>=3){
+    h+=`<div class="ogrid">`;
+    offers.forEach(o=>{
+      h+=`<div class="ocard ${o.cls}">
+        ${o.rec?'<div class="rec-badge">RECOMMENDED</div>':''}
+        <div class="otag">${o.tag}</div>
+        <div class="oprice">$${(o.price||0).toLocaleString()}</div>
+        ${o.profit?`<div class="oprofit">+$${o.profit.toLocaleString()}</div>`:''}
+        ${o.margin?`<div class="omargin">${o.margin}% margin</div>`:''}
+        ${o.why?`<div class="owhy">${o.why}</div>`:''}
+      </div>`;
+    });
+    h+=`</div>`;
+  } else {
+    // Fallback: render raw lines cleanly
+    lines.forEach(l=>{
+      if(/^OFFER [123]/i.test(l)) h+=`<div class="dsl">${l}</div>`;
+      else if(/^(THOKU|WATCH|CUSTOMER)/i.test(l)) h+=`<div class="dsl" style="margin-top:10px">${l}</div>`;
+      else h+=`<div class="dline">${l}</div>`;
+    });
+  }
+  if(custLine){
+    const isWalk=/walk away/i.test(custLine),isHigh=/too high/i.test(custLine);
+    h+=`<div class="dal ${isWalk?'dal-err':isHigh?'dal-warn':'dal-ok'}"><span class="dai">${isWalk?'🚫':isHigh?'📊':'✓'}</span><div>${custLine}</div></div>`;
+  }
+  if(rec) h+=`<div class="dal dal-ok"><span class="dai">★</span><div><strong>Thoku:</strong> ${rec}</div></div>`;
+  if(watch) h+=`<div class="dal dal-warn"><span class="dai">⚠️</span><div>${watch}</div></div>`;
+  h+=`<button id="rstbtn" onclick="resetTool()">↩ Price another item</button></div>`;
+  document.getElementById('result').innerHTML=h;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderLister(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  let listPrice=null,floorPrice=null,ebayCondition='',breakdown='',margin='',why='',condDesc='',watches=[];
+  let section='';
+
+  lines.forEach(l=>{
+    const lpm=l.match(/^LIST AT[:\s]+\$?([\d,]+)/i);
+    if(lpm){listPrice=parseInt(lpm[1].replace(/,/g,''));return;}
+    const fpm=l.match(/Accept offers down to[:\s]+\$?([\d,]+)/i);
+    if(fpm){floorPrice=parseInt(fpm[1].replace(/,/g,''));return;}
+    const ecm=l.match(/eBay condition[:\s]+(.+)/i);
+    if(ecm){ebayCondition=ecm[1].trim();return;}
+    if(/^PRICE BREAKDOWN/i.test(l)){section='breakdown';return;}
+    if(/^MARGIN/i.test(l)){section='margin';return;}
+    if(/^WHY/i.test(l)){section='why';return;}
+    if(/^CONDITION DESCRIPTION/i.test(l)){section='cond';return;}
+    if(/^WATCH/i.test(l)){section='watch';return;}
+    if(section==='breakdown'&&l)breakdown+=l+' ';
+    if(section==='margin'&&l)margin+=l+' ';
+    if(section==='why'&&l)why+=l+' ';
+    if(section==='cond'&&l)condDesc+=l+' ';
+    if(section==='watch'&&(l.startsWith('•')||l.startsWith('-')||l.length>5))watches.push(l.replace(/^[•\-]\s*/,''));
+  });
+
+  let h=`<div class="bridge"></div><div class="dark-wrap fade">`;
+
+  // List price hero — styled like sell value row
+  if(listPrice){
+    h+=`<div class="sv-row">
+      <div>
+        <div class="sv-label">SYG list price</div>
+        ${ebayCondition?`<div class="sv-note">eBay: ${ebayCondition}</div>`:''}
+        ${floorPrice?`<div class="sv-note">Accept offers down to $${floorPrice.toLocaleString()}</div>`:''}
+      </div>
+      <div class="sv-num">$${listPrice.toLocaleString()}</div>
+    </div>`;
+  }
+
+  // Three info cards — breakdown / margin / why
+  h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">`;
+
+  if(breakdown){
+    const bShort = breakdown.trim().split('Note:')[0].trim();
+    h+=`<div style="background:#0a1628;border:1.5px solid #1e3a5f;border-radius:14px;padding:13px 12px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:6px">Price breakdown</div>
+      <div style="font-size:12px;color:#93c5fd;font-family:var(--mono);line-height:1.6">${bShort}</div>
+    </div>`;
+  }
+
+  if(margin){
+    h+=`<div style="background:#0a1a0e;border:1.5px solid #166534;border-radius:14px;padding:13px 12px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#4ade80;margin-bottom:6px">Your margin</div>
+      <div style="font-size:11px;color:#86efac;font-family:var(--mono);line-height:1.6">${margin.trim()}</div>
+    </div>`;
+  }
+
+  h+=`</div>`;
+
+  // Why this price
+  if(why){
+    h+=`<div style="background:#111827;border:1px solid #1f2937;border-radius:14px;padding:11px 14px;margin-bottom:12px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280;margin-bottom:5px">Why</div>
+      <div style="font-size:13px;color:#e5e7eb;line-height:1.5">${why.trim()}</div>
+    </div>`;
+  }
+
+  // Condition description — copy box
+  if(condDesc){
+    h+=`<div style="margin-bottom:4px;font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280">Condition description</div>`;
+    h+=`<div class="dcopy" onclick="copyThis(this)">${condDesc.trim()}</div>`;
+    h+=`<div class="chint">tap to copy · paste into eBay / Shopify</div>`;
+  }
+
+  // Watch alerts
+  watches.forEach(w=>{
+    const risk=/icloud|battery|lock|dispute|return/i.test(w);
+    h+=`<div class="dal ${risk?'dal-warn':'dal-ok'}" style="margin-bottom:8px"><span class="dai">${risk?'⚠️':'✓'}</span><div>${w}</div></div>`;
+  });
+
+  h+=`<button id="rstbtn" onclick="resetTool()">↩ Price another item</button></div>`;
+  document.getElementById('result').innerHTML=h;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copyThis(el){
+  navigator.clipboard.writeText(el.innerText.trim()).then(()=>{
+    const h=el.nextElementSibling;
+    if(h){h.textContent='✓ Copied!';setTimeout(()=>h.textContent='tap to copy',2000);}
+  });
+}
+
+function resetTool(){
+  photos.length=0;photoData.length=0;
+  document.getElementById('product').value='';
+  const c=document.getElementById('cost');if(c)c.value='';
+  document.getElementById('result').style.display='none';
+  renderPhotos();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showApiScreen(){
+  document.getElementById('api-screen').style.display='flex';
+  document.getElementById('api-screen').style.flexDirection='column';
+  document.getElementById('role-screen').style.display='none';
+  document.getElementById('main').style.display='none';
+  // Show saved key if exists
+  const saved = localStorage.getItem('thoku_api_key');
+  if(saved){
+    document.getElementById('api-key-input').value=saved;
+    document.getElementById('api-saved-msg').style.display='flex';
+  }
+}
+
+function saveApiKey(){
+  const key = document.getElementById('api-key-input').value.trim();
+  if(!key||!key.startsWith('sk-')){
+    alert('Please enter a valid Anthropic API key (starts with sk-)');
+    return;
+  }
+  localStorage.setItem('thoku_api_key',key);
+  document.getElementById('api-saved-msg').style.display='flex';
+  setTimeout(()=>{
+    document.getElementById('api-screen').style.display='none';
+    document.getElementById('role-screen').style.display='flex';
+  },800);
+}
+
+function toggleApiVis(){
+  const inp=document.getElementById('api-key-input');
+  const btn=document.getElementById('api-vis-btn');
+  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
+  else{inp.type='password';btn.textContent='👁';}
+}
+
+// Check for API key on load — show API screen if missing
+window.addEventListener('load',()=>{
+  const key=localStorage.getItem('thoku_api_key');
+  if(!key){
+    showApiScreen();
+  }
+});
+
+// Add settings gear to header to change API key
+document.addEventListener('DOMContentLoaded',()=>{
+  const header=document.getElementById('header');
+  if(header){
+    const gear=document.createElement('button');
+    gear.innerHTML='⚙️';
+    gear.title='Change API key';
+    gear.style.cssText='background:none;border:none;cursor:pointer;font-size:16px;margin-left:6px;opacity:0.5;';
+    gear.onclick=showApiScreen;
+    header.appendChild(gear);
+  }
+});
+
+</script>
+</body>
+</html>
