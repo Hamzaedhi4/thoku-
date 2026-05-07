@@ -471,7 +471,7 @@ async function getPrice(){
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
-    const reqBody = JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]});
+    const reqBody = JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]});
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       mode:'cors',
