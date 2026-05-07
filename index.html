@@ -470,12 +470,13 @@ async function getPrice(){
   try{
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
-    const res=await fetch('https://thoku-proxy.hamza-4ea.workers.dev',{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
         'x-api-key':apiKey,
-        'anthropic-version':'2023-06-01'
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
       },
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:b?BUYER_SYS:LISTER_SYS,messages:[{role:'user',content}]})
     });
