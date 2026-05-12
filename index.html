@@ -258,6 +258,7 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 
 <div id="shift-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;">
 </div>
+<div id="call-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;"></div>
 <div id="quiz-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;">
 </div>
 <div id="role-screen">
@@ -363,13 +364,13 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
       </div>
       <div style="margin-left:auto;color:#0369a1;font-size:18px">›</div>
     </button>
-  <button onclick="startQuiz()" style="width:100%;padding:14px 16px;background:linear-gradient(135deg,#1a0a00,#2d1500);border:1.5px solid #92400e;border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px">
-      <div style="width:40px;height:40px;background:rgba(251,191,36,0.15);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎯</div>
-      <div>
-        <div style="font-size:13px;font-weight:700;color:#fbbf24">New Employee Quiz</div>
-        <div style="font-size:11px;color:#92400e;margin-top:1px">Must score 8/10 to work the floor</div>
+  <button onclick="openCallLogger()" style="width:100%;padding:14px 16px;background:linear-gradient(135deg,#0a1f0a,#0f2d15);border:1.5px solid #166534;border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;background:rgba(74,222,128,0.15);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📋</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:#4ade80">Call Logger</div>
+        <div style="font-size:11px;color:#166534;margin-top:1px" id="call-count-badge">Log incoming calls — track leads</div>
       </div>
-      <div style="margin-left:auto;color:#92400e;font-size:18px">›</div>
+      <div style="margin-left:auto;color:#166534;font-size:18px">›</div>
     </button>
   </div>
 </div>
@@ -2493,6 +2494,135 @@ function backToHomeFromShift(){
   selectedStore='';
 }
 
+
+// ── CALL LOGGER ──
+var callLog = JSON.parse(localStorage.getItem('syg_calls') || '[]');
+
+function saveCalls(){ localStorage.setItem('syg_calls', JSON.stringify(callLog)); }
+
+function openCallLogger(){
+  document.getElementById('role-screen').style.display='none';
+  var cs = document.getElementById('call-screen');
+  cs.style.display='flex'; cs.style.flexDirection='column';
+  renderCallLogger();
+}
+
+function renderCallLogger(){
+  var cs = document.getElementById('call-screen');
+  var today = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  var todayCalls = callLog.filter(function(c){ return c.date === new Date().toDateString(); });
+  var allCalls = callLog.slice().reverse();
+
+  cs.innerHTML = '<div style="padding:0;flex:1;display:flex;flex-direction:column;overflow:hidden">'
+
+  // Header
+  + '<div style="background:#0a1f0a;padding:16px 20px;border-bottom:1px solid #166534">'
+  + '<div style="display:flex;align-items:center;justify-content:space-between">'
+  + '<div>'
+  + '<div style="font-size:17px;font-weight:800;color:#4ade80;letter-spacing:-0.3px">📋 Call Logger</div>'
+  + '<div style="font-size:11px;color:#166534;font-family:var(--mono);margin-top:2px">'+today+' · '+todayCalls.length+' calls today</div>'
+  + '</div>'
+  + '<button onclick="backFromCallLogger()" style="background:rgba(74,222,128,0.1);border:1px solid #166534;border-radius:8px;padding:6px 12px;color:#4ade80;font-size:12px;cursor:pointer;font-family:var(--font)">↩ Back</button>'
+  + '</div></div>'
+
+  // Log new call form
+  + '<div style="padding:16px 16px 10px;background:#f8fafc;border-bottom:1.5px solid var(--border)">'
+  + '<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:var(--text2);margin-bottom:10px">New call</div>'
+  + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">'
+  + '<input id="cl-name" type="text" placeholder="Customer name" style="padding:9px 11px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:var(--font);color:var(--text);width:100%">'
+  + '<input id="cl-phone" type="tel" placeholder="Phone number" style="padding:9px 11px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:var(--font);color:var(--text);width:100%">'
+  + '</div>'
+  + '<input id="cl-item" type="text" placeholder="What are they selling? e.g. iPhone 15 Pro Max 256GB" style="padding:9px 11px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:var(--font);color:var(--text);width:100%;margin-bottom:8px">'
+  + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">'
+  + '<input id="cl-asking" type="text" placeholder="Asking price (optional)" style="padding:9px 11px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:var(--font);color:var(--text);width:100%">'
+  + '<input id="cl-time" type="text" placeholder="Best callback time" style="padding:9px 11px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:var(--font);color:var(--text);width:100%">'
+  + '</div>'
+  + '<button onclick="logCall()" style="width:100%;padding:11px;border:none;border-radius:10px;background:#16a34a;color:white;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">+ Log this call</button>'
+  + '</div>'
+
+  // Call list
+  + '<div style="flex:1;overflow-y:auto;padding:12px 16px">'
+  + (allCalls.length === 0
+      ? '<div style="text-align:center;padding:40px 20px;color:var(--text3);font-size:13px">No calls logged yet</div>'
+      : allCalls.map(function(c,i){
+          var idx = callLog.length - 1 - i;
+          var statusColors = {
+            'New':       {bg:'#f0f9ff',border:'#bae6fd',text:'#0369a1'},
+            'Called':    {bg:'#fef9c3',border:'#fde047',text:'#854d0e'},
+            'Appt Set':  {bg:'#f0fdf4',border:'#bbf7d0',text:'#15803d'},
+            'Walk-In':   {bg:'#f0fdf4',border:'#4ade80',text:'#15803d'},
+            'No Deal':   {bg:'#fef2f2',border:'#fecaca',text:'#991b1b'},
+          };
+          var s = statusColors[c.status] || statusColors['New'];
+          var timeStr = c.time ? '· '+c.time : '';
+          return '<div style="background:white;border:1.5px solid var(--border);border-radius:14px;padding:13px 14px;margin-bottom:8px">'
+          + '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">'
+          + '<div>'
+          + '<div style="font-size:14px;font-weight:700;color:var(--text)">'+c.name+'</div>'
+          + '<div style="font-size:11px;color:var(--text2);font-family:var(--mono)">'+c.phone+' '+timeStr+'</div>'
+          + '</div>'
+          + '<span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:'+s.bg+';color:'+s.text+';border:1px solid '+s.border+';font-family:var(--mono);cursor:pointer;white-space:nowrap" onclick="cycleStatus('+idx+')">'+c.status+'</span>'
+          + '</div>'
+          + '<div style="font-size:12.5px;color:var(--text2);margin-bottom:'+(c.asking?'4':'0')+'px">'+c.item+'</div>'
+          + (c.asking ? '<div style="font-size:11px;color:#d97706;font-family:var(--mono)">Asking: '+c.asking+'</div>' : '')
+          + '<div style="font-size:10px;color:var(--text3);margin-top:4px;font-family:var(--mono)">'+c.dateStr+' · tap status to update</div>'
+          + '</div>';
+        }).join('')
+    )
+  + '</div>'
+
+  + '</div>';
+
+  // Update home screen badge
+  updateCallBadge();
+}
+
+function logCall(){
+  var name = document.getElementById('cl-name').value.trim();
+  var phone = document.getElementById('cl-phone').value.trim();
+  var item = document.getElementById('cl-item').value.trim();
+  if(!name && !phone){ document.getElementById('cl-name').focus(); return; }
+  if(!item){ document.getElementById('cl-item').focus(); return; }
+
+  var now = new Date();
+  callLog.push({
+    name: name || 'Unknown',
+    phone: phone || '—',
+    item: item,
+    asking: document.getElementById('cl-asking').value.trim(),
+    time: document.getElementById('cl-time').value.trim(),
+    status: 'New',
+    date: now.toDateString(),
+    dateStr: now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})
+  });
+  saveCalls();
+  renderCallLogger();
+}
+
+var STATUS_CYCLE = ['New','Called','Appt Set','Walk-In','No Deal'];
+
+function cycleStatus(idx){
+  var cur = callLog[idx].status;
+  var next = STATUS_CYCLE[(STATUS_CYCLE.indexOf(cur) + 1) % STATUS_CYCLE.length];
+  callLog[idx].status = next;
+  saveCalls();
+  renderCallLogger();
+}
+
+function updateCallBadge(){
+  var el = document.getElementById('call-count-badge');
+  if(!el) return;
+  var today = callLog.filter(function(c){ return c.date === new Date().toDateString(); });
+  var newCount = today.filter(function(c){ return c.status === 'New' || c.status === 'Called'; }).length;
+  el.textContent = today.length + ' calls today' + (newCount > 0 ? ' · ' + newCount + ' need follow-up' : ' · all followed up ✓');
+}
+
+function backFromCallLogger(){
+  document.getElementById('call-screen').style.display='none';
+  document.getElementById('role-screen').style.display='flex';
+  updateCallBadge();
+}
+
 function resetTool(){
   photos.length=0;photoData.length=0;
   document.getElementById('product').value='';
@@ -2539,6 +2669,7 @@ function toggleApiVis(){
 // Check for API key on load — show API screen if missing
 window.addEventListener('load',()=>{
   const key=localStorage.getItem('thoku_api_key');
+  updateCallBadge();
   if(!key){
     showApiScreen();
   }
