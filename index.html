@@ -65,6 +65,7 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 .mb-b{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
 .mb-l{background:var(--sky-light);color:var(--sky-dark);border:1px solid var(--sky-mid);}
 .mb-p{background:#fdf4ff;color:#7c3aed;border:1px solid #e9d5ff;}
+.mb-pk{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;}
 #mode-desc{font-size:11px;color:var(--text3);}
 #sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:none;border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-family:var(--font);transition:all 0.15s;}
 #sw:hover{border-color:var(--sky);color:var(--sky);}
@@ -251,6 +252,11 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
   <button class="rbtn" onclick="setRole('phone')">
     <div class="ricon" style="background:#fdf4ff;">📞</div>
     <div><div class="rtitle">Phone Call</div><div class="rsub">Customer calling to sell — get them in the door</div></div>
+    <div class="rarrow">›</div>
+  </button>
+  <button class="rbtn" onclick="setRole('packer')">
+    <div class="ricon" style="background:#fff7ed;">📦</div>
+    <div><div class="rtitle">Packer</div><div class="rsub">Pack and ship items — right box, right carrier</div></div>
     <div class="rarrow">›</div>
   </button>
   <button class="rbtn" onclick="setRole('lister')">
@@ -611,18 +617,21 @@ function setRole(r){
   m.style.display='flex';m.style.flexDirection='column';
   const b=r==='buyer';
   const badge=document.getElementById('mode-badge');
-  badge.textContent=b?'Buyer mode':ph?'Phone Call':'Lister mode';
+  badge.textContent=b?'Buyer mode':ph?'Phone Call':pk?'Packer mode':'Lister mode';
   const ph=r==='phone';
-  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':'Item in the back';
+  const pk=r==='packer';
+  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':pk?'Pack and ship it right':'Item in the back';
   document.getElementById('product').placeholder=b
     ?'e.g. PS5 Slim Disc no cables one controller / iPhone 15 Pro Max 256GB 83% battery scratches'
     :ph?'e.g. iPhone 15 Pro Max / PS5 disc / MacBook — type what they say they have'
+    :pk?'e.g. iPhone 15 Pro Max 256GB / PS5 console / MacBook Air M2 / Canon 90D camera'
     :'e.g. iPhone 13 Pro Max 128GB unlocked cracked front back 87% battery no charger';
   document.getElementById('cost-field').innerHTML=b
     ?'<label class="flabel">Customer asking <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 250" style="max-width:140px">'
     :ph?'<label class="flabel">They mentioned wanting <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 300" style="max-width:140px">'
+    :pk?'<label class="flabel">Item value (sale price)</label><input type="text" id="cost" placeholder="e.g. 450" style="max-width:140px">'
     :'<label class="flabel">SYG paid</label><input type="text" id="cost" placeholder="e.g. 90" style="max-width:140px">';
-  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':'🏷️ Get list price';
+  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':pk?'📦 Get packing guide':'🏷️ Get list price';
   buyerMode='price';
   const oldPicker=document.getElementById('buyer-mode-picker');
   if(oldPicker) oldPicker.remove();
@@ -774,6 +783,77 @@ IF HIGH VALUE ITEM:
 
 WATCH OUT: [one thing to verify when they arrive that might change the price]`;
 
+const PACKER_SYS=`You are Thoku, the packing and shipping brain for Sell Your Gadgets (SYG). A packer has an item ready to ship. Give them exact packing and shipping instructions.
+
+SYG SHIPPING BOX GUIDE:
+Cell Phones & Smartwatches → 8x4x4 box
+Tablets (standard) → 10x10x4 box
+Big Tablets → 12x10x4 box
+Laptops → 16x10x4 box
+Gaming Consoles → 16x12x4 or 16x10x8 box
+Video Games → Poly mailers
+
+OTHER AVAILABLE BOXES:
+Small: 6x6x6 | 8x6x4
+Medium: 12x6x6 | 12x10x8
+Large: 16x10x6 | 16x12x10 | 18x12x6
+Extra Large: 16x16x16 | 24x16x12
+
+SYG CARRIER RULES:
+- Item value under $120 → USPS (cheaper, fine for low value)
+- Item value over $120 → UPS (better tracking, more reliable for high value)
+- Any dimension over 20 inches → UPS only (USPS size limit)
+- Item value over $300 → REQUIRE signature confirmation (add it at checkout)
+- Phones, handhelds, small items → consider USPS poly mailers instead of box
+
+BUBBLE WRAP / FRAGILE RULES:
+- Gaming PCs, desktop computers → bubble wrap all sides, double box if possible
+- Camera equipment, lenses → bubble wrap each item individually
+- Glass items, screens, monitors → bubble wrap + fragile sticker
+- MacBooks, laptops over $500 → bubble wrap + foam corners
+- Any item over $800 → double box (box inside a box with padding)
+- Standard phones in good packaging → no bubble wrap needed
+
+ADDITIONAL SMART PACKING RULES:
+- Always include desiccant/silica gel packet for electronics going to humid areas
+- iCloud/activation lock must be OFF before shipping — remind packer to verify
+- IMEI/serial number must match the order — verify before sealing
+- Include SYG packing slip inside every box
+- Take a photo of item before sealing — protects against "item not as described" claims
+- Take a photo of sealed box with label — proof of shipment condition
+- Multiple items in one order → bag each item separately inside the box
+- Phones with cracked screens → wrap in bubble wrap regardless of value
+- Use air pillows or packing paper to fill empty space — prevents shifting
+- For international orders → declare accurate value, use customs form CN22
+
+INSURANCE RULES:
+- Under $100 → basic carrier coverage is fine
+- $100-$500 → add $2-4 shipping insurance
+- Over $500 → ALWAYS add insurance — required by SYG policy
+- Over $1000 → insure for full value, use UPS with signature
+
+OUTPUT FORMAT — exact, no fluff:
+
+ITEM: [what it is]
+VALUE: $[X]
+
+BOX: [exact size recommendation]
+CARRIER: [USPS or UPS — and why]
+SERVICE: [Priority Mail / Ground / 2-Day etc]
+
+SPECIAL HANDLING:
+• [bubble wrap / fragile / double box if needed]
+• [signature required if over $300]
+• [insurance recommendation]
+• [any other critical packing note]
+
+PRE-SHIP CHECKLIST:
+✓ [item-specific things to verify before sealing]
+
+ESTIMATED SHIP COST: $[rough range based on size/weight/carrier]
+
+WATCH: [single most important thing that could cause a problem]`;
+
 async function getPrice(){
   const product=document.getElementById('product').value.trim();
   const costEl=document.getElementById('cost');
@@ -781,6 +861,7 @@ async function getPrice(){
   if(!product){document.getElementById('product').focus();return;}
   const b=role==='buyer';
   const isPh=role==='phone';
+  const isPk=role==='packer';
   const isRebuttal=b&&buyerMode==='rebuttal';
   const btn=document.getElementById('gobtn');
   btn.disabled=true;btn.innerHTML='<div class="spin"></div> '+(isRebuttal?'Getting rebuttals…':b?'Getting offers…':'Pricing…');
@@ -796,6 +877,8 @@ async function getPrice(){
   } else {
     if(isPh){
       content.push({type:'text',text:'PHONE CALL: Customer wants to sell: '+product+(cost?'\nThey mentioned: $'+cost:'')+'\nSearch eBay sold for this item first, then give range and scripts to get them in today.'});
+    } else if(isPk){
+      content.push({type:'text',text:'PACKING & SHIPPING: '+product+(cost?'\nSale value: $'+cost:'')+'\nGive exact box size, carrier, special handling, pre-ship checklist, and estimated cost.'});
     } else {
       content.push({type:'text',text:(b?'BUYING':'LISTING')+': '+product+(cost?'\n'+(b?'Customer asking':'SYG paid')+': $'+cost:'')});
     }
@@ -804,7 +887,7 @@ async function getPrice(){
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
-    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:(b?BUYER_SYS:LISTER_SYS);
+    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:(b?BUYER_SYS:LISTER_SYS);
     const reqBody = JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,system:sys,messages:[{role:'user',content}]});
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -832,12 +915,13 @@ async function getPrice(){
     const text=data.content?.[0]?.text||'Something went wrong.';
     if(isRebuttal)renderRebuttal(text);
     else if(isPh)renderPhone(text);
+    else if(isPk)renderPacker(text);
     else if(b)renderBuyer(text);
     else renderLister(text);
   }catch(e){
     result.innerHTML=`<div class="dark-wrap" style="color:#f87171;font-size:13px">Connection failed. Please try again.</div>`;
   }
-  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':b?'💰 Get 3 offers':'🏷️ Get list price';
+  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':isPk?'📦 Get packing guide':b?'💰 Get 3 offers':'🏷️ Get list price';
 }
 
 function renderBuyer(text){
@@ -1105,6 +1189,93 @@ function renderPhone(text){
   });
   flush();
   h+='<button id="rstbtn" onclick="resetTool()">↩ Next call</button></div>';
+  result.innerHTML=h;
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderPacker(text){
+  const result=document.getElementById('result');
+  const lines=text.split('\n').map(function(l){return l.trim();});
+  let h='<div class="bridge"></div><div class="dark-wrap fade">';
+
+  // Parse key fields
+  let box='',carrier='',service='',value='',estCost='',watch='';
+  lines.forEach(function(l){
+    const bm=l.match(/^BOX:\s*(.+)/i); if(bm) box=bm[1];
+    const cm=l.match(/^CARRIER:\s*(.+)/i); if(cm) carrier=cm[1];
+    const sm=l.match(/^SERVICE:\s*(.+)/i); if(sm) service=sm[1];
+    const vm=l.match(/^VALUE:\s*(.+)/i); if(vm) value=vm[1];
+    const em=l.match(/^ESTIMATED SHIP COST:\s*(.+)/i); if(em) estCost=em[1];
+    const wm=l.match(/^WATCH:\s*(.+)/i); if(wm) watch=wm[1];
+  });
+
+  // Hero cards row
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+
+  // Box card
+  if(box){
+    h+='<div style="background:#0a1628;border:1.5px solid #1e3a5f;border-radius:14px;padding:13px 12px;">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:5px">📦 Box size</div>';
+    h+='<div style="font-size:18px;font-weight:800;color:#93c5fd;letter-spacing:-0.5px">'+box+'</div>';
+    h+='</div>';
+  }
+
+  // Carrier card
+  if(carrier){
+    var isUPS=carrier.toUpperCase().indexOf('UPS')>=0;
+    h+='<div style="background:'+(isUPS?'#1a1000':'#0a1a0e')+';border:1.5px solid '+(isUPS?'#92400e':'#166534')+';border-radius:14px;padding:13px 12px;">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:'+(isUPS?'#fbbf24':'#4ade80')+';margin-bottom:5px">'+(isUPS?'🟤':'🔵')+' Carrier</div>';
+    h+='<div style="font-size:18px;font-weight:800;color:'+(isUPS?'#fde68a':'#86efac')+';letter-spacing:-0.5px">'+carrier+'</div>';
+    if(service) h+='<div style="font-size:11px;color:#6b7280;font-family:var(--mono);margin-top:3px">'+service+'</div>';
+    h+='</div>';
+  }
+  h+='</div>';
+
+  // Special handling section
+  var inHandling=false,handlingItems=[];
+  var inChecklist=false,checkItems=[];
+  lines.forEach(function(l){
+    if(/^SPECIAL HANDLING:/i.test(l)){inHandling=true;inChecklist=false;return;}
+    if(/^PRE-SHIP CHECKLIST:/i.test(l)){inHandling=false;inChecklist=true;return;}
+    if(/^ESTIMATED SHIP COST:/i.test(l)||/^WATCH:/i.test(l)||/^BOX:/i.test(l)||/^CARRIER:/i.test(l)||/^SERVICE:/i.test(l)||/^ITEM:/i.test(l)||/^VALUE:/i.test(l)){inHandling=false;inChecklist=false;}
+    if(inHandling&&l.startsWith('•')) handlingItems.push(l.replace(/^•\s*/,''));
+    if(inChecklist&&(l.startsWith('✓')||l.startsWith('-'))) checkItems.push(l.replace(/^[✓\-]\s*/,''));
+  });
+
+  if(handlingItems.length){
+    h+='<div style="background:#111827;border:1px solid #1f2937;border-radius:14px;padding:12px 14px;margin-bottom:10px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280;margin-bottom:8px">⚠️ Special handling</div>';
+    handlingItems.forEach(function(item){
+      var isSig=item.toLowerCase().indexOf('signature')>=0;
+      var isBubble=item.toLowerCase().indexOf('bubble')>=0||item.toLowerCase().indexOf('fragile')>=0||item.toLowerCase().indexOf('double box')>=0;
+      var isInsure=item.toLowerCase().indexOf('insur')>=0;
+      var icon=isSig?'✍️':isBubble?'🫧':isInsure?'🛡️':'📌';
+      var col=isSig?'#f87171':isBubble?'#fbbf24':isInsure?'#34d399':'#e5e7eb';
+      h+='<div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start"><span style="flex-shrink:0">'+icon+'</span><span style="font-size:12.5px;color:'+col+'">'+item+'</span></div>';
+    });
+    h+='</div>';
+  }
+
+  if(checkItems.length){
+    h+='<div style="background:#0a1f0a;border:1px solid #166534;border-radius:14px;padding:12px 14px;margin-bottom:10px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#4ade80;margin-bottom:8px">✅ Pre-ship checklist</div>';
+    checkItems.forEach(function(item){
+      h+='<div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start"><span style="color:#4ade80;flex-shrink:0">✓</span><span style="font-size:12.5px;color:#86efac">'+item+'</span></div>';
+    });
+    h+='</div>';
+  }
+
+  // Est cost + watch
+  if(estCost){
+    h+='<div style="background:#111827;border:1px solid #1f2937;border-radius:12px;padding:10px 13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">';
+    h+='<span style="font-size:11px;color:#6b7280;font-family:var(--mono)">Est. shipping cost</span>';
+    h+='<span style="font-size:16px;font-weight:700;color:#e5e7eb">'+estCost+'</span>';
+    h+='</div>';
+  }
+  if(watch){
+    h+='<div class="dal dal-warn"><span class="dai">⚠️</span><div>'+watch+'</div></div>';
+  }
+
+  h+='<button id="rstbtn" onclick="resetTool()">↩ Next item</button></div>';
   result.innerHTML=h;
   result.scrollIntoView({behavior:'smooth',block:'start'});
 }
