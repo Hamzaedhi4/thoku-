@@ -1517,27 +1517,28 @@ async function getPrice(){
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
     const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:isAk?ASK_SYS:isSc?SCRIPT_SYS:(b?BUYER_SYS:LISTER_SYS);
-    // Smart model routing — Sonnet for high-stakes pricing, Haiku for everything else
-    const needsSonnet = b || isPh || isSc || isRebuttal || (role==='lister');
+    // Model routing: Sonnet+WebSearch for lister (needs live eBay), Haiku for everything else (fast + all data loaded)
+    const needsSonnet = (role==='lister') || isSc;
     const useModel = needsSonnet ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001';
-    const useThinking = needsSonnet ? {type:'enabled',budget_tokens:5000} : {type:'disabled'};
-    const useMaxTokens = needsSonnet ? 16000 : 4000;
-    const useTools = (b || isPh || role==='lister') ? [{type:'web_search_20250305',name:'web_search',max_uses:3}] : undefined;
+    
+    const useMaxTokens = needsSonnet ? 3000 : 2000;
+    const useTools = (role==='lister') ? [{type:'web_search_20250305',name:'web_search',max_uses:2}] : undefined;
 
     // Prompt caching — cache the system prompt to save 90% on input costs
-    const cachedSystem = [{
+    const cachedSystem = needsSonnet ? [{
       type: 'text',
       text: sys,
       cache_control: {type: 'ephemeral'}
-    }];
+    }] : sys;
 
+    // Extended thinking is incompatible with web search tools — use one or the other
+    // We keep web search (more useful for live eBay data) and drop thinking
     const reqBodyObj = {
       model: useModel,
       max_tokens: useMaxTokens,
       system: cachedSystem,
       messages: [{role:'user', content}]
     };
-    if(needsSonnet) reqBodyObj.thinking = useThinking;
     if(useTools) reqBodyObj.tools = useTools;
     const reqBody = JSON.stringify(reqBodyObj);
     const res=await fetch('https://api.anthropic.com/v1/messages',{
@@ -1547,7 +1548,7 @@ async function getPrice(){
         'Content-Type':'application/json',
         'x-api-key':apiKey,
         'anthropic-version':'2023-06-01',
-        'anthropic-beta':'prompt-caching-2024-07-31',
+        'anthropic-beta':'prompt-caching-2024-07-31,web-search-2025-03-05',
         'anthropic-dangerous-direct-browser-access':'true'
       },
       body:reqBody
@@ -2400,7 +2401,7 @@ async function getShiftBriefing(){
     });
     var res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',mode:'cors',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-beta':'prompt-caching-2024-07-31','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-beta':'prompt-caching-2024-07-31,web-search-2025-03-05','anthropic-dangerous-direct-browser-access':'true'},
       body:reqBody
     });
     var data=await res.json();
