@@ -64,6 +64,7 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 #mode-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-family:var(--mono);font-weight:500;}
 .mb-b{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
 .mb-l{background:var(--sky-light);color:var(--sky-dark);border:1px solid var(--sky-mid);}
+.mb-p{background:#fdf4ff;color:#7c3aed;border:1px solid #e9d5ff;}
 #mode-desc{font-size:11px;color:var(--text3);}
 #sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:none;border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-family:var(--font);transition:all 0.15s;}
 #sw:hover{border-color:var(--sky);color:var(--sky);}
@@ -245,6 +246,11 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
   <button class="rbtn" onclick="setRole('buyer')">
     <div class="ricon ri-b">🛒</div>
     <div><div class="rtitle">Buyer</div><div class="rsub">Customer at the counter — what do I offer?</div></div>
+    <div class="rarrow">›</div>
+  </button>
+  <button class="rbtn" onclick="setRole('phone')">
+    <div class="ricon" style="background:#fdf4ff;">📞</div>
+    <div><div class="rtitle">Phone Call</div><div class="rsub">Customer calling to sell — get them in the door</div></div>
     <div class="rarrow">›</div>
   </button>
   <button class="rbtn" onclick="setRole('lister')">
@@ -534,14 +540,6 @@ WHAT THIS MEANS FOR BUYERS:
 
 const BUYER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Customer is at the counter NOW. Be fast, sharp, profitable.
 
-CRITICAL FIRST STEP — SEARCH EBAY BEFORE PRICING:
-Before calculating any offer, use web_search to find current eBay SOLD listings for this exact item.
-Search query format: "[item model] unlocked sold site:ebay.com" or "[item] completed listings"
-Search for the SOLD price (not asking price). Use 3-5 recent sold listings to establish the real market value.
-If eBay shows item selling for more than SYG data — use the higher number.
-If eBay shows item selling for less — use the lower number and flag it.
-Always show what eBay sold listings revealed before giving offers.
-
 ${SYG}
 
 OFFICIAL SYG 3-PLAY FORMULA (from buying guide):
@@ -557,8 +555,6 @@ NEGOTIATION: Say the number. Go quiet. First person who speaks after offer loses
 Never say yes immediately to counter — pause, look at item, come back slightly below their ask.
 
 ALWAYS OUTPUT THIS EXACT FORMAT — no markdown, no asterisks, no extra lines:
-
-EBAY SOLD: $[low]-$[high] ([X] recent sales, avg $[X]) — [one line insight]
 
 SELL VALUE: $[number]
 ([Base $X: deduction1 deduction2 = $adjusted])
@@ -586,17 +582,9 @@ WATCH: [single biggest risk — one line]`;
 
 const LISTER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Price to sell in 7-10 days. Be SHORT and PUNCHY — no essays.
 
-CRITICAL FIRST STEP — SEARCH EBAY BEFORE PRICING:
-Use web_search to find current eBay SOLD listings for this exact item.
-Search: "[item] used sold eBay" or "[item model] completed sold"
-Use the sold prices to set the list price — not asking prices, only what buyers actually paid.
-Always confirm your price against real eBay sold data before outputting.
-
 ${SYG}
 
 OUTPUT FORMAT — keep every section to one line maximum, no exceptions:
-
-EBAY SOLD: $[low]-$[high] ([X] recent sales) — [one line market note]
 
 LIST AT: $[X]
 Accept offers down to: $[X]
@@ -623,16 +611,18 @@ function setRole(r){
   m.style.display='flex';m.style.flexDirection='column';
   const b=r==='buyer';
   const badge=document.getElementById('mode-badge');
-  badge.textContent=b?'Buyer mode':'Lister mode';
-  badge.className=b?'mb-b':'mb-l';
-  document.getElementById('mode-desc').textContent=b?'Customer at the counter':'Item in the back';
+  badge.textContent=b?'Buyer mode':ph?'Phone Call':'Lister mode';
+  const ph=r==='phone';
+  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':'Item in the back';
   document.getElementById('product').placeholder=b
     ?'e.g. PS5 Slim Disc no cables one controller / iPhone 15 Pro Max 256GB 83% battery scratches'
+    :ph?'e.g. iPhone 15 Pro Max / PS5 disc / MacBook — type what they say they have'
     :'e.g. iPhone 13 Pro Max 128GB unlocked cracked front back 87% battery no charger';
   document.getElementById('cost-field').innerHTML=b
-    ?`<label class="flabel">Customer asking <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 250" style="max-width:140px">`
-    :`<label class="flabel">SYG paid</label><input type="text" id="cost" placeholder="e.g. 90" style="max-width:140px">`;
-  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':'🏷️ Get list price';
+    ?'<label class="flabel">Customer asking <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 250" style="max-width:140px">'
+    :ph?'<label class="flabel">They mentioned wanting <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 300" style="max-width:140px">'
+    :'<label class="flabel">SYG paid</label><input type="text" id="cost" placeholder="e.g. 90" style="max-width:140px">';
+  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':'🏷️ Get list price';
   buyerMode='price';
   const oldPicker=document.getElementById('buyer-mode-picker');
   if(oldPicker) oldPicker.remove();
@@ -747,21 +737,56 @@ YOUR MAX: $[X] — [one line why, do not go higher]
 
 THE CLOSE: "[final line to seal deal or let them walk]"`;
 
+const PHONE_SYS=`You are Thoku, phone sales coach for Sell Your Gadgets (SYG). Employee is on the phone with a customer who wants to sell. Search eBay sold listings for this item FIRST, then give word-for-word scripts to get the customer in TODAY.
+
+${SYG}
+
+SYG PHONE RULES:
+- NEVER give a firm price over the phone — always a RANGE
+- Goal: get them in the door or set an appointment TODAY
+- Customer with appointment = 2x more likely to show up
+- Be warm, confident, enthusiastic — never hesitant
+- Offer Uber pickup for high-value items over $300
+
+ALWAYS OUTPUT THIS EXACT FORMAT:
+
+ITEM: [what customer has]
+RANGE TO QUOTE: $[low] to $[high]
+(Based on: [one line — eBay data, condition factors])
+
+SAY THIS FIRST:
+"[Warm, confident opening line]"
+
+WHEN THEY ASK FOR EXACT PRICE:
+"[Word-for-word range script — never commit to one number]"
+
+GET THEM IN TODAY:
+"[Push for same-day visit]"
+
+SET THE APPOINTMENT:
+"[Book a specific time — creates commitment]"
+
+IF THEY SAY I WILL THINK ABOUT IT:
+"[Keep them warm, handle hesitation]"
+
+IF HIGH VALUE ITEM:
+"[Offer Uber pickup script]"
+
+WATCH OUT: [one thing to verify when they arrive that might change the price]`;
+
 async function getPrice(){
   const product=document.getElementById('product').value.trim();
   const costEl=document.getElementById('cost');
   const cost=costEl?costEl.value.trim():'';
   if(!product){document.getElementById('product').focus();return;}
   const b=role==='buyer';
+  const isPh=role==='phone';
   const isRebuttal=b&&buyerMode==='rebuttal';
   const btn=document.getElementById('gobtn');
   btn.disabled=true;btn.innerHTML='<div class="spin"></div> '+(isRebuttal?'Getting rebuttals…':b?'Getting offers…':'Pricing…');
   const result=document.getElementById('result');
   result.style.display='block';
-  result.innerHTML=`<div class="bridge"></div><div id="loading" style="background:#0d1117"><div class="spinc"></div>
-  <div style="color:#6b7280;font-size:13px">Searching live eBay sold listings…</div>
-  <div style="color:#4b5563;font-size:11px;margin-top:6px;font-family:var(--mono)">Then calculating your offers</div>
-</div>`;
+  result.innerHTML=`<div class="bridge"></div><div id="loading" style="background:#0d1117"><div class="spinc"></div>Thoku is thinking…</div>`;
   const content=[];
   photoData.forEach(pd=>content.push({type:'image',source:{type:'base64',media_type:pd.type,data:pd.b64}}));
   const resellEl=document.getElementById('resell');
@@ -769,24 +794,18 @@ async function getPrice(){
   if(isRebuttal){
     content.push({type:'text',text:'REBUTTAL NEEDED for: '+product+'\nCustomer asking: $'+cost+'\nDevice resells for: $'+resell+'\nGive word-for-word scripts specific to this item and these numbers.'});
   } else {
-    content.push({type:'text',text:(b?'BUYING':'LISTING')+': '+product+(cost?'\n'+(b?'Customer asking':'SYG paid')+': $'+cost:'')});
+    if(isPh){
+      content.push({type:'text',text:'PHONE CALL: Customer wants to sell: '+product+(cost?'\nThey mentioned: $'+cost:'')+'\nSearch eBay sold for this item first, then give range and scripts to get them in today.'});
+    } else {
+      content.push({type:'text',text:(b?'BUYING':'LISTING')+': '+product+(cost?'\n'+(b?'Customer asking':'SYG paid')+': $'+cost:'')});
+    }
   }
   try{
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
-    const sys=isRebuttal?REBUTTAL_SYS:(b?BUYER_SYS:LISTER_SYS);
-    const reqBody = JSON.stringify({
-      model:'claude-haiku-4-5-20251001',
-      max_tokens:1200,
-      system:sys,
-      tools:[{
-        type:'web_search_20250305',
-        name:'web_search',
-        max_uses:3
-      }],
-      messages:[{role:'user',content}]
-    });
+    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:(b?BUYER_SYS:LISTER_SYS);
+    const reqBody = JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,system:sys,messages:[{role:'user',content}]});
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       mode:'cors',
@@ -810,25 +829,15 @@ async function getPrice(){
       throw new Error(msg);
     }
     const data=await res.json();
-    // Handle tool_use + text blocks from web search response
-    let text = '';
-    let ebayResults = [];
-    if(data.content && Array.isArray(data.content)){
-      data.content.forEach(block => {
-        if(block.type === 'text') text += block.text;
-        if(block.type === 'tool_result' || (block.type === 'tool_use' && block.name === 'web_search')){
-          // web search was used — text will include results
-        }
-      });
-    }
-    if(!text) text = data.content?.[0]?.text || 'Something went wrong.';
+    const text=data.content?.[0]?.text||'Something went wrong.';
     if(isRebuttal)renderRebuttal(text);
+    else if(isPh)renderPhone(text);
     else if(b)renderBuyer(text);
     else renderLister(text);
   }catch(e){
     result.innerHTML=`<div class="dark-wrap" style="color:#f87171;font-size:13px">Connection failed. Please try again.</div>`;
   }
-  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':b?'💰 Get 3 offers':'🏷️ Get list price';
+  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':b?'💰 Get 3 offers':'🏷️ Get list price';
 }
 
 function renderBuyer(text){
@@ -869,18 +878,6 @@ function renderBuyer(text){
   }
 
   let h=`<div class="bridge"></div><div class="dark-wrap fade">`;
-  // Parse eBay data
-  let ebayLine='';
-  for(let i=0;i<lines.length;i++){
-    if(/^EBAY SOLD:/i.test(lines[i])){ebayLine=lines[i].replace(/^EBAY SOLD:\s*/i,'');break;}
-  }
-  if(ebayLine){
-    h+=`<div style="background:#0a1a28;border:1px solid #1e4a6e;border-radius:12px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
-      <span style="font-size:16px">🔍</span>
-      <div><div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:2px">Live eBay sold</div>
-      <div style="font-size:12px;color:#93c5fd">${ebayLine}</div></div>
-    </div>`;
-  }
   if(sellVal){
     h+=`<div class="sv-row">
       <div><div class="sv-label">SYG sell value</div>${svNote?`<div class="sv-note">${svNote}</div>`:''}</div>
@@ -944,17 +941,6 @@ function renderLister(text){
   });
 
   let h=`<div class="bridge"></div><div class="dark-wrap fade">`;
-
-  // eBay sold card
-  let ebayL='';
-  lines.forEach(function(l){ if(/^EBAY SOLD:/i.test(l)) ebayL=l.replace(/^EBAY SOLD:\s*/i,''); });
-  if(ebayL){
-    h+=`<div style="background:#0a1a28;border:1px solid #1e4a6e;border-radius:12px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
-      <span style="font-size:16px">🔍</span>
-      <div><div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:2px">Live eBay sold</div>
-      <div style="font-size:12px;color:#93c5fd">${ebayL}</div></div>
-    </div>`;
-  }
 
   // List price hero — styled like sell value row
   if(listPrice){
@@ -1062,6 +1048,66 @@ function renderRebuttal(text){
   result.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+function renderPhone(text){
+  const result=document.getElementById('result');
+  const lines=text.split('\n').map(function(l){return l.trim();});
+  let h='<div class="bridge"></div><div class="dark-wrap fade">';
+  let range='',rangeNote='';
+  lines.forEach(function(l){
+    const rm=l.match(/^RANGE TO QUOTE:\s*(.+)/i);
+    if(rm) range=rm[1];
+    const rn=l.match(/^\(Based on:\s*(.+)\)/i);
+    if(rn) rangeNote=rn[1];
+  });
+  if(range){
+    h+='<div style="background:#1a0a2e;border:1.5px solid #7c3aed;border-radius:16px;padding:16px 18px;margin-bottom:14px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#a78bfa;margin-bottom:6px">📞 Quote this range</div>';
+    h+='<div style="font-size:30px;font-weight:800;color:#c4b5fd;letter-spacing:-1px;line-height:1">'+range+'</div>';
+    if(rangeNote) h+='<div style="font-size:11px;color:#7c3aed;font-family:var(--mono);margin-top:5px">'+rangeNote+'</div>';
+    h+='</div>';
+  }
+  var sectionDefs=[
+    {key:'SAY THIS FIRST',icon:'🎯',c:'#4ade80',bg:'#0a1f0a',br:'#166534'},
+    {key:'WHEN THEY ASK',icon:'💬',c:'#93c5fd',bg:'#0a1628',br:'#1e3a5f'},
+    {key:'GET THEM IN',icon:'🚶',c:'#fbbf24',bg:'#1a1200',br:'#92400e'},
+    {key:'SET THE APPOINTMENT',icon:'📅',c:'#34d399',bg:'#0a1f14',br:'#065f46'},
+    {key:'IF THEY SAY',icon:'🤔',c:'#f9a8d4',bg:'#1a0a14',br:'#9d174d'},
+    {key:'IF HIGH VALUE',icon:'⭐',c:'#fde68a',bg:'#1a1500',br:'#92400e'},
+  ];
+  var curSec=null,buf=[];
+  function flush(){
+    if(!curSec||!buf.length) return;
+    var s=sectionDefs.find(function(x){return curSec.toUpperCase().indexOf(x.key)>=0;});
+    if(s){
+      h+='<div style="background:'+s.bg+';border:1px solid '+s.br+';border-radius:14px;padding:12px 14px;margin-bottom:8px">';
+      h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:'+s.c+';margin-bottom:7px">'+s.icon+' '+curSec+'</div>';
+      buf.forEach(function(bl){
+        if(bl.startsWith('"')||bl.endsWith('"')){
+          h+='<div class="dcopy" onclick="copyThis(this)" style="border-color:'+s.br+';margin-bottom:5px">'+bl+'</div><div class="chint">tap to copy</div>';
+        } else if(bl){
+          h+='<div style="font-size:11px;color:#9ca3af;margin-bottom:4px">'+bl+'</div>';
+        }
+      });
+      h+='</div>';
+    }
+    buf=[];curSec=null;
+  }
+  lines.forEach(function(l){
+    if(!l||/^ITEM:/i.test(l)||/^RANGE TO QUOTE:/i.test(l)||/^\(Based on:/i.test(l)) return;
+    if(/^WATCH OUT:/i.test(l)){
+      flush();
+      h+='<div class="dal dal-warn"><span class="dai">⚠️</span><div>'+l.replace(/^WATCH OUT:\s*/i,'')+'</div></div>';
+      return;
+    }
+    var isHdr=sectionDefs.some(function(s){return l.toUpperCase().indexOf(s.key)>=0;});
+    if(isHdr){flush();curSec=l;return;}
+    if(curSec) buf.push(l);
+  });
+  flush();
+  h+='<button id="rstbtn" onclick="resetTool()">↩ Next call</button></div>';
+  result.innerHTML=h;
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
 function resetTool(){
   photos.length=0;photoData.length=0;
   document.getElementById('product').value='';
