@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thoku — SYG Pricing Intelligence</title>
+<title>Thoku — SYG First Digital Employee · Trained By G4ME</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -34,10 +34,13 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;}
+#role-screen{background:var(--bg);}
 #shell{min-height:100vh;display:flex;flex-direction:column;max-width:480px;margin:0 auto;padding-bottom:0;}
 
 /* HEADER */
-#header{padding:14px 20px;display:flex;align-items:center;gap:10px;background:#ffffff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+#header{padding:14px 20px;display:flex;align-items:center;gap:10px;background:#0c1a2e;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:10;}
+#header h1{color:white !important;}
+#header p{color:rgba(255,255,255,0.45) !important;}
 #logo{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 #header h1{font-size:17px;font-weight:800;color:var(--text);}
 #header p{font-size:11px;color:var(--text3);margin-top:1px;}
@@ -47,7 +50,7 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 .bd{background:var(--bg);color:var(--text2);border:1px solid var(--border);}
 
 /* ROLE SCREEN */
-#role-screen{padding:28px 20px;flex:1;display:flex;flex-direction:column;background:#ffffff;}
+#role-screen{padding:0;flex:1;display:flex;flex-direction:column;background:var(--bg);}
 #role-screen h2{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;}
 #role-screen p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;}
 .rbtn{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);cursor:pointer;margin-bottom:10px;text-align:left;width:100%;transition:all 0.15s;}
@@ -67,6 +70,7 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 .mb-p{background:#fdf4ff;color:#7c3aed;border:1px solid #e9d5ff;}
 .mb-pk{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;}
 .mb-ask{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+.mb-script{background:#fff0f6;color:#9d174d;border:1px solid #fbcfe8;}
 .mb-quiz{background:#fef9c3;color:#854d0e;border:1px solid #fde047;}
 #mode-desc{font-size:11px;color:var(--text3);}
 #sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:none;border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-family:var(--font);transition:all 0.15s;}
@@ -169,6 +173,8 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 .api-note a{color:var(--sky);text-decoration:none;}
 .api-note a:hover{text-decoration:underline;}
 .api-saved{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+
+.role-grid-btn:hover{border-color:var(--sky) !important;transform:translateY(-2px);box-shadow:0 4px 12px rgba(14,165,233,0.1) !important;}
 </style>
 </head>
 <body>
@@ -220,10 +226,10 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
     <ellipse cx="49" cy="87" rx="9" ry="6" fill="#c8a882"/>
   </g>
 </svg></div>
-  <div><h1>Thoku</h1><p>SYG pricing intelligence</p></div>
+  <div><h1>Thoku</h1><p>SYG First Digital Employee · Trained By G4ME</p></div>
   <div id="badges">
     <span class="badge bg">Live</span>
-    <span class="badge bd">3 stores</span>
+    <span class="badge bd">4 stores</span>
   </div>
 </div>
 
@@ -249,44 +255,123 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 </div>
 
 
+
+<div id="shift-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;">
+</div>
 <div id="quiz-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;">
 </div>
 <div id="role-screen">
-  <h2>Who are you today?</h2>
-  <p>Pick your role — Thoku gives you exactly what you need.</p>
-  <button class="rbtn" onclick="setRole('buyer')">
-    <div class="ricon ri-b">🛒</div>
-    <div><div class="rtitle">Buyer</div><div class="rsub">Customer at the counter — what do I offer?</div></div>
-    <div class="rarrow">›</div>
-  </button>
-  <button class="rbtn" onclick="setRole('phone')">
-    <div class="ricon" style="background:#fdf4ff;">📞</div>
-    <div><div class="rtitle">Phone Call</div><div class="rsub">Customer calling to sell — get them in the door</div></div>
-    <div class="rarrow">›</div>
-  </button>
-  <button class="rbtn" onclick="setRole('packer')">
-    <div class="ricon" style="background:#fff7ed;">📦</div>
-    <div><div class="rtitle">Packer</div><div class="rsub">Pack and ship items — right box, right carrier</div></div>
-    <div class="rarrow">›</div>
-  </button>
-  <button class="rbtn" onclick="setRole('ask')">
-    <div class="ricon" style="background:#f0fdf4;">🧠</div>
-    <div><div class="rtitle">Ask Thoku</div><div class="rsub">Any question about SYG — process, pricing, scripts</div></div>
-    <div class="rarrow">›</div>
-  </button>
-  <button class="rbtn" onclick="startQuiz()">
-    <div class="ricon" style="background:#fef9c3;">🎯</div>
-    <div>
-      <div class="rtitle">New Employee Quiz</div>
-      <div class="rsub">Test your SYG knowledge — must pass before the floor</div>
+  <!-- Hero banner -->
+  <div style="background:linear-gradient(135deg,#0c1a2e 0%,#0f2744 60%,#0a1628 100%);padding:28px 20px 24px;margin-bottom:0">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+      <div style="width:56px;height:56px;border-radius:16px;overflow:hidden;flex-shrink:0;box-shadow:0 4px 16px rgba(14,165,233,0.4)">
+        <svg width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="200" rx="18" fill="#0ea5e9"/>
+          <g transform="translate(100,105)">
+            <path d="M-48 20 Q-50 75 -45 85 L45 85 Q50 75 48 20 Q28 34 0 33 Q-28 34 -48 20Z" fill="#1e293b"/>
+            <path d="M-12 22 L0 33 L12 22 L9 85 L-9 85Z" fill="#f8fafc"/>
+            <path d="M-5 26 L5 26 L7 52 L0 60 L-7 52Z" fill="#38bdf8"/>
+            <path d="M-3 25 L3 25 L5 29 L0 32 L-5 29Z" fill="#0369a1"/>
+            <path d="M-48 20 Q-28 34 -12 22 L-14 14 Q-30 22 -48 10Z" fill="#0f172a"/>
+            <path d="M48 20 Q28 34 12 22 L14 14 Q30 22 48 10Z" fill="#0f172a"/>
+            <rect x="-8" y="8" width="16" height="16" rx="5" fill="#c8a882"/>
+            <ellipse cx="-26" cy="-4" rx="7" ry="9" fill="#c8a882"/>
+            <ellipse cx="26" cy="-4" rx="7" ry="9" fill="#c8a882"/>
+            <ellipse cx="0" cy="-14" rx="34" ry="38" fill="#c8a882"/>
+            <ellipse cx="0" cy="10" rx="26" ry="13" fill="#c8a882"/>
+            <path d="M-34 -28 Q-30 -58 0 -60 Q30 -58 34 -28 Q20 -44 0 -46 Q-20 -44 -34 -28Z" fill="#1a1a1a"/>
+            <path d="M-34 -28 Q-38 -12 -34 4 Q-32 -8 -30 -24Z" fill="#1a1a1a"/>
+            <path d="M34 -28 Q38 -12 34 4 Q32 -8 30 -24Z" fill="#1a1a1a"/>
+            <ellipse cx="0" cy="-22" rx="28" ry="16" fill="#c8a882"/>
+            <path d="M-20 -34 Q-13 -38 -6 -36" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M6 -36 Q13 -38 20 -34" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-13" cy="-24" rx="8" ry="6" fill="white"/>
+            <ellipse cx="13" cy="-24" rx="8" ry="6" fill="white"/>
+            <ellipse cx="-13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/>
+            <ellipse cx="13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/>
+            <ellipse cx="-12" cy="-23" rx="2.5" ry="2.5" fill="#050505"/>
+            <ellipse cx="14" cy="-23" rx="2.5" ry="2.5" fill="#050505"/>
+            <circle cx="-11" cy="-25" r="1.2" fill="white"/>
+            <circle cx="15" cy="-25" r="1.2" fill="white"/>
+            <path d="M-10 10 Q0 18 10 10" stroke="#6b3a20" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M-48 20 Q-60 42 -56 80 Q-48 83 -40 80 Q-38 46 -32 26Z" fill="#1e293b"/>
+            <path d="M48 20 Q60 42 56 80 Q48 83 40 80 Q38 46 32 26Z" fill="#1e293b"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div style="font-size:24px;font-weight:800;color:white;letter-spacing:-0.5px;line-height:1">Thoku</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px">SYG First Digital Employee · Trained By G4ME</div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:6px">
+        <span style="font-size:10px;padding:3px 9px;border-radius:20px;font-family:var(--mono);background:rgba(0,200,83,0.15);color:#4ade80;border:1px solid rgba(0,200,83,0.3)">● Live</span>
+        <span style="font-size:10px;padding:3px 9px;border-radius:20px;font-family:var(--mono);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1)">4 stores</span>
+      </div>
     </div>
-    <div class="rarrow">›</div>
-  </button>
-  <button class="rbtn" onclick="setRole('lister')">
-    <div class="ricon ri-l">🏷️</div>
-    <div><div class="rtitle">Lister</div><div class="rsub">Item in the back — what do I list it for?</div></div>
-    <div class="rarrow">›</div>
-  </button>
+    <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5">Who are you today and what do you need?</div>
+  </div>
+
+  <!-- Role grid -->
+  <div style="padding:16px 16px 24px;background:var(--bg);flex:1">
+    <!-- Primary actions row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <button onclick="setRole('buyer')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+        <div style="font-size:24px;margin-bottom:8px">🛒</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Buyer</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4">Customer at counter</div>
+      </button>
+      <button onclick="setRole('phone')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+        <div style="font-size:24px;margin-bottom:8px">📞</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Phone Call</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4">Get them in the door</div>
+      </button>
+      <button onclick="setRole('lister')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+        <div style="font-size:24px;margin-bottom:8px">🏷️</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Lister</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4">Price & list an item</div>
+      </button>
+      <button onclick="setRole('packer')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+        <div style="font-size:24px;margin-bottom:8px">📦</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Packer</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4">Box size & carrier</div>
+      </button>
+    </div>
+
+    <!-- Secondary actions -->
+    <button onclick="setRole('ask')" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+      <div style="width:40px;height:40px;background:#f0fdf4;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🧠</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text)">Ask Thoku</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px">Any question about SYG — pricing, process, scripts</div>
+      </div>
+      <div style="margin-left:auto;color:var(--text3);font-size:18px">›</div>
+    </button>
+
+    <button onclick="setRole('script')" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+      <div style="width:40px;height:40px;background:#fff0f6;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎭</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text)">Customer Script Builder</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px">Describe the customer — get the exact words to say</div>
+      </div>
+      <div style="margin-left:auto;color:var(--text3);font-size:18px">›</div>
+    </button>
+  <button onclick="startShift()" style="width:100%;padding:14px 16px;background:linear-gradient(135deg,#001a2e,#002d4a);border:1.5px solid #0369a1;border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:10px">
+      <div style="width:40px;height:40px;background:rgba(14,165,233,0.15);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">☀️</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#38bdf8">Start My Shift</div>
+        <div style="font-size:11px;color:#0369a1;margin-top:1px">Daily briefing · tips · what to focus on today</div>
+      </div>
+      <div style="margin-left:auto;color:#0369a1;font-size:18px">›</div>
+    </button>
+  <button onclick="startQuiz()" style="width:100%;padding:14px 16px;background:linear-gradient(135deg,#1a0a00,#2d1500);border:1.5px solid #92400e;border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;background:rgba(251,191,36,0.15);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎯</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#fbbf24">New Employee Quiz</div>
+        <div style="font-size:11px;color:#92400e;margin-top:1px">Must score 8/10 to work the floor</div>
+      </div>
+      <div style="margin-left:auto;color:#92400e;font-size:18px">›</div>
+    </button>
+  </div>
 </div>
 
 <div id="main">
@@ -408,10 +493,11 @@ KEY PRICING INSIGHTS FROM REAL SALES:
 - Bad display: iPhone 13 sold $100 → treat as for parts
 - Cracked back only is less damaging than cracked screen
 
-SYG PAST SALES:
-Irvington:$91K YTD,335 orders,$272 avg
-Elizabeth:$1M YTD,5927 orders,$188 avg
-Elmwood Park:$468K YTD,2531 orders,$205 avg
+SYG STORES (4 locations):
+NJ01 Elizabeth:$1M YTD,5927 orders,$188 avg
+NJ02 Elmwood Park:$468K YTD,2531 orders,$205 avg
+NJ04 Irvington:$91K YTD,335 orders,$272 avg
+TX01 Houston:New store — data loading
 
 ATLAS MOBILE WHOLESALE FLOOR PRICES (Grade A Unlocked — what Atlas pays SYG):
 These are the MINIMUM prices SYG can always sell to Atlas if needed.
@@ -609,29 +695,84 @@ THOKU SAYS: [direct recommendation — one sentence]
 
 WATCH: [single biggest risk — one line]`;
 
-const LISTER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Price to sell in 7-10 days. Be SHORT and PUNCHY — no essays.
+const LISTER_SYS=`You are Thoku, expert listing brain for Sell Your Gadgets (SYG). Search eBay sold listings first, then give the COMPLETE listing package — pricing, title, category, item specifics, platform strategy, and condition description.
+
+SEARCH EBAY FIRST:
+Use web_search: "[exact model] [storage] unlocked used sold eBay" — get real sold prices before anything else.
 
 ${SYG}
 
-OUTPUT FORMAT — keep every section to one line maximum, no exceptions:
+EBAY TITLE RULES (titles drive all views — get this right):
+- Maximum 80 characters — count carefully
+- Order: Brand Model Storage Carrier Condition
+- Include: unlocked/carrier name, storage, key condition word
+- Never: store name, emojis, ALL CAPS, exclamation marks
+- Example good: "Apple iPhone 14 Pro 256GB Unlocked Space Black - Cracked Back Works"
+- Write 3 title options so lister picks best
 
-LIST AT: $[X]
-Accept offers down to: $[X]
+PLATFORM STRATEGY:
+- eBay first: iPhones, Samsung, MacBooks, gaming consoles, cameras
+- Shopify first: accessories, chargers, cases, local/mainstream items
+- Both platforms: any item over $200
+- Parts/damaged: eBay only (Shopify buyers expect working items)
+
+OFFER STRATEGY:
+- Best Offer ON for items over $100 (increases conversion 30%)
+- Fixed price for items under $80
+- Auto-accept: 92% of list price
+- Auto-decline: 70% of list price
+
+EBAY CATEGORIES:
+iPhones/Samsung phones: Cell Phones & Smartphones (9355)
+iPads/tablets: iPad Tablets & eBook Readers (171485)
+MacBooks/laptops: Laptops & Netbooks (177)
+Gaming consoles: Video Game Consoles (139971)
+Smartwatches: Smart Watches (178893)
+Cameras: Digital Cameras (31388)
+
+OUTPUT — follow this EXACT format with the ━ dividers:
+
+EBAY SOLD: $[low]-$[high] ([X] sales) — [market note]
+
+━━ PRICING STRATEGY ━━
+List at: $[X]
+Best Offer: ON — accept down to $[Y] | auto-decline below $[Z]
 eBay condition: [Used / For parts or not working]
 
-PRICE BREAKDOWN:
-$[base] → [deduction -X%] → $[final]
+━━ PLATFORM ━━
+Primary: [eBay or Shopify] — [one line why]
+Secondary: [other] — [one line why]
 
-MARGIN:
-Sell $[X] → keep $[X after 27%] → paid $[X] → profit $[X] ([X]%)
+━━ EBAY TITLES ━━
+1. [Title] ([XX] chars)
+2. [Title] ([XX] chars)
+3. [Title] ([XX] chars)
 
-WHY: [One sentence only — the key reason for this price]
+━━ CATEGORY ━━
+[Category name] → ID: [number]
 
-CONDITION DESCRIPTION:
-[2-3 sentences max. Honest. Paste-ready.]
+━━ ITEM SPECIFICS ━━
+Brand: [X]
+Model: [X]
+Storage Capacity: [X]
+Network: [Unlocked/AT&T/etc]
+Color: [X]
+Condition: [X]
+Operating System: [X]
+Screen Size: [X]
 
-WATCH:
-• [One line max per bullet, 2 bullets max]`;
+━━ PRICE BREAKDOWN ━━
+$[base] → [deductions] → $[final sell]
+
+━━ MARGIN ━━
+Sell $[X] → after 27% costs = $[X] → paid $[X] → profit $[X] ([X]%)
+
+━━ CONDITION DESCRIPTION ━━
+[3-4 honest sentences. Include every issue. Paste-ready for eBay and Shopify.]
+
+━━ WATCH ━━
+• [Most critical return/feedback risk]
+• [Second most important]`
 
 function setRole(r){
   role=r;
@@ -639,12 +780,14 @@ function setRole(r){
   const m=document.getElementById('main');
   m.style.display='flex';m.style.flexDirection='column';
   const b=r==='buyer';
+  var ph=r==='phone';
+  var pk=r==='packer';
+  var ak=r==='ask';
+  var sc=r==='script';
   const badge=document.getElementById('mode-badge');
-  badge.textContent=b?'Buyer mode':ph?'Phone Call':pk?'Packer mode':ak?'Ask Thoku':'Lister mode';
-  const ph=r==='phone';
-  const pk=r==='packer';
-  const ak=r==='ask';
-  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':pk?'Pack and ship it right':ak?'Ask anything about SYG':'Item in the back';
+  badge.textContent=b?'Buyer':ph?'Phone Call':pk?'Packer':ak?'Ask Thoku':sc?'Script Builder':'General Employee';
+  badge.className=b?'mb-b':ph?'mb-p':pk?'mb-pk':ak?'mb-ask':sc?'mb-script':'mb-l';
+  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':pk?'Pack and ship it right':ak?'Ask anything about SYG':sc?'Get the exact words to say':'Listing & pricing';
   // Change label for ask mode
   const productLabel=document.querySelector('label.flabel');
   if(productLabel) productLabel.textContent=ak?'Your question':'What is it?';
@@ -653,14 +796,16 @@ function setRole(r){
     :ph?'e.g. iPhone 15 Pro Max / PS5 disc / MacBook — type what they say they have'
     :pk?'e.g. iPhone 15 Pro Max 256GB / PS5 console / MacBook Air M2 / Canon 90D camera'
     :ak?'e.g. How do I handle an iCloud locked phone? / What box do I use for a tablet? / Customer wants $500 for an iPhone 13...'
+    :sc?'e.g. Older lady, first time selling, brought 2 iPhones, seems nervous. She looked up eBay and thinks they are worth $400 each...'
     :'e.g. iPhone 13 Pro Max 128GB unlocked cracked front back 87% battery no charger';
   document.getElementById('cost-field').innerHTML=b
     ?'<label class="flabel">Customer asking <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 250" style="max-width:140px">'
     :ph?'<label class="flabel">They mentioned wanting <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 300" style="max-width:140px">'
     :pk?'<label class="flabel">Item value (sale price)</label><input type="text" id="cost" placeholder="e.g. 450" style="max-width:140px">'
     :ak?''
+    :sc?'<label class="flabel">Item they have + asking price <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. iPhone 13, asking $300" style="width:100%">'
     :'<label class="flabel">SYG paid</label><input type="text" id="cost" placeholder="e.g. 90" style="max-width:140px">';
-  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':pk?'📦 Get packing guide':ak?'🧠 Ask Thoku':'🏷️ Get list price';
+  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':pk?'📦 Get packing guide':ak?'🧠 Ask Thoku':sc?'🎭 Build my script':'🏷️ Get list price';
   buyerMode='price';
   const oldPicker=document.getElementById('buyer-mode-picker');
   if(oldPicker) oldPicker.remove();
@@ -965,15 +1110,130 @@ If it is a script/what to say question — give exact words they can use.
 If you don't know something specific — say so and give the closest guidance you have.
 Keep answers short and actionable. This is a busy store floor.`;
 
+const SCRIPT_SYS=`You are Thoku, master customer communication coach for Sell Your Gadgets (SYG). An employee just described a real customer situation. Build them a complete, word-for-word conversation script tailored to THIS exact customer — their personality, their situation, their energy.
+
+SYG CORE PRINCIPLES:
+- Every customer is a potential repeat customer and referral source
+- The first 60 seconds set the energy for the entire deal
+- Silence after your offer is your most powerful tool
+- Always end with: ask for more items, hand the flyer, ask for Google review
+- Bad buy is worse than no buy — never overpay to please a customer
+
+${SYG}
+
+CUSTOMER TYPES YOU WILL SEE:
+- The Researcher: checked eBay before coming in, has a number in mind, will push back
+- The Desperate: needs cash today, flexible on price, just wants it done
+- The Skeptic: doesn't trust resellers, thinks you're lowballing everyone
+- The Friendly Regular: has sold before, knows the process, just wants a fair deal
+- The Aggressive Negotiator: treats it like a battle, loud, persistent
+- The Confused First-Timer: doesn't know how reselling works, needs education
+- The Elderly/Cautious: needs reassurance, slow process, needs to feel safe
+- The Bulk Seller: has many items, wants to do a deal, thinks volume = more per item
+- The Phone Call Convert: came in from a call, already has expectations from the range you quoted
+- The Reluctant Seller: attached to the item, might not sell, needs emotional close
+
+YOUR JOB:
+1. Read the customer type from the description
+2. Build a complete word-for-word script for this specific person
+3. Include: opening line, ice-breakers to use, how to present the offer, how to handle their specific likely objections, closing lines, and the send-off
+4. Make every line feel natural — not robotic
+5. Flag any special risks with this customer type
+
+OUTPUT FORMAT — follow exactly:
+
+CUSTOMER READ: [2 lines — who this person is, what they want, what motivates them]
+
+OPENING (first 30 seconds):
+"[Exact first words — warm, sets the tone for this specific customer]"
+
+ICE-BREAKERS TO USE:
+• "[Question 1 — builds rapport AND gives intel]"
+• "[Question 2 — reveals their anchor price or urgency]"
+• "[Question 3 — opens door to more inventory]"
+
+THE OFFER MOMENT:
+"[Exact words to present the offer — adapted to this customer's personality]"
+[Note: say the number, then GO SILENT. Let them respond first.]
+
+WHEN THEY PUSH BACK:
+Their likely response: "[What this customer type will probably say]"
+Your line: "[Exact comeback — empathetic, firm, logical]"
+
+IF THEY COUNTER:
+"[Script for when they name their price — don't say yes immediately]"
+
+CLOSING THE DEAL:
+"[The exact line to seal it — adapted to this customer's emotion and situation]"
+
+THE SEND-OFF:
+Ask for more: "[Exact line to ask if they have more at home]"
+Google review: "[Exact ask — casual, like a favor between friends]"
+Flyer: "[What to say as you hand it]"
+
+SPECIAL NOTES FOR THIS CUSTOMER:
+• [Key thing to watch — what could go wrong with this specific person]
+• [One thing that will definitely work with this type]
+• [Red flag to watch for]`;
+
+const SHIFT_SYS=`You are Thoku, the daily shift coach for Sell Your Gadgets (SYG). An employee just started their shift. Give them a powerful, energizing briefing that prepares them mentally and technically for the day. Be sharp, direct, and motivating — like a great coach before a game.
+
+${SYG}
+
+TODAY'S CONTEXT:
+- Employee name and store provided
+- Use current day of the week to tailor the briefing (Mondays are slow starts, Fridays and weekends are busy, end of month = push volume)
+- SYG runs on speed, margin, and customer experience
+
+YOUR BRIEFING COVERS:
+
+1. DAILY MINDSET — one sharp line to set their energy for the day
+2. PRICING REMINDER — the one pricing rule they must nail today (rotate through: offer formula, cost structure, condition deductions, Atlas floor prices, eBay research)
+3. NEGOTIATION TIP OF THE DAY — one specific tactic with an example script
+4. WHAT TO WATCH FOR — one customer type or scenario likely today, and how to handle it
+5. PROCESS REMINDER — one operational thing to not forget (check-in, serial numbers, Google review, bundle ask, etc)
+6. DAILY CHALLENGE — one measurable goal for the shift (e.g. "Get 3 Google reviews today" or "Never open above Play 1 on any deal today")
+7. MOTIVATIONAL CLOSE — one powerful line to send them out the door charged up
+
+OUTPUT FORMAT — exact, punchy, no fluff:
+
+GOOD [MORNING/AFTERNOON], [NAME]. [Store: STORENAME]
+[Date and day]
+
+━━ MINDSET ━━
+[One sharp line — sets their energy. Bold and direct.]
+
+━━ PRICING REMINDER ━━
+[Topic]: [The rule in one sentence]
+Example: [Concrete number example they can use today]
+
+━━ NEGOTIATION TIP ━━
+[Tip title]: [One sentence explanation]
+Use this line: "[Exact script — copy-paste ready]"
+
+━━ WATCH FOR TODAY ━━
+[Customer type or scenario]: [How to spot them and handle them]
+Your move: "[Exact line to say]"
+
+━━ PROCESS REMINDER ━━
+[One thing to not forget today — be specific]
+
+━━ YOUR CHALLENGE TODAY ━━
+🎯 [Specific, measurable challenge for this shift]
+
+━━ GO GET IT ━━
+[One powerful closing line — make it memorable]`;
+
 async function getPrice(){
   const product=document.getElementById('product').value.trim();
   const costEl=document.getElementById('cost');
   const cost=costEl?costEl.value.trim():'';
   if(!product){document.getElementById('product').focus();return;}
   const b=role==='buyer';
-  const isPh=role==='phone';
-  const isPk=role==='packer';
-  const isAk=role==='ask';
+  var isPh=role==='phone';
+  var isPk=role==='packer';
+  var isAk=role==='ask';
+  var isSc=role==='script';
   const isRebuttal=b&&buyerMode==='rebuttal';
   const btn=document.getElementById('gobtn');
   btn.disabled=true;btn.innerHTML='<div class="spin"></div> '+(isRebuttal?'Getting rebuttals…':b?'Getting offers…':'Pricing…');
@@ -993,6 +1253,8 @@ async function getPrice(){
       content.push({type:'text',text:'PACKING & SHIPPING: '+product+(cost?'\nSale value: $'+cost:'')+'\nGive exact box size, carrier, special handling, pre-ship checklist, and estimated cost.'});
     } else if(isAk){
       content.push({type:'text',text:'EMPLOYEE QUESTION: '+product+'\nAnswer directly and practically. Give exact steps, numbers, or scripts as needed.'});
+    } else if(isSc){
+      content.push({type:'text',text:'CUSTOMER SITUATION: '+product+(cost?'\nItem/price context: '+cost:'')+'\nBuild a complete word-for-word script tailored to this exact customer. Make every line natural and specific to their personality and situation.'});
     } else {
       content.push({type:'text',text:(b?'BUYING':'LISTING')+': '+product+(cost?'\n'+(b?'Customer asking':'SYG paid')+': $'+cost:'')});
     }
@@ -1001,7 +1263,7 @@ async function getPrice(){
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
-    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:isAk?ASK_SYS:(b?BUYER_SYS:LISTER_SYS);
+    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:isAk?ASK_SYS:isSc?SCRIPT_SYS:(b?BUYER_SYS:LISTER_SYS);
     const reqBody = JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:sys,messages:[{role:'user',content}]});
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -1031,12 +1293,13 @@ async function getPrice(){
     else if(isPh)renderPhone(text);
     else if(isPk)renderPacker(text);
     else if(isAk)renderAsk(text);
+    else if(isSc)renderScript(text);
     else if(b)renderBuyer(text);
     else renderLister(text);
   }catch(e){
     result.innerHTML=`<div class="dark-wrap" style="color:#f87171;font-size:13px">Connection failed. Please try again.</div>`;
   }
-  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':isPk?'📦 Get packing guide':isAk?'🧠 Ask Thoku':b?'💰 Get 3 offers':'🏷️ Get list price';
+  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':isPk?'📦 Get packing guide':isAk?'🧠 Ask Thoku':isSc?'🎭 Build my script':b?'💰 Get 3 offers':'🏷️ Get list price';
 }
 
 function renderBuyer(text){
@@ -1116,85 +1379,126 @@ function renderBuyer(text){
 }
 
 function renderLister(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  let listPrice=null,floorPrice=null,ebayCondition='',breakdown='',margin='',why='',condDesc='',watches=[];
-  let section='';
-
-  lines.forEach(l=>{
-    const lpm=l.match(/^LIST AT[:\s]+\$?([\d,]+)/i);
-    if(lpm){listPrice=parseInt(lpm[1].replace(/,/g,''));return;}
-    const fpm=l.match(/Accept offers down to[:\s]+\$?([\d,]+)/i);
-    if(fpm){floorPrice=parseInt(fpm[1].replace(/,/g,''));return;}
-    const ecm=l.match(/eBay condition[:\s]+(.+)/i);
-    if(ecm){ebayCondition=ecm[1].trim();return;}
-    if(/^PRICE BREAKDOWN/i.test(l)){section='breakdown';return;}
-    if(/^MARGIN/i.test(l)){section='margin';return;}
-    if(/^WHY/i.test(l)){section='why';return;}
-    if(/^CONDITION DESCRIPTION/i.test(l)){section='cond';return;}
-    if(/^WATCH/i.test(l)){section='watch';return;}
+  var lines=text.split('\n').map(function(l){return l.trim();});
+  var h='<div class="bridge"></div><div class="dark-wrap fade">';
+  var ebayL='';
+  lines.forEach(function(l){if(/^EBAY SOLD:/i.test(l))ebayL=l.replace(/^EBAY SOLD:\s*/i,'');});
+  if(ebayL){
+    h+='<div style="background:#0a1a28;border:1px solid #1e4a6e;border-radius:12px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:center;gap:10px">';
+    h+='<span style="font-size:16px">🔍</span><div>';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:2px">Live eBay sold</div>';
+    h+='<div style="font-size:12px;color:#93c5fd">'+ebayL+'</div></div></div>';
+  }
+  var section='',listPrice=null,floorPrice=null,declinePrice=null,ebayCondition='',
+      platform='',platformWhy='',platform2='',breakdown='',margin='',condDesc='',
+      titles=[],category='',categoryId='',specifics=[],watches=[];
+  lines.forEach(function(l){
+    if(!l||/^EBAY SOLD:/i.test(l))return;
+    if(/^━+\s*PRICING STRATEGY\s*━+/i.test(l)){section='price';return;}
+    if(/^━+\s*PLATFORM\s*━+/i.test(l)){section='platform';return;}
+    if(/^━+\s*EBAY TITLES\s*━+/i.test(l)){section='titles';return;}
+    if(/^━+\s*CATEGORY\s*━+/i.test(l)){section='cat';return;}
+    if(/^━+\s*ITEM SPECIFICS\s*━+/i.test(l)){section='specs';return;}
+    if(/^━+\s*PRICE BREAKDOWN\s*━+/i.test(l)){section='breakdown';return;}
+    if(/^━+\s*MARGIN\s*━+/i.test(l)){section='margin';return;}
+    if(/^━+\s*CONDITION DESCRIPTION\s*━+/i.test(l)){section='cond';return;}
+    if(/^━+\s*WATCH\s*━+/i.test(l)){section='watch';return;}
+    if(section==='price'){
+      var lm=l.match(/List at:\s*\$?([\d,]+)/i);if(lm)listPrice=parseInt(lm[1].replace(/,/g,''));
+      var fm=l.match(/accept.*?down to\s*\$?([\d,]+)/i);if(fm)floorPrice=parseInt(fm[1].replace(/,/g,''));
+      var dm=l.match(/auto.decline.*?\$?([\d,]+)/i);if(dm)declinePrice=parseInt(dm[1].replace(/,/g,''));
+      var em=l.match(/eBay condition:\s*(.+)/i);if(em)ebayCondition=em[1].trim();
+    }
+    if(section==='platform'){
+      var pm=l.match(/^Primary:\s*(.+?)\s*[—-]\s*(.+)/i);if(pm){platform=pm[1].trim();platformWhy=pm[2].trim();}
+      var p2=l.match(/^Secondary:\s*(.+)/i);if(p2)platform2=p2[1].trim();
+    }
+    if(section==='titles'&&/^\d\./.test(l))titles.push(l.replace(/^\d\.\s*/,''));
+    if(section==='cat'&&l){
+      var cm=l.match(/ID:\s*(\d+)/i);if(cm)categoryId=cm[1];
+      if(!categoryId)category=l.replace(/→.*$/,'').trim();
+      else category=l.replace(/→.*$/,'').trim();
+    }
+    if(section==='specs'&&l.includes(':'))specifics.push(l);
     if(section==='breakdown'&&l)breakdown+=l+' ';
     if(section==='margin'&&l)margin+=l+' ';
-    if(section==='why'&&l)why+=l+' ';
     if(section==='cond'&&l)condDesc+=l+' ';
-    if(section==='watch'&&(l.startsWith('•')||l.startsWith('-')||l.length>5))watches.push(l.replace(/^[•\-]\s*/,''));
+    if(section==='watch'&&(l.startsWith('•')||l.startsWith('-')))watches.push(l.replace(/^[•\-]\s*/,''));
   });
-
-  let h=`<div class="bridge"></div><div class="dark-wrap fade">`;
-
-  // List price hero — styled like sell value row
   if(listPrice){
-    h+=`<div class="sv-row">
-      <div>
-        <div class="sv-label">SYG list price</div>
-        ${ebayCondition?`<div class="sv-note">eBay: ${ebayCondition}</div>`:''}
-        ${floorPrice?`<div class="sv-note">Accept offers down to $${floorPrice.toLocaleString()}</div>`:''}
-      </div>
-      <div class="sv-num">$${listPrice.toLocaleString()}</div>
-    </div>`;
+    h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">';
+    h+='<div><div style="font-size:11px;color:#6b7280;font-family:var(--mono);margin-bottom:3px">SYG list price</div>';
+    if(ebayCondition)h+='<div style="font-size:10px;color:#4b5563;font-family:var(--mono)">'+ebayCondition+'</div>';
+    h+='</div><div style="font-size:38px;font-weight:800;color:#fff;letter-spacing:-2px">$'+listPrice.toLocaleString()+'</div></div>';
   }
-
-  // Three info cards — breakdown / margin / why
-  h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">`;
-
+  if(floorPrice||declinePrice){
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+    if(floorPrice)h+='<div style="background:#0a1f0a;border:1px solid #166534;border-radius:12px;padding:10px 12px"><div style="font-size:9px;color:#4ade80;font-family:var(--mono);margin-bottom:3px">ACCEPT DOWN TO</div><div style="font-size:22px;font-weight:800;color:#4ade80">$'+floorPrice+'</div></div>';
+    if(declinePrice)h+='<div style="background:#1a0505;border:1px solid #991b1b;border-radius:12px;padding:10px 12px"><div style="font-size:9px;color:#f87171;font-family:var(--mono);margin-bottom:3px">AUTO-DECLINE BELOW</div><div style="font-size:22px;font-weight:800;color:#f87171">$'+declinePrice+'</div></div>';
+    h+='</div>';
+  }
+  if(platform){
+    h+='<div style="background:#1a1628;border:1px solid #4c1d95;border-radius:12px;padding:11px 13px;margin-bottom:10px;display:flex;gap:10px;align-items:flex-start">';
+    h+='<span style="font-size:18px;flex-shrink:0">🛒</span><div>';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#a78bfa;margin-bottom:2px">List here first</div>';
+    h+='<div style="font-size:13px;font-weight:700;color:#c4b5fd">'+platform+'</div>';
+    if(platformWhy)h+='<div style="font-size:11px;color:#7c3aed;margin-top:2px">'+platformWhy+'</div>';
+    if(platform2)h+='<div style="font-size:11px;color:#6b7280;margin-top:4px">Also list on: '+platform2+'</div>';
+    h+='</div></div>';
+  }
+  if(titles.length){
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:6px">📝 eBay titles — tap to copy</div>';
+    titles.forEach(function(t){
+      var cm=t.match(/\((\d+)\s*chars?\)/i);
+      var charNum=cm?parseInt(cm[1]):t.replace(/\(\d+\s*chars?\)/i,'').trim().length;
+      var clean=t.replace(/\(\d+\s*chars?\)/i,'').trim();
+      var over=charNum>80;
+      h+='<div class="dcopy" onclick="copyThis(this)" style="margin-bottom:4px;border-color:#1e3a5f">'+clean+'</div>';
+      h+='<div class="chint" style="color:'+(over?'#f87171':'#4b5563')+'">'+charNum+'/80 chars'+(over?' ⚠️ too long':'  ✓')+' · tap to copy</div>';
+    });
+  }
+  if(category){
+    h+='<div style="background:#111827;border:1px solid #1f2937;border-radius:12px;padding:10px 13px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">';
+    h+='<div><div style="font-size:9px;color:#6b7280;font-family:var(--mono);margin-bottom:2px">eBay category</div>';
+    h+='<div style="font-size:13px;color:#e5e7eb">'+category+'</div></div>';
+    if(categoryId)h+='<div style="font-size:12px;font-family:var(--mono);color:#4b5563;background:#0d1117;padding:4px 8px;border-radius:6px">ID: '+categoryId+'</div>';
+    h+='</div>';
+  }
+  if(specifics.length){
+    h+='<div style="background:#0a1628;border:1.5px solid #1e3a5f;border-radius:14px;padding:13px 14px;margin-bottom:10px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:8px">📋 Item specifics</div>';
+    specifics.forEach(function(s){
+      var parts=s.split(':');
+      if(parts.length>=2){
+        h+='<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05)">';
+        h+='<span style="font-size:11px;color:#6b7280;font-family:var(--mono)">'+parts[0].trim()+'</span>';
+        h+='<span style="font-size:11px;color:#93c5fd;font-family:var(--mono);font-weight:500">'+parts.slice(1).join(':').trim()+'</span></div>';
+      }
+    });
+    h+='</div>';
+  }
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">';
   if(breakdown){
-    const bShort = breakdown.trim().split('Note:')[0].trim();
-    h+=`<div style="background:#0a1628;border:1.5px solid #1e3a5f;border-radius:14px;padding:13px 12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:6px">Price breakdown</div>
-      <div style="font-size:12px;color:#93c5fd;font-family:var(--mono);line-height:1.6">${bShort}</div>
-    </div>`;
+    h+='<div style="background:#0a1628;border:1.5px solid #1e3a5f;border-radius:14px;padding:12px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin-bottom:5px">Breakdown</div>';
+    h+='<div style="font-size:11px;color:#93c5fd;font-family:var(--mono);line-height:1.6">'+breakdown.trim().split('Note:')[0].trim()+'</div></div>';
   }
-
   if(margin){
-    h+=`<div style="background:#0a1a0e;border:1.5px solid #166534;border-radius:14px;padding:13px 12px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#4ade80;margin-bottom:6px">Your margin</div>
-      <div style="font-size:11px;color:#86efac;font-family:var(--mono);line-height:1.6">${margin.trim()}</div>
-    </div>`;
+    h+='<div style="background:#0a1a0e;border:1.5px solid #166534;border-radius:14px;padding:12px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#4ade80;margin-bottom:5px">Margin</div>';
+    h+='<div style="font-size:11px;color:#86efac;font-family:var(--mono);line-height:1.6">'+margin.trim()+'</div></div>';
   }
-
-  h+=`</div>`;
-
-  // Why this price
-  if(why){
-    h+=`<div style="background:#111827;border:1px solid #1f2937;border-radius:14px;padding:11px 14px;margin-bottom:12px">
-      <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280;margin-bottom:5px">Why</div>
-      <div style="font-size:13px;color:#e5e7eb;line-height:1.5">${why.trim()}</div>
-    </div>`;
-  }
-
-  // Condition description — copy box
+  h+='</div>';
   if(condDesc){
-    h+=`<div style="margin-bottom:4px;font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280">Condition description</div>`;
-    h+=`<div class="dcopy" onclick="copyThis(this)">${condDesc.trim()}</div>`;
-    h+=`<div class="chint">tap to copy · paste into eBay / Shopify</div>`;
+    h+='<div style="margin-bottom:4px;font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#6b7280">Condition description</div>';
+    h+='<div class="dcopy" onclick="copyThis(this)">'+condDesc.trim()+'</div>';
+    h+='<div class="chint">tap to copy · paste into eBay & Shopify</div>';
   }
-
-  // Watch alerts
-  watches.forEach(w=>{
-    const risk=/icloud|battery|lock|dispute|return/i.test(w);
-    h+=`<div class="dal ${risk?'dal-warn':'dal-ok'}" style="margin-bottom:8px"><span class="dai">${risk?'⚠️':'✓'}</span><div>${w}</div></div>`;
+  watches.forEach(function(w){
+    var risk=/icloud|battery|lock|dispute|return|face id/i.test(w);
+    h+='<div class="dal '+(risk?'dal-warn':'dal-ok')+'" style="margin-bottom:8px"><span class="dai">'+(risk?'⚠️':'✓')+'</span><div>'+w+'</div></div>';
   });
-
-  h+=`<button id="rstbtn" onclick="resetTool()">↩ Price another item</button></div>`;
+  h+='<button id="rstbtn" onclick="resetTool()">↩ Price another item</button></div>';
   document.getElementById('result').innerHTML=h;
   document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -1668,6 +1972,247 @@ function renderResults() {
 function backToHome() {
   document.getElementById('quiz-screen').style.display = 'none';
   document.getElementById('role-screen').style.display = 'flex';
+}
+
+function renderScript(text){
+  var result=document.getElementById('result');
+  var lines=text.split('\n').map(function(l){return l.trim();});
+  var h='<div class="bridge"></div><div class="dark-wrap fade">';
+
+  var sections=[
+    {key:'CUSTOMER READ',icon:'👤',c:'#c4b5fd',bg:'#1a1628',br:'#4c1d95',label:'Customer read'},
+    {key:'OPENING',icon:'🎯',c:'#4ade80',bg:'#0a1f0a',br:'#166534',label:'Opening — first 30 seconds'},
+    {key:'ICE-BREAKERS',icon:'💬',c:'#38bdf8',bg:'#0a1628',br:'#1e3a5f',label:'Ice-breakers to use'},
+    {key:'THE OFFER MOMENT',icon:'💰',c:'#fbbf24',bg:'#1a1200',br:'#92400e',label:'The offer moment'},
+    {key:'WHEN THEY PUSH BACK',icon:'🔄',c:'#f9a8d4',bg:'#1a0a14',br:'#9d174d',label:'When they push back'},
+    {key:'IF THEY COUNTER',icon:'🤝',c:'#6ee7b7',bg:'#0a1f14',br:'#065f46',label:'If they counter with a number'},
+    {key:'CLOSING THE DEAL',icon:'✅',c:'#34d399',bg:'#0a1f0a',br:'#166534',label:'Closing the deal'},
+    {key:'THE SEND-OFF',icon:'👋',c:'#a78bfa',bg:'#1a1628',br:'#4c1d95',label:'The send-off'},
+    {key:'SPECIAL NOTES',icon:'⚠️',c:'#fbbf24',bg:'#1a1200',br:'#92400e',label:'Special notes for this customer'},
+  ];
+
+  var curSec=null,buf=[];
+  function flush(){
+    if(!curSec||!buf.length)return;
+    var s=sections.find(function(x){return curSec.toUpperCase().indexOf(x.key)>=0;});
+    if(!s)return;
+    h+='<div style="background:'+s.bg+';border:1px solid '+s.br+';border-radius:14px;padding:13px 14px;margin-bottom:10px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:'+s.c+';margin-bottom:8px">'+s.icon+' '+s.label+'</div>';
+    buf.forEach(function(bl){
+      if(!bl)return;
+      if(bl.startsWith('"')&&(bl.endsWith('"')||bl.endsWith('".'))){
+        h+='<div class="dcopy" onclick="copyThis(this)" style="border-color:'+s.br+';margin-bottom:5px">'+bl+'</div>';
+        h+='<div class="chint">tap to copy · say this exactly</div>';
+      } else if(bl.startsWith('•')||bl.startsWith('-')){
+        var txt=bl.replace(/^[•\-]\s*/,'');
+        var isQ=txt.startsWith('"');
+        if(isQ){
+          h+='<div class="dcopy" onclick="copyThis(this)" style="border-color:'+s.br+';margin-bottom:5px">'+txt+'</div>';
+          h+='<div class="chint">tap to copy</div>';
+        } else {
+          h+='<div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start">';
+          h+='<span style="color:'+s.c+';flex-shrink:0;margin-top:1px">›</span>';
+          h+='<span style="font-size:12.5px;color:#d1d5db;line-height:1.5">'+txt+'</span></div>';
+        }
+      } else if(/^(Their likely response|Your line|Note):/i.test(bl)){
+        var parts=bl.split(':');
+        var lbl=parts[0].trim();
+        var val=parts.slice(1).join(':').trim();
+        h+='<div style="margin-bottom:6px">';
+        h+='<div style="font-size:9px;font-family:var(--mono);color:'+s.c+';opacity:0.7;margin-bottom:2px">'+lbl.toUpperCase()+'</div>';
+        if(val.startsWith('"')){
+          h+='<div class="dcopy" onclick="copyThis(this)" style="border-color:'+s.br+'">'+val+'</div>';
+          h+='<div class="chint">tap to copy</div>';
+        } else {
+          h+='<div style="font-size:12.5px;color:#9ca3af;line-height:1.5;font-style:italic">'+val+'</div>';
+        }
+        h+='</div>';
+      } else {
+        h+='<div style="font-size:12.5px;color:#9ca3af;margin-bottom:4px;line-height:1.5">'+bl+'</div>';
+      }
+    });
+    h+='</div>';
+    buf=[];curSec=null;
+  }
+
+  lines.forEach(function(l){
+    if(!l)return;
+    var isHdr=sections.some(function(s){return l.toUpperCase().indexOf(s.key)>=0&&l.length<60;});
+    if(isHdr){flush();curSec=l;return;}
+    if(curSec)buf.push(l);
+  });
+  flush();
+
+  h+='<button id="rstbtn" onclick="resetTool()">↩ New customer</button></div>';
+  result.innerHTML=h;
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function startShift(){
+  document.getElementById('role-screen').style.display='none';
+  document.getElementById('main').style.display='none';
+  var ss=document.getElementById('shift-screen');
+  ss.style.display='flex';
+  ss.style.flexDirection='column';
+  renderShiftIntro();
+}
+
+function renderShiftIntro(){
+  var ss=document.getElementById('shift-screen');
+  var now=new Date();
+  var hour=now.getHours();
+  var greeting=hour<12?'Good morning':hour<17?'Good afternoon':'Good evening';
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var dateStr=days[now.getDay()]+', '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
+
+  ss.innerHTML='<div style="padding:28px 20px;flex:1;display:flex;flex-direction:column">'
+    +'<div style="font-size:32px;margin-bottom:12px">☀️</div>'
+    +'<div style="font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px">Start Your Shift</div>'
+    +'<div style="font-size:13px;color:var(--text2);margin-bottom:6px">'+dateStr+'</div>'
+    +'<div style="font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6">Thoku will give you your daily briefing — pricing reminders, a negotiation tip, and your challenge for today.</div>'
+    +'<div class="field"><label class="flabel">Your name</label>'
+    +'<input type="text" id="shift-name" placeholder="e.g. Hamza" style="width:100%;padding:11px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--text);font-family:var(--font);margin-bottom:12px"></div>'
+    +'<div class="field"><label class="flabel">Your store</label>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">'
+    +'<button onclick="selectStore(this,\'NJ01 Elizabeth\')" class="store-btn" style="padding:10px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2)">NJ01 Elizabeth</button>'
+    +'<button onclick="selectStore(this,\'NJ02 Elmwood Park\')" class="store-btn" style="padding:10px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2)">NJ02 Elmwood Park</button>'
+    +'<button onclick="selectStore(this,\'NJ04 Irvington\')" class="store-btn" style="padding:10px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2)">NJ04 Irvington</button>'
+    +'<button onclick="selectStore(this,\'TX01 Houston\')" class="store-btn" style="padding:10px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2)">TX01 Houston</button>'
+    +'</div></div>'
+    +'<button onclick="getShiftBriefing()" style="width:100%;padding:14px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;background:#0ea5e9;color:white;font-family:var(--font)">☀️ Get my briefing</button>'
+    +'<button onclick="backToHomeFromShift()" style="width:100%;padding:11px;margin-top:10px;border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;cursor:pointer;background:var(--white);color:var(--text2);font-family:var(--font)">↩ Back</button>'
+    +'</div>';
+}
+
+var selectedStore='';
+function selectStore(btn,store){
+  selectedStore=store;
+  document.querySelectorAll('.store-btn').forEach(function(b){
+    b.style.background='var(--white)';b.style.borderColor='var(--border)';b.style.color='var(--text2)';
+  });
+  btn.style.background='var(--sky-light)';btn.style.borderColor='var(--sky)';btn.style.color='var(--sky-dark)';
+}
+
+async function getShiftBriefing(){
+  var name=document.getElementById('shift-name').value.trim();
+  var store=selectedStore;
+  if(!name){document.getElementById('shift-name').focus();return;}
+  if(!store){alert('Please select your store');return;}
+  var apiKey=localStorage.getItem('thoku_api_key')||'';
+  if(!apiKey){showApiScreen();return;}
+  var ss=document.getElementById('shift-screen');
+  var now=new Date();
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var dateStr=days[now.getDay()]+', '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
+  var hour=now.getHours();
+  var timeOfDay=hour<12?'morning':hour<17?'afternoon':'evening';
+
+  ss.innerHTML='<div style="padding:40px;text-align:center;background:#0d1117;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center">'
+    +'<div class="spinc" style="width:28px;height:28px;border:2.5px solid #1f2937;border-top-color:#0ea5e9;border-radius:50%;animation:sp .7s linear infinite;margin-bottom:14px"></div>'
+    +'<div style="color:#6b7280;font-size:13px">Thoku is preparing your briefing…</div>'
+    +'<div style="color:#4b5563;font-size:11px;margin-top:6px;font-family:var(--mono)">Making today count, '+name+'</div>'
+    +'</div>';
+
+  try{
+    var reqBody=JSON.stringify({
+      model:'claude-sonnet-4-6',max_tokens:1000,
+      system:SHIFT_SYS,
+      messages:[{role:'user',content:'Employee name: '+name+'\nStore: '+store+'\nDate: '+dateStr+'\nTime of day: '+timeOfDay+'\nBuild the complete shift briefing for this employee right now. Make it specific to the day of the week and time. Make the negotiation tip and challenge fresh and actionable.'}]
+    });
+    var res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',mode:'cors',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:reqBody
+    });
+    var data=await res.json();
+    var text=data.content&&data.content[0]?data.content[0].text:'Something went wrong.';
+    renderShiftBriefing(text,name,store,dateStr);
+  }catch(e){
+    ss.innerHTML='<div style="padding:20px;color:#f87171;font-size:13px">Connection failed. Try again.</div>';
+  }
+}
+
+function renderShiftBriefing(text,name,store,dateStr){
+  var ss=document.getElementById('shift-screen');
+  var lines=text.split('\n').map(function(l){return l.trim();});
+  var h='<div style="background:#0d1117;min-height:100vh">';
+
+  // Header
+  h+='<div style="background:linear-gradient(135deg,#001a2e,#002d4a);padding:20px;border-bottom:1px solid rgba(14,165,233,0.2)">';
+  h+='<div style="font-size:11px;font-family:var(--mono);color:#0369a1;margin-bottom:4px">'+store+' · '+dateStr+'</div>';
+  h+='<div style="font-size:20px;font-weight:800;color:#38bdf8;letter-spacing:-0.5px">Your Shift Briefing</div>';
+  h+='<div style="font-size:12px;color:rgba(56,189,248,0.5);margin-top:2px">Powered by Thoku</div>';
+  h+='</div>';
+  h+='<div style="padding:16px">';
+
+  var sectionDefs=[
+    {key:'MINDSET',icon:'🔥',c:'#f87171',bg:'#1a0505',br:'#991b1b'},
+    {key:'PRICING REMINDER',icon:'💡',c:'#fbbf24',bg:'#1a1200',br:'#92400e'},
+    {key:'NEGOTIATION TIP',icon:'🎯',c:'#4ade80',bg:'#0a1f0a',br:'#166534'},
+    {key:'WATCH FOR TODAY',icon:'👁️',c:'#38bdf8',bg:'#0a1628',br:'#1e3a5f'},
+    {key:'PROCESS REMINDER',icon:'✅',c:'#34d399',bg:'#0a1f14',br:'#065f46'},
+    {key:'YOUR CHALLENGE',icon:'🏆',c:'#a78bfa',bg:'#1a1628',br:'#4c1d95'},
+    {key:'GO GET IT',icon:'⚡',c:'#fde68a',bg:'#1a1500',br:'#92400e'},
+  ];
+
+  var curSec=null,buf=[];
+  function flush(){
+    if(!curSec||!buf.length)return;
+    var s=sectionDefs.find(function(x){return curSec.toUpperCase().indexOf(x.key)>=0;});
+    if(!s)return;
+    h+='<div style="background:'+s.bg+';border:1px solid '+s.br+';border-radius:14px;padding:14px;margin-bottom:10px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:'+s.c+';margin-bottom:8px">'+s.icon+' '+curSec.replace(/^━+\s*/,'').replace(/\s*━+$/,'')+'</div>';
+    buf.forEach(function(bl){
+      if(!bl)return;
+      if(bl.startsWith('"')||(/^Use this line:/i.test(bl)&&bl.includes('"'))){
+        var q=bl.replace(/^Use this line:\s*/i,'');
+        h+='<div class="dcopy" onclick="copyThis(this)" style="border-color:'+s.br+';margin-bottom:4px">'+q+'</div>';
+        h+='<div class="chint">tap to copy · say this today</div>';
+      } else if(/^(Your move|Example):/i.test(bl)){
+        var parts=bl.split(':');var lval=parts.slice(1).join(':').trim();
+        if(lval.startsWith('"')){
+          h+='<div class="dcopy" onclick="copyThis(this)" style="border-color:'+s.br+';margin-top:6px">'+lval+'</div>';
+          h+='<div class="chint">tap to copy</div>';
+        } else {
+          h+='<div style="font-size:12px;color:#9ca3af;margin-top:4px;font-style:italic">'+lval+'</div>';
+        }
+      } else if(bl.startsWith('🎯')){
+        h+='<div style="font-size:15px;font-weight:800;color:'+s.c+';letter-spacing:-0.3px;line-height:1.4">'+bl+'</div>';
+      } else {
+        var bold=bl.replace(/\*\*([^*]+)\*\*/g,'<strong style="color:'+s.c+'">$1</strong>');
+        h+='<div style="font-size:13px;color:#e5e7eb;line-height:1.6;margin-bottom:3px">'+bold+'</div>';
+      }
+    });
+    h+='</div>';
+    buf=[];curSec=null;
+  }
+
+  var firstLine=true;
+  lines.forEach(function(l){
+    if(!l)return;
+    if(firstLine&&/^GOOD (MORNING|AFTERNOON|EVENING)/i.test(l)){
+      h+='<div style="font-size:15px;font-weight:700;color:#e5e7eb;padding:8px 0 12px;border-bottom:1px solid #1f2937;margin-bottom:12px">'+l+'</div>';
+      firstLine=false;return;
+    }
+    if(/^[A-Z\s]+$/.test(l)&&l.length>3&&l.length<40&&!l.startsWith('━')){firstLine=false;}
+    var isHdr=/^━+/.test(l)||sectionDefs.some(function(s){return l.replace(/^━+\s*/,'').toUpperCase().startsWith(s.key);});
+    if(isHdr){flush();curSec=l.replace(/^━+\s*/,'').replace(/\s*━+$/,'');firstLine=false;return;}
+    if(curSec)buf.push(l);
+  });
+  flush();
+
+  h+='<button onclick="backToHomeFromShift()" style="width:100%;padding:12px;margin-top:8px;border:1px solid #1f2937;border-radius:12px;font-size:13px;cursor:pointer;background:#111827;color:#6b7280;font-family:var(--font)">↩ Back to Thoku</button>';
+  h+='</div></div>';
+  ss.innerHTML=h;
+  ss.scrollTop=0;
+}
+
+function backToHomeFromShift(){
+  document.getElementById('shift-screen').style.display='none';
+  document.getElementById('role-screen').style.display='flex';
+  selectedStore='';
 }
 
 function resetTool(){
