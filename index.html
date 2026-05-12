@@ -669,6 +669,12 @@ THIS IS WHY THE MATH IS TIGHT — overpaying destroys the deal
 NEGOTIATION: Say the number. Go quiet. First person who speaks after offer loses.
 Never say yes immediately to counter — pause, look at item, come back slightly below their ask.
 
+PRECISION RULES — follow every one:
+- Do the math exactly — never round until the final number
+- Use real sold comps first, SYG data second, estimates last
+- If you are uncertain about a price, say so and give a range with reasoning
+- Never skip a section — incomplete output is worse than wrong output
+
 ALWAYS OUTPUT THIS EXACT FORMAT — no markdown, no asterisks, no extra lines:
 
 SELL VALUE: $[number]
@@ -696,6 +702,12 @@ THOKU SAYS: [direct recommendation — one sentence]
 WATCH: [single biggest risk — one line]`;
 
 const LISTER_SYS=`You are Thoku, expert listing brain for Sell Your Gadgets (SYG). Search eBay sold listings first, then give the COMPLETE listing package — pricing, title, category, item specifics, platform strategy, and condition description.
+
+PRECISION RULES:
+- Count eBay title characters exactly — wrong count = wrong title
+- Fill every item specific field — empty fields kill search ranking
+- Do margin math exactly: sell × 0.73 − paid = net
+- If eBay data contradicts SYG stored prices, trust eBay and note the difference
 
 SEARCH EBAY FIRST:
 Use web_search: "[exact model] [storage] unlocked used sold eBay" — get real sold prices before anything else.
@@ -1264,7 +1276,29 @@ async function getPrice(){
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
     const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:isAk?ASK_SYS:isSc?SCRIPT_SYS:(b?BUYER_SYS:LISTER_SYS);
-    const reqBody = JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:sys,messages:[{role:'user',content}]});
+    // Smart model routing — Sonnet for high-stakes pricing, Haiku for everything else
+    const needsSonnet = b || isPh || isSc || isRebuttal || (role==='lister');
+    const useModel = needsSonnet ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001';
+    const useThinking = needsSonnet ? {type:'enabled',budget_tokens:5000} : {type:'disabled'};
+    const useMaxTokens = needsSonnet ? 16000 : 4000;
+    const useTools = (b || isPh || role==='lister') ? [{type:'web_search_20250305',name:'web_search',max_uses:3}] : undefined;
+
+    // Prompt caching — cache the system prompt to save 90% on input costs
+    const cachedSystem = [{
+      type: 'text',
+      text: sys,
+      cache_control: {type: 'ephemeral'}
+    }];
+
+    const reqBodyObj = {
+      model: useModel,
+      max_tokens: useMaxTokens,
+      system: cachedSystem,
+      messages: [{role:'user', content}]
+    };
+    if(needsSonnet) reqBodyObj.thinking = useThinking;
+    if(useTools) reqBodyObj.tools = useTools;
+    const reqBody = JSON.stringify(reqBodyObj);
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       mode:'cors',
@@ -1272,6 +1306,7 @@ async function getPrice(){
         'Content-Type':'application/json',
         'x-api-key':apiKey,
         'anthropic-version':'2023-06-01',
+        'anthropic-beta':'prompt-caching-2024-07-31',
         'anthropic-dangerous-direct-browser-access':'true'
       },
       body:reqBody
@@ -2117,13 +2152,14 @@ async function getShiftBriefing(){
 
   try{
     var reqBody=JSON.stringify({
-      model:'claude-sonnet-4-6',max_tokens:1000,
-      system:SHIFT_SYS,
+      model:'claude-haiku-4-5-20251001',
+      max_tokens:2000,
+      system:[{type:'text',text:SHIFT_SYS,cache_control:{type:'ephemeral'}}],
       messages:[{role:'user',content:'Employee name: '+name+'\nStore: '+store+'\nDate: '+dateStr+'\nTime of day: '+timeOfDay+'\nBuild the complete shift briefing for this employee right now. Make it specific to the day of the week and time. Make the negotiation tip and challenge fresh and actionable.'}]
     });
     var res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',mode:'cors',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-beta':'prompt-caching-2024-07-31','anthropic-dangerous-direct-browser-access':'true'},
       body:reqBody
     });
     var data=await res.json();
