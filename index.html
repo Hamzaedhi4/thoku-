@@ -66,6 +66,8 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 .mb-l{background:var(--sky-light);color:var(--sky-dark);border:1px solid var(--sky-mid);}
 .mb-p{background:#fdf4ff;color:#7c3aed;border:1px solid #e9d5ff;}
 .mb-pk{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;}
+.mb-ask{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+.mb-quiz{background:#fef9c3;color:#854d0e;border:1px solid #fde047;}
 #mode-desc{font-size:11px;color:var(--text3);}
 #sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:none;border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-family:var(--font);transition:all 0.15s;}
 #sw:hover{border-color:var(--sky);color:var(--sky);}
@@ -173,46 +175,51 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 <div id="shell">
 
 <div id="header">
-  <div id="logo">
-    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="12" fill="#0ea5e9"/>
-      <g transform="translate(50,54)">
-        <ellipse cx="-10" cy="28" rx="8" ry="16" fill="#c0392b"/>
-        <ellipse cx="10" cy="28" rx="8" ry="16" fill="#c0392b"/>
-        <ellipse cx="-8" cy="40" rx="6" ry="9" fill="#922b21"/>
-        <ellipse cx="8" cy="40" rx="6" ry="9" fill="#922b21"/>
-        <rect x="-22" y="6" width="44" height="28" rx="10" fill="#c0392b"/>
-        <rect x="-18" y="20" width="36" height="9" rx="4" fill="#7f1d1d"/>
-        <circle cx="0" cy="25" r="4" fill="#0ea5e9"/>
-        <circle cx="0" cy="25" r="2" fill="#0369a1"/>
-        <rect x="-20" y="8" width="13" height="22" rx="7" fill="#c0392b"/>
-        <rect x="7" y="8" width="13" height="22" rx="7" fill="#c0392b"/>
-        <rect x="-20" y="24" width="13" height="7" rx="3.5" fill="#0ea5e9"/>
-        <rect x="7" y="24" width="13" height="7" rx="3.5" fill="#0ea5e9"/>
-        <line x1="-28" y1="12" x2="-28" y2="-2" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
-        <rect x="-33" y="-5" width="10" height="5" rx="1.5" fill="#cbd5e1"/>
-        <line x1="28" y1="12" x2="28" y2="-2" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
-        <rect x="23" y="-5" width="10" height="5" rx="1.5" fill="#cbd5e1"/>
-        <ellipse cx="0" cy="-10" rx="26" ry="28" fill="#c0392b"/>
-        <ellipse cx="0" cy="-14" rx="26" ry="28" fill="#c0392b"/>
-        <ellipse cx="-8" cy="-12" rx="9" ry="10" fill="#1a1a1a"/>
-        <ellipse cx="8" cy="-12" rx="9" ry="10" fill="#1a1a1a"/>
-        <rect x="-24" y="-19" width="48" height="10" rx="5" fill="#0ea5e9"/>
-        <ellipse cx="-8" cy="-12" rx="5.5" ry="6.5" fill="white"/>
-        <ellipse cx="8" cy="-12" rx="5.5" ry="6.5" fill="white"/>
-        <ellipse cx="-6" cy="-13" rx="3" ry="3.5" fill="#0369a1"/>
-        <ellipse cx="10" cy="-13" rx="3" ry="3.5" fill="#0369a1"/>
-        <circle cx="-5" cy="-15" r="1" fill="white"/>
-        <circle cx="11" cy="-15" r="1" fill="white"/>
-        <path d="M-6 0 Q0 5 6 0" fill="none" stroke="#922b21" stroke-width="1.5" stroke-linecap="round"/>
-        <ellipse cx="-22" cy="-20" rx="7" ry="11" fill="#c0392b"/>
-        <ellipse cx="22" cy="-20" rx="7" ry="11" fill="#c0392b"/>
-        <path d="M-8 -36 Q0 -48 8 -36 Z" fill="#c0392b"/>
-        <path d="M-18 -30 Q-10 -40 -4 -33" fill="none" stroke="#922b21" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M18 -30 Q10 -40 4 -33" fill="none" stroke="#922b21" stroke-width="1.5" stroke-linecap="round"/>
-      </g>
-    </svg>
-  </div>
+  <div id="logo" style="background:none;padding:0;overflow:hidden;border-radius:10px;"><svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="18" fill="#0ea5e9"/>
+  <g transform="translate(100,105)">
+    <ellipse cx="0" cy="70" rx="55" ry="10" fill="#0369a1" opacity="0.3"/>
+    <path d="M-48 20 Q-50 75 -45 85 L45 85 Q50 75 48 20 Q28 34 0 33 Q-28 34 -48 20Z" fill="#1e293b"/>
+    <path d="M-12 22 L0 33 L12 22 L9 85 L-9 85Z" fill="#f8fafc"/>
+    <path d="M-5 26 L5 26 L7 52 L0 60 L-7 52Z" fill="#38bdf8"/>
+    <path d="M-3 25 L3 25 L5 29 L0 32 L-5 29Z" fill="#0369a1"/>
+    <path d="M-48 20 Q-28 34 -12 22 L-14 14 Q-30 22 -48 10Z" fill="#0f172a"/>
+    <path d="M48 20 Q28 34 12 22 L14 14 Q30 22 48 10Z" fill="#0f172a"/>
+    <path d="M-48 20 Q-28 34 -12 22 L-14 14 Q-30 22 -48 10Z" fill="#000" opacity="0.3"/>
+    <path d="M48 20 Q28 34 12 22 L14 14 Q30 22 48 10Z" fill="#000" opacity="0.3"/>
+    <rect x="-8" y="8" width="16" height="16" rx="5" fill="#c8a882"/>
+    <ellipse cx="-26" cy="-4" rx="7" ry="9" fill="#c8a882"/>
+    <ellipse cx="26" cy="-4" rx="7" ry="9" fill="#c8a882"/>
+    <ellipse cx="-26" cy="-4" rx="4" ry="6" fill="#b8956e" opacity="0.5"/>
+    <ellipse cx="26" cy="-4" rx="4" ry="6" fill="#b8956e" opacity="0.5"/>
+    <ellipse cx="0" cy="-14" rx="34" ry="38" fill="#c8a882"/>
+    <ellipse cx="0" cy="10" rx="26" ry="13" fill="#c8a882"/>
+    <path d="M-34 -28 Q-30 -58 0 -60 Q30 -58 34 -28 Q20 -44 0 -46 Q-20 -44 -34 -28Z" fill="#1a1a1a"/>
+    <path d="M-34 -28 Q-38 -12 -34 4 Q-32 -8 -30 -24Z" fill="#1a1a1a"/>
+    <path d="M34 -28 Q38 -12 34 4 Q32 -8 30 -24Z" fill="#1a1a1a"/>
+    <ellipse cx="0" cy="-22" rx="28" ry="16" fill="#c8a882"/>
+    <path d="M-20 -34 Q-13 -38 -6 -36" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M6 -36 Q13 -38 20 -34" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="-13" cy="-24" rx="8" ry="6" fill="white"/>
+    <ellipse cx="13" cy="-24" rx="8" ry="6" fill="white"/>
+    <ellipse cx="-13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/>
+    <ellipse cx="13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/>
+    <ellipse cx="-12" cy="-23" rx="2.5" ry="2.5" fill="#050505"/>
+    <ellipse cx="14" cy="-23" rx="2.5" ry="2.5" fill="#050505"/>
+    <circle cx="-11" cy="-25" r="1.2" fill="white"/>
+    <circle cx="15" cy="-25" r="1.2" fill="white"/>
+    <path d="M-21 -27 Q-13 -32 -5 -27" stroke="#1a0a00" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M5 -27 Q13 -32 21 -27" stroke="#1a0a00" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M-3 -10 Q-5 -3 -6 1 Q0 4 6 1 Q5 -3 3 -10" fill="#b8956e" opacity="0.4"/>
+    <path d="M-10 10 Q0 18 10 10" stroke="#6b3a20" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M-48 20 Q-60 42 -56 80 Q-48 83 -40 80 Q-38 46 -32 26Z" fill="#1e293b"/>
+    <path d="M48 20 Q60 42 56 80 Q48 83 40 80 Q38 46 32 26Z" fill="#1e293b"/>
+    <rect x="-58" y="74" width="18" height="10" rx="4" fill="#f8fafc"/>
+    <rect x="40" y="74" width="18" height="10" rx="4" fill="#f8fafc"/>
+    <ellipse cx="-49" cy="87" rx="9" ry="6" fill="#c8a882"/>
+    <ellipse cx="49" cy="87" rx="9" ry="6" fill="#c8a882"/>
+  </g>
+</svg></div>
   <div><h1>Thoku</h1><p>SYG pricing intelligence</p></div>
   <div id="badges">
     <span class="badge bg">Live</span>
@@ -241,6 +248,9 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
   </p>
 </div>
 
+
+<div id="quiz-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;">
+</div>
 <div id="role-screen">
   <h2>Who are you today?</h2>
   <p>Pick your role — Thoku gives you exactly what you need.</p>
@@ -257,6 +267,19 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
   <button class="rbtn" onclick="setRole('packer')">
     <div class="ricon" style="background:#fff7ed;">📦</div>
     <div><div class="rtitle">Packer</div><div class="rsub">Pack and ship items — right box, right carrier</div></div>
+    <div class="rarrow">›</div>
+  </button>
+  <button class="rbtn" onclick="setRole('ask')">
+    <div class="ricon" style="background:#f0fdf4;">🧠</div>
+    <div><div class="rtitle">Ask Thoku</div><div class="rsub">Any question about SYG — process, pricing, scripts</div></div>
+    <div class="rarrow">›</div>
+  </button>
+  <button class="rbtn" onclick="startQuiz()">
+    <div class="ricon" style="background:#fef9c3;">🎯</div>
+    <div>
+      <div class="rtitle">New Employee Quiz</div>
+      <div class="rsub">Test your SYG knowledge — must pass before the floor</div>
+    </div>
     <div class="rarrow">›</div>
   </button>
   <button class="rbtn" onclick="setRole('lister')">
@@ -617,21 +640,27 @@ function setRole(r){
   m.style.display='flex';m.style.flexDirection='column';
   const b=r==='buyer';
   const badge=document.getElementById('mode-badge');
-  badge.textContent=b?'Buyer mode':ph?'Phone Call':pk?'Packer mode':'Lister mode';
+  badge.textContent=b?'Buyer mode':ph?'Phone Call':pk?'Packer mode':ak?'Ask Thoku':'Lister mode';
   const ph=r==='phone';
   const pk=r==='packer';
-  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':pk?'Pack and ship it right':'Item in the back';
+  const ak=r==='ask';
+  document.getElementById('mode-desc').textContent=b?'Customer at the counter':ph?'On the phone right now':pk?'Pack and ship it right':ak?'Ask anything about SYG':'Item in the back';
+  // Change label for ask mode
+  const productLabel=document.querySelector('label.flabel');
+  if(productLabel) productLabel.textContent=ak?'Your question':'What is it?';
   document.getElementById('product').placeholder=b
     ?'e.g. PS5 Slim Disc no cables one controller / iPhone 15 Pro Max 256GB 83% battery scratches'
     :ph?'e.g. iPhone 15 Pro Max / PS5 disc / MacBook — type what they say they have'
     :pk?'e.g. iPhone 15 Pro Max 256GB / PS5 console / MacBook Air M2 / Canon 90D camera'
+    :ak?'e.g. How do I handle an iCloud locked phone? / What box do I use for a tablet? / Customer wants $500 for an iPhone 13...'
     :'e.g. iPhone 13 Pro Max 128GB unlocked cracked front back 87% battery no charger';
   document.getElementById('cost-field').innerHTML=b
     ?'<label class="flabel">Customer asking <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 250" style="max-width:140px">'
     :ph?'<label class="flabel">They mentioned wanting <span>(optional)</span></label><input type="text" id="cost" placeholder="e.g. 300" style="max-width:140px">'
     :pk?'<label class="flabel">Item value (sale price)</label><input type="text" id="cost" placeholder="e.g. 450" style="max-width:140px">'
+    :ak?''
     :'<label class="flabel">SYG paid</label><input type="text" id="cost" placeholder="e.g. 90" style="max-width:140px">';
-  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':pk?'📦 Get packing guide':'🏷️ Get list price';
+  document.getElementById('gobtn').innerHTML=b?'💰 Get 3 offers':ph?'📞 Get phone script':pk?'📦 Get packing guide':ak?'🧠 Ask Thoku':'🏷️ Get list price';
   buyerMode='price';
   const oldPicker=document.getElementById('buyer-mode-picker');
   if(oldPicker) oldPicker.remove();
@@ -854,6 +883,88 @@ ESTIMATED SHIP COST: $[rough range based on size/weight/carrier]
 
 WATCH: [single most important thing that could cause a problem]`;
 
+const ASK_SYS=`You are Thoku, the all-knowing brain of Sell Your Gadgets (SYG). An employee has a question. Answer it directly, confidently, and practically. You know everything about SYG operations, pricing, buying, listing, shipping, customer handling, and the business.
+
+${SYG}
+
+SYG FULL OPERATIONS KNOWLEDGE:
+
+BUYING PROCESS (5 stages):
+1. Customer Channels — phone calls, system leads (web/FB/IG), walk-ins
+2. Greeting & Check-In — ID, photo, phone number BEFORE touching device. Non-negotiable.
+3. Device Research & Offer — eBay SOLD listings only (not asking price). 3-play formula.
+4. Building the Purchase Order — category, make, model, condition, estimate, offer, serial number, location, attributes, cosmetics
+5. Checkout, Payment & Send-Off — count cash out loud, bag each item separately, ask for more, hand flyer, ask for Google review
+
+THE 3-PLAY OFFER FORMULA:
+Play 1 — Strong Open: 20-25% of resell (always start here)
+Play 2 — Fair Play: 30-35% of resell (when customer knows eBay)
+Play 3 — Ceiling: MAX 55-60% of resell (never exceed — let them walk if needed)
+
+NEGOTIATION RULES:
+- Say the number. Stop talking. Silence wins.
+- Never say yes immediately to a counter offer
+- Always pause, look at device, come back slightly below their ask
+- Bad buy is worse than no buy
+
+CHECK-IN REQUIRED FIELDS:
+ID Type & Number | First & Last Name | Date of Birth | Address | Phone Number | Email | Photo of Customer | Source
+
+ICE-BREAKER QUESTIONS (use during check-in):
+"How long have you had this?" | "You upgrading?" | "Is this the only one or you have more?" | "How did you hear about us?" | "Is everything working on it?" | "What were you hoping to get for it?"
+
+LISTING PROCESS (6 steps):
+1. Intake — receive from buyer, verify against PO
+2. Inspect & Generate — test device, check condition, take photos
+3. Shopify — verify, price, barcode (Rollo 2x1 paper)
+4. Photography — photos for listing
+5. eBay via Marketplace Connect — sync listing
+6. Enable & Publish — all 3 platforms must show Active
+SKU format: NJ01-[cost]-[PO#]-[item#]-[bin]
+eBay account: has_908033 | eBay template: Buy_Your_Gadgets
+
+SHIPPING RULES:
+Under $120 → USPS | Over $120 → UPS
+Over $300 → Signature required | Over $500 → Add insurance | Over $800 → Double box
+Any side over 20 inches → UPS only
+Fragile/expensive cameras, PCs, glass → bubble wrap always
+Box sizes: Phones→8x4x4 | Tablets→10x10x4 | Big Tablets→12x10x4 | Laptops→16x10x4 | Consoles→16x12x4 | Video Games→Poly mailers
+
+EBAY COST STRUCTURE:
+eBay fees: 17% | Royalty: 10% | Total out: 27%
+SYG net = (sell price × 0.73) − what we paid
+Target margin: 68.5% overall
+
+STORE INFO:
+Elizabeth (NJ01) — oldest store, Oct 2024. $1M YTD, 5,927 orders.
+Elmwood Park (NJ02) — Apr 2025. $468K YTD, 2,531 orders.
+Irvington (NJ03) — Aug 2025. $91K YTD, 335 orders.
+Houston — new store opening.
+eBay: has_908033 | Shopify + eBay via Marketplace Connect
+
+CUSTOMER HANDLING:
+- Walk-in: highest quality lead — they're already there, close don't convince
+- Phone: never give firm price, always a range, push for appointment
+- Lead (web/FB/IG): call immediately, 90% won't answer — leave voicemail and keep trying
+- Offer Uber pickup for high-value leads who can't come in
+- Always ask for Google review at the end of every transaction
+- Always hand a flyer and ask "do you have anything else at home?"
+
+CONDITION GRADING:
+Grade A — perfect or near perfect, minor wear only
+Grade B — visible scratches/scuffs, fully functional
+Grade C — heavy wear, may have minor functional issues
+Grade D — significant damage, parts or heavy repair needed
+DOA — dead on arrival, does not power on
+
+ANSWER FORMAT:
+Be direct and practical. Use bullet points only when listing steps or rules.
+If it is a pricing question — give the number.
+If it is a process question — give the steps.
+If it is a script/what to say question — give exact words they can use.
+If you don't know something specific — say so and give the closest guidance you have.
+Keep answers short and actionable. This is a busy store floor.`;
+
 async function getPrice(){
   const product=document.getElementById('product').value.trim();
   const costEl=document.getElementById('cost');
@@ -862,6 +973,7 @@ async function getPrice(){
   const b=role==='buyer';
   const isPh=role==='phone';
   const isPk=role==='packer';
+  const isAk=role==='ask';
   const isRebuttal=b&&buyerMode==='rebuttal';
   const btn=document.getElementById('gobtn');
   btn.disabled=true;btn.innerHTML='<div class="spin"></div> '+(isRebuttal?'Getting rebuttals…':b?'Getting offers…':'Pricing…');
@@ -879,6 +991,8 @@ async function getPrice(){
       content.push({type:'text',text:'PHONE CALL: Customer wants to sell: '+product+(cost?'\nThey mentioned: $'+cost:'')+'\nSearch eBay sold for this item first, then give range and scripts to get them in today.'});
     } else if(isPk){
       content.push({type:'text',text:'PACKING & SHIPPING: '+product+(cost?'\nSale value: $'+cost:'')+'\nGive exact box size, carrier, special handling, pre-ship checklist, and estimated cost.'});
+    } else if(isAk){
+      content.push({type:'text',text:'EMPLOYEE QUESTION: '+product+'\nAnswer directly and practically. Give exact steps, numbers, or scripts as needed.'});
     } else {
       content.push({type:'text',text:(b?'BUYING':'LISTING')+': '+product+(cost?'\n'+(b?'Customer asking':'SYG paid')+': $'+cost:'')});
     }
@@ -887,8 +1001,8 @@ async function getPrice(){
     const apiKey = localStorage.getItem('thoku_api_key') || '';
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
-    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:(b?BUYER_SYS:LISTER_SYS);
-    const reqBody = JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,system:sys,messages:[{role:'user',content}]});
+    const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:isAk?ASK_SYS:(b?BUYER_SYS:LISTER_SYS);
+    const reqBody = JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:sys,messages:[{role:'user',content}]});
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       mode:'cors',
@@ -916,12 +1030,13 @@ async function getPrice(){
     if(isRebuttal)renderRebuttal(text);
     else if(isPh)renderPhone(text);
     else if(isPk)renderPacker(text);
+    else if(isAk)renderAsk(text);
     else if(b)renderBuyer(text);
     else renderLister(text);
   }catch(e){
     result.innerHTML=`<div class="dark-wrap" style="color:#f87171;font-size:13px">Connection failed. Please try again.</div>`;
   }
-  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':isPk?'📦 Get packing guide':b?'💰 Get 3 offers':'🏷️ Get list price';
+  btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':isPk?'📦 Get packing guide':isAk?'🧠 Ask Thoku':b?'💰 Get 3 offers':'🏷️ Get list price';
 }
 
 function renderBuyer(text){
@@ -1279,6 +1394,282 @@ function renderPacker(text){
   result.innerHTML=h;
   result.scrollIntoView({behavior:'smooth',block:'start'});
 }
+function renderAsk(text){
+  const result=document.getElementById('result');
+  const lines=text.split('\n');
+  let h='<div class="bridge"></div><div class="dark-wrap fade">';
+  
+  lines.forEach(function(l){
+    l=l.trim();
+    if(!l){h+='<div style="height:6px"></div>';return;}
+    
+    // Headers (bold lines or ALL CAPS short lines)
+    if((l.startsWith('**')&&l.endsWith('**'))||(/^[A-Z][A-Z\s&\/\-]{3,}:$/.test(l))){
+      var clean=l.replace(/\*\*/g,'').replace(/:$/,'');
+      h+='<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:#38bdf8;margin:14px 0 6px">'+clean+'</div>';
+      return;
+    }
+    // Bullet points
+    if(l.startsWith('•')||l.startsWith('-')||l.startsWith('*')){
+      var item=l.replace(/^[•\-\*]\s*/,'').replace(/\*\*/g,'<strong>').replace(/\*\*/g,'</strong>');
+      h+='<div style="display:flex;gap:8px;margin-bottom:5px;align-items:flex-start"><span style="color:#4ade80;flex-shrink:0;margin-top:2px">›</span><span style="font-size:13px;color:#e5e7eb;line-height:1.5">'+item+'</span></div>';
+      return;
+    }
+    // Numbered steps
+    if(/^\d+[\.\)]\s/.test(l)){
+      var num=l.match(/^(\d+)/)[1];
+      var txt=l.replace(/^\d+[\.\)]\s*/,'').replace(/\*\*/g,'<strong>').replace(/\*\*/g,'</strong>');
+      h+='<div style="display:flex;gap:10px;margin-bottom:6px;align-items:flex-start">';
+      h+='<span style="background:#0ea5e9;color:white;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono)">'+num+'</span>';
+      h+='<span style="font-size:13px;color:#e5e7eb;line-height:1.5">'+txt+'</span></div>';
+      return;
+    }
+    // Quoted scripts
+    if(l.startsWith('"')&&l.endsWith('"')){
+      h+='<div class="dcopy" onclick="copyThis(this)">'+l+'</div><div class="chint">tap to copy</div>';
+      return;
+    }
+    // Regular text — bold markdown
+    var formatted=l.replace(/\*\*([^*]+)\*\*/g,'<strong style="color:#ffffff">$1</strong>');
+    h+='<div style="font-size:13px;color:#d1d5db;line-height:1.65;margin-bottom:3px">'+formatted+'</div>';
+  });
+  
+  h+='<button id="rstbtn" onclick="resetTool()">↩ Ask another question</button></div>';
+  result.innerHTML=h;
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+const QUIZ_QUESTIONS = [
+  {
+    q: "A customer walks in with an iPhone 15 Pro Max 256GB unlocked, Grade A condition, with charger. You pull up eBay sold listings and see it's going for $580-$620. What is your PLAY 1 opening offer?",
+    options: ["$155 — 25% of $620", "$200 — feel it out first", "$310 — split the difference", "$125 — start even lower to anchor"],
+    correct: 0,
+    explain: "Play 1 is always 20-25% of resell. At $600 avg resell: $600 × 25% = $150. $155 is correct. Never open higher — it anchors negotiation in your favor."
+  },
+  {
+    q: "After every transaction, what is the LAST thing you must do before the customer walks out the door?",
+    options: ["Hand them a flyer and ask if they have more to sell", "Count the cash out loud in front of them", "Ask for a Google review AND hand them the flyer", "Bag the items and place them in the correct bin"],
+    correct: 2,
+    explain: "You must do BOTH — ask for the Google review AND hand the flyer. Always ask 'do you have anything else at home?' Reviews drive customers, flyers drive inventory. Neither is optional."
+  },
+  {
+    q: "You're sending an iPhone 14 Pro that sold for $340. Which carrier and what special requirements apply?",
+    options: ["USPS, no special requirements", "UPS, add signature confirmation", "USPS, add signature confirmation", "UPS, add insurance + signature"],
+    correct: 3,
+    explain: "$340 = over $120 (use UPS) AND over $300 (requires signature) AND over $100 (add insurance). All three rules trigger. UPS + insurance + signature."
+  },
+  {
+    q: "Customer says: 'The other place offered me more money.' What is the correct SYG response?",
+    options: ["Match their offer immediately to keep the customer", "Ask how much the other place offered", "Tell them to take it — then explain SYG's advantages without chasing the number", "Offer Play 2 immediately to compete"],
+    correct: 2,
+    explain: "Official script: 'Then you should take it. If they're offering more and you trust them, go for it. What I can tell you is we pay cash on the spot, no games.' 9/10 times they stay. Never chase a number that doesn't work."
+  },
+  {
+    q: "A customer brings in a PS5 disc edition, no cables, one controller. eBay sold shows $350-$375. What is your MAXIMUM offer (Play 3 ceiling)?",
+    options: ["$200", "$180", "$210", "$225"],
+    correct: 2,
+    explain: "Play 3 ceiling = 55-60% of resell. At $360 avg: $360 × 58% = $209. Round to $210. Going above $210 means you're above 60% — never exceed this or you lose money after costs."
+  },
+  {
+    q: "Before you inspect, discuss, or price ANY device — what must happen first, with zero exceptions?",
+    options: ["Check eBay sold listings to know your number", "Complete the full customer check-in: ID, photo, phone number in system", "Ask the customer what they're hoping to get", "Test the device to verify it powers on"],
+    correct: 1,
+    explain: "Check-in is NON-NEGOTIABLE before touching the device. ID type & number, first & last name, date of birth, address, phone, email, photo of customer. This protects the business legally. No shortcuts ever."
+  },
+  {
+    q: "An iPhone 13 128GB has: cracked back, 82% battery, no charger. Perfect condition would sell for $220. What is the correct adjusted sell value?",
+    options: ["$154 (cracked back -12%, battery -10%, no charger -5%)", "$132 (cracked back -25%, no charger -15%)", "$143 (cracked back -12%, battery -15%, no charger -8%)", "$176 (cracked back -12%, no charger -8%)"],
+    correct: 0,
+    explain: "$220 base. Cracked back = -12% (-$26 = $194). Battery 82% = -10% (-$19 = $175). Missing charger = -5% (-$9 = $166). Rounded = ~$154-$166. Option A is closest at $154 applying all three deductions correctly."
+  },
+  {
+    q: "You're on the phone with a customer who says 'Just give me an exact price for my iPhone 14 Pro.' What do you do?",
+    options: ["Give them your Play 1 offer to lock them in", "Refuse to give any number and just get them in", "Give a range based on eBay comps and push for an appointment", "Tell them to come in and you'll match any competitor"],
+    correct: 2,
+    explain: "Never give a firm price over the phone — you haven't seen condition, storage, accessories. Give a range: 'Based on what I'm seeing, typically $200-$320 depending on condition.' Then: 'Can I put you down for 2 o'clock?' A customer with an appointment is 2x more likely to show."
+  },
+  {
+    q: "What is SYG's total cost structure as a percentage of every sale — and what does that leave as net margin BEFORE paying the customer?",
+    options: ["eBay 20% + royalty 10% = 30% out, 70% margin before customer", "eBay 17% + royalty 10% + fixed 25% + spillage 12% = 64% out, 18-20% net margin", "eBay 17% + royalty 10% = 27% out, 73% margin before customer", "eBay 20% + royalty 15% + overhead 20% = 55% out, 45% margin"],
+    correct: 1,
+    explain: "Full cost structure: eBay fees 17% + royalty 10% + fixed costs (rent/payroll/ops) 25% + spillage 10-12% = 64-67% out. Only 18-20% remains BEFORE paying the customer. This is why overpaying kills the deal — every dollar over max comes from that thin margin."
+  },
+  {
+    q: "You just paid a customer $150 for an iPhone 13 128GB (eBay sell price $220). What is SYG's actual profit on this deal after ALL costs?",
+    options: ["$70 — the difference between sell and buy price", "$11 — after 27% eBay and royalty fees only", "$10.60 — after full cost structure of ~67%", "SYG loses money on this deal"],
+    correct: 2,
+    explain: "$220 sell × 0.73 (after 27% eBay+royalty) = $160.60 kept. Minus $150 paid = $10.60 net profit. And that's BEFORE fixed costs (rent, payroll). This deal is barely worth it — illustrates why buying at Play 3 on a $220 phone is dangerous."
+  }
+];
+
+let quizState = {
+  current: 0,
+  score: 0,
+  answers: [],
+  name: '',
+  started: false
+};
+
+function startQuiz() {
+  quizState = { current: 0, score: 0, answers: [], name: '', started: false };
+  document.getElementById('role-screen').style.display = 'none';
+  document.getElementById('main').style.display = 'none';
+  const qs = document.getElementById('quiz-screen');
+  qs.style.display = 'flex';
+  qs.style.flexDirection = 'column';
+  renderQuizIntro();
+}
+
+function renderQuizIntro() {
+  const qs = document.getElementById('quiz-screen');
+  qs.innerHTML = `
+    <div style="padding:28px 20px;flex:1;display:flex;flex-direction:column">
+      <div style="width:48px;height:48px;background:#fef9c3;border:1.5px solid #fde047;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px">🎯</div>
+      <div style="font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:8px">SYG Employee Quiz</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:6px;line-height:1.6">10 questions. Covers pricing, buying, check-in, shipping, negotiation, and cost structure.</div>
+      <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 13px;font-size:12px;color:#991b1b;margin-bottom:20px;line-height:1.5">
+        ⚠️ Difficulty: 9/10 — These are real scenarios from the floor. You must score 8/10 or higher to pass.
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em">Your name</div>
+      <input type="text" id="quiz-name" placeholder="Enter your name to begin" style="width:100%;padding:11px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--text);font-family:var(--font);margin-bottom:14px">
+      <button onclick="beginQuiz()" style="width:100%;padding:14px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;background:#854d0e;color:white;font-family:var(--font)">Start Quiz →</button>
+      <button onclick="backToHome()" style="width:100%;padding:11px;margin-top:10px;border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;cursor:pointer;background:var(--white);color:var(--text2);font-family:var(--font)">↩ Back</button>
+    </div>`;
+}
+
+function beginQuiz() {
+  const name = document.getElementById('quiz-name').value.trim();
+  if (!name) { document.getElementById('quiz-name').focus(); return; }
+  quizState.name = name;
+  quizState.started = true;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qs = document.getElementById('quiz-screen');
+  const q = QUIZ_QUESTIONS[quizState.current];
+  const total = QUIZ_QUESTIONS.length;
+  const pct = Math.round((quizState.current / total) * 100);
+
+  qs.innerHTML = `
+    <div style="padding:16px 20px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-size:11px;font-family:var(--mono);color:var(--text2)">Q${quizState.current + 1} of ${total} · ${quizState.name}</div>
+        <div style="font-size:11px;font-family:var(--mono);color:#854d0e;font-weight:600">${quizState.score} correct</div>
+      </div>
+      <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:#854d0e;border-radius:3px;transition:width 0.3s"></div>
+      </div>
+    </div>
+    <div style="padding:20px;flex:1;overflow-y:auto">
+      <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:18px">${q.q}</div>
+      <div id="options-container">
+        ${q.options.map((opt, i) => `
+          <button onclick="selectAnswer(${i})" id="opt-${i}" style="width:100%;padding:13px 15px;margin-bottom:10px;border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;cursor:pointer;background:var(--white);color:var(--text);font-family:var(--font);text-align:left;line-height:1.4;transition:all 0.15s">
+            <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-right:8px">${String.fromCharCode(65+i)}.</span>${opt}
+          </button>`).join('')}
+      </div>
+      <div id="feedback-box" style="display:none"></div>
+    </div>`;
+}
+
+function selectAnswer(idx) {
+  const q = QUIZ_QUESTIONS[quizState.current];
+  const isCorrect = idx === q.correct;
+  if (isCorrect) quizState.score++;
+  quizState.answers.push({ q: quizState.current, chosen: idx, correct: isCorrect });
+
+  // Disable all buttons
+  q.options.forEach((_, i) => {
+    const btn = document.getElementById('opt-' + i);
+    if (!btn) return;
+    btn.style.cursor = 'default';
+    btn.onclick = null;
+    if (i === q.correct) {
+      btn.style.background = '#f0fdf4';
+      btn.style.borderColor = '#16a34a';
+      btn.style.color = '#15803d';
+    } else if (i === idx && !isCorrect) {
+      btn.style.background = '#fef2f2';
+      btn.style.borderColor = '#dc2626';
+      btn.style.color = '#991b1b';
+    }
+  });
+
+  const fb = document.getElementById('feedback-box');
+  if (fb) {
+    fb.style.display = 'block';
+    fb.innerHTML = `
+      <div style="background:${isCorrect ? '#f0fdf4' : '#fef2f2'};border:1px solid ${isCorrect ? '#bbf7d0' : '#fecaca'};border-radius:var(--r);padding:12px 14px;margin-top:4px">
+        <div style="font-size:13px;font-weight:700;color:${isCorrect ? '#15803d' : '#991b1b'};margin-bottom:5px">${isCorrect ? '✓ Correct' : '✗ Wrong'}</div>
+        <div style="font-size:12.5px;color:${isCorrect ? '#166534' : '#7f1d1d'};line-height:1.6">${q.explain}</div>
+      </div>
+      <button onclick="nextQuestion()" style="width:100%;padding:13px;margin-top:12px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;background:#0ea5e9;color:white;font-family:var(--font)">
+        ${quizState.current + 1 < QUIZ_QUESTIONS.length ? 'Next question →' : 'See my results →'}
+      </button>`;
+  }
+}
+
+function nextQuestion() {
+  quizState.current++;
+  if (quizState.current >= QUIZ_QUESTIONS.length) {
+    renderResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function renderResults() {
+  const qs = document.getElementById('quiz-screen');
+  const score = quizState.score;
+  const total = QUIZ_QUESTIONS.length;
+  const passed = score >= 8;
+  const pct = Math.round((score / total) * 100);
+
+  let grade, color, bg, border, msg;
+  if (score === 10) { grade = 'PERFECT'; color = '#15803d'; bg = '#f0fdf4'; border = '#bbf7d0'; msg = 'Outstanding. You know SYG inside out. Hit the floor.'; }
+  else if (score === 9) { grade = 'EXCELLENT'; color = '#0369a1'; bg = '#f0f9ff'; border = '#bae6fd'; msg = 'Sharp. One slip but you know your stuff. You are ready.'; }
+  else if (score === 8) { grade = 'PASSED'; color = '#854d0e'; bg = '#fef9c3'; border = '#fde047'; msg = 'You passed — but review the questions you missed before your first shift.'; }
+  else if (score === 7) { grade = 'CLOSE'; color = '#92400e'; bg = '#fff7ed'; border = '#fed7aa'; msg = 'Almost. Study the mistakes, especially pricing math and cost structure. Retake when ready.'; }
+  else { grade = 'FAILED'; color = '#991b1b'; bg = '#fef2f2'; border = '#fecaca'; msg = 'You need more study time before the floor. Go through the SYG Buying Guide and try again.'; }
+
+  let wrongList = quizState.answers.filter(a => !a.correct).map(a => {
+    const q = QUIZ_QUESTIONS[a.q];
+    return `<div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:8px">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:5px;line-height:1.4">${q.q}</div>
+      <div style="font-size:11px;color:#991b1b;margin-bottom:3px"><strong>You chose:</strong> ${q.options[a.chosen]}</div>
+      <div style="font-size:11px;color:#15803d;margin-bottom:4px"><strong>Correct:</strong> ${q.options[q.correct]}</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.5">${q.explain}</div>
+    </div>`;
+  }).join('');
+
+  qs.innerHTML = `
+    <div style="padding:28px 20px;flex:1">
+      <div style="background:${bg};border:2px solid ${border};border-radius:16px;padding:20px;text-align:center;margin-bottom:20px">
+        <div style="font-size:11px;font-family:var(--mono);letter-spacing:0.1em;color:${color};margin-bottom:6px">${quizState.name}</div>
+        <div style="font-size:48px;font-weight:800;color:${color};letter-spacing:-2px;line-height:1">${score}/${total}</div>
+        <div style="font-size:14px;font-weight:700;color:${color};margin:6px 0">${grade}</div>
+        <div style="font-size:12.5px;color:${color};opacity:0.8;line-height:1.5">${msg}</div>
+      </div>
+      
+      ${passed ? `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:11px 13px;margin-bottom:16px;font-size:12.5px;color:#15803d;line-height:1.5">
+        ✓ <strong>Quiz passed.</strong> Show this screen to your manager before starting your first shift.
+      </div>` : `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:11px 13px;margin-bottom:16px;font-size:12.5px;color:#991b1b;line-height:1.5">
+        ✗ <strong>Not yet.</strong> Study the SYG Buying Guide, then retake. You need 8/10 to work the floor.
+      </div>`}
+
+      ${wrongList ? `<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);color:var(--text2);margin-bottom:10px">Questions you missed</div>${wrongList}` : ''}
+
+      <button onclick="startQuiz()" style="width:100%;padding:13px;margin-top:8px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;background:#854d0e;color:white;font-family:var(--font)">Retake Quiz</button>
+      <button onclick="backToHome()" style="width:100%;padding:11px;margin-top:10px;border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;cursor:pointer;background:var(--white);color:var(--text2);font-family:var(--font)">↩ Back to Thoku</button>
+    </div>`;
+}
+
+function backToHome() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('role-screen').style.display = 'flex';
+}
+
 function resetTool(){
   photos.length=0;photoData.length=0;
   document.getElementById('product').value='';
