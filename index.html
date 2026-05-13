@@ -38,23 +38,24 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 #shell{min-height:100vh;display:flex;flex-direction:column;max-width:480px;margin:0 auto;padding-bottom:0;}
 
 /* HEADER */
-#header{padding:14px 20px;display:flex;align-items:center;gap:10px;background:#0c1a2e;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:10;}
-#header h1{color:white !important;}
-#header p{color:rgba(255,255,255,0.45) !important;}
+#header{display:none;}
+#header h1{color:var(--text) !important;font-size:16px;font-weight:800;letter-spacing:-0.3px;}
+#header p{color:var(--text3) !important;font-size:10.5px;}
 #logo{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 #header h1{font-size:17px;font-weight:800;color:var(--text);}
 #header p{font-size:11px;color:var(--text3);margin-top:1px;}
 #badges{margin-left:auto;display:flex;gap:5px;}
 .badge{font-size:10px;padding:3px 9px;border-radius:20px;font-family:var(--mono);font-weight:500;white-space:nowrap;}
-.bg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
-.bd{background:var(--bg);color:var(--text2);border:1px solid var(--border);}
+.bg{background:#e6f9f0;color:#00875a;border:1px solid #b3f0d6;font-weight:600;}
+.bd{background:var(--bg);color:var(--text2);border:1px solid var(--border);font-weight:600;}
 
 /* ROLE SCREEN */
 #role-screen{padding:0;flex:1;display:flex;flex-direction:column;background:var(--bg);}
 #role-screen h2{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;}
 #role-screen p{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;}
-.rbtn{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);cursor:pointer;margin-bottom:10px;text-align:left;width:100%;transition:all 0.15s;}
-.rbtn:hover{border-color:var(--sky);background:var(--sky-light);transform:translateY(-1px);}
+.rbtn{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);cursor:pointer;margin-bottom:10px;text-align:left;width:100%;transition:all 0.18s;box-shadow:var(--shadow-sm);}
+.rbtn:hover{border-color:var(--sky);background:var(--sky-light);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.rbtn:active{transform:translateY(0);}
 .ricon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 .ri-b{background:#f0fdf4;}.ri-l{background:var(--sky-light);}
 .rtitle{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
@@ -63,7 +64,7 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 
 /* MAIN */
 #main{display:none;flex-direction:column;flex:1;}
-#mode-bar{padding:8px 20px;display:flex;align-items:center;gap:8px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:65px;z-index:9;}
+#mode-bar{padding:10px 20px;display:flex;align-items:center;gap:8px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:9;box-shadow:var(--shadow-sm);}
 #mode-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-family:var(--mono);font-weight:500;}
 .mb-b{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
 .mb-l{background:var(--sky-light);color:var(--sky-dark);border:1px solid var(--sky-mid);}
@@ -73,16 +74,16 @@ html,body{min-height:100%;background:#0d1117;color:var(--text);font-family:var(-
 .mb-script{background:#fff0f6;color:#9d174d;border:1px solid #fbcfe8;}
 .mb-quiz{background:#fef9c3;color:#854d0e;border:1px solid #fde047;}
 #mode-desc{font-size:11px;color:var(--text3);}
-#sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:none;border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-family:var(--font);transition:all 0.15s;}
-#sw:hover{border-color:var(--sky);color:var(--sky);}
+#sw{margin-left:auto;font-size:11px;color:var(--text2);cursor:pointer;background:var(--bg);border:1.5px solid var(--border);padding:5px 13px;border-radius:20px;font-family:var(--font);font-weight:600;transition:all 0.15s;box-shadow:var(--shadow-sm);}
+#sw:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light);}
 
 /* FORM */
-#body{padding:20px;background:#ffffff;}
+#body{padding:20px;background:var(--white);}
 .field{margin-bottom:14px;}
-.flabel{font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text2);font-family:var(--mono);margin-bottom:6px;display:block;}
+.flabel{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);font-family:var(--mono);margin-bottom:7px;display:block;}
 .flabel span{font-weight:400;text-transform:none;letter-spacing:0;color:var(--text3);}
-textarea,input[type=text]{width:100%;padding:11px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--text);font-family:var(--font);resize:none;line-height:1.5;transition:border-color 0.15s;}
-textarea:focus,input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(14,165,233,0.08);}
+textarea,input[type=text],input[type=tel]{width:100%;padding:12px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);font-size:13.5px;color:var(--text);font-family:var(--font);resize:none;line-height:1.5;transition:all 0.15s;box-shadow:var(--shadow-sm);}
+textarea:focus,input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(0,102,255,0.10);}
 textarea::placeholder,input::placeholder{color:var(--text3);}
 
 /* PHOTOS */
@@ -96,31 +97,32 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 .aphoto span{font-size:9px;color:var(--text3);font-family:var(--mono);}
 
 /* GO BUTTON */
-#gobtn{width:100%;padding:14px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font);transition:all 0.15s;margin-top:4px;background:var(--sky);color:white;box-shadow:0 2px 8px rgba(14,165,233,0.25);}
-#gobtn:hover{background:var(--sky-dark);box-shadow:0 4px 14px rgba(14,165,233,0.35);transform:translateY(-1px);}
-#gobtn:disabled{background:var(--border);color:var(--text3);box-shadow:none;transform:none;cursor:not-allowed;}
+#gobtn{width:100%;padding:15px;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font);transition:all 0.18s;margin-top:6px;background:var(--sky);color:white;box-shadow:0 4px 14px rgba(0,102,255,0.30),0 1px 3px rgba(0,102,255,0.20);letter-spacing:-0.1px;}
+#gobtn:hover{background:var(--sky-dark);box-shadow:0 6px 20px rgba(0,102,255,0.38);transform:translateY(-1px);}
+#gobtn:active{transform:translateY(0);box-shadow:0 2px 8px rgba(0,102,255,0.25);}
+#gobtn:disabled{background:#c8d6e8;color:#8fa3be;box-shadow:none;transform:none;cursor:not-allowed;}
 
 /* RESULT — DARK SECTION */
 #result{display:none;}
-.bridge{height:36px;background:linear-gradient(to bottom,#ffffff,#0d1117);}.dark-wrap{background:#0d1117;padding:20px 20px 48px;}
+.bridge{height:48px;background:linear-gradient(to bottom,var(--bg),#08101e);}.dark-wrap{background:#08101e;padding:22px 20px 52px;}
 
 /* Sell value */
 .sv-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
 .sv-label{font-size:11px;color:#6b7280;font-family:var(--mono);font-weight:500;}
 .sv-note{font-size:10px;color:#4b5563;font-family:var(--mono);margin-top:3px;max-width:200px;line-height:1.45;}
-.sv-num{font-size:38px;font-weight:800;color:#ffffff;letter-spacing:-2px;flex-shrink:0;margin-left:12px;}
+.sv-num{font-size:40px;font-weight:800;color:#ffffff;letter-spacing:-2px;flex-shrink:0;margin-left:12px;text-shadow:0 2px 12px rgba(0,102,255,0.3);}
 
 /* Offer cards */
 .ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
-.ocard{border-radius:14px;padding:16px 10px;text-align:center;border:1.5px solid;position:relative;transition:transform 0.15s;}
-.ocard:hover{transform:translateY(-2px);}
+.ocard{border-radius:16px;padding:18px 10px;text-align:center;border:1.5px solid;position:relative;transition:all 0.18s;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.ocard:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
 .og{background:#0a1a0e;border-color:#166534;}
 .ob{background:#0a1628;border-color:#0ea5e9;border-width:2px;}
 .oa{background:#1a1200;border-color:#92400e;}
 .rec-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#7c3aed;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:var(--mono);white-space:nowrap;letter-spacing:0.04em;}
 .otag{font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-family:var(--mono);margin-bottom:7px;}
 .og .otag{color:#4ade80;}.ob .otag{color:#38bdf8;}.oa .otag{color:#fbbf24;}
-.oprice{font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:5px;}
+.oprice{font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:6px;}
 .og .oprice{color:#4ade80;}.ob .oprice{color:#a78bfa;}.oa .oprice{color:#fbbf24;}
 .oprofit{font-size:11px;font-family:var(--mono);margin-bottom:2px;}
 .og .oprofit{color:#4ade80;}.ob .oprofit{color:#a78bfa;}.oa .oprofit{color:#fbbf24;}
@@ -129,7 +131,7 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 .owhy{font-size:10px;color:#9ca3af;margin-top:8px;line-height:1.5;}
 
 /* Dark alerts */
-.dal{border-radius:12px;padding:11px 13px;display:flex;gap:9px;margin-bottom:8px;line-height:1.6;font-size:12.5px;align-items:flex-start;border:1px solid;}
+.dal{border-radius:14px;padding:13px 15px;display:flex;gap:10px;margin-bottom:8px;line-height:1.6;font-size:12.5px;align-items:flex-start;border:1px solid;box-shadow:0 1px 4px rgba(0,0,0,0.15);}
 .dal-ok{background:#0a1f0a;border-color:#166534;color:#4ade80;}
 .dal-warn{background:#1a1200;border-color:#92400e;color:#fbbf24;}
 .dal-err{background:#1a0505;border-color:#991b1b;color:#f87171;}
@@ -145,16 +147,16 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 .dsl{font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6b7280;font-family:var(--mono);margin:14px 0 6px;display:block;}
 .dline{font-size:13px;color:#e5e7eb;padding:3px 0;line-height:1.6;}
 .dmuted{font-size:12px;color:#6b7280;padding:3px 0;font-family:var(--mono);}
-.dcopy{background:#111827;border:1px solid #1f2937;border-radius:10px;padding:11px 13px;font-size:11.5px;font-family:var(--mono);line-height:1.65;cursor:pointer;color:#9ca3af;white-space:pre-wrap;word-break:break-word;transition:all 0.15s;}
-.dcopy:hover{border-color:#0ea5e9;color:#e5e7eb;}
+.dcopy{background:#0d1520;border:1.5px solid #1e2d3d;border-radius:12px;padding:13px 15px;font-size:11.5px;font-family:var(--mono);line-height:1.7;cursor:pointer;color:#8fa3be;white-space:pre-wrap;word-break:break-word;transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.2);}
+.dcopy:hover{border-color:#0066ff;color:#e2eaf5;box-shadow:0 2px 8px rgba(0,102,255,0.15);}
 .chint{font-size:10px;color:#4b5563;margin-top:4px;margin-bottom:8px;font-family:var(--mono);}
 
-#rstbtn{width:100%;padding:12px;margin-top:12px;border:1px solid #1f2937;border-radius:12px;font-size:13px;cursor:pointer;background:#111827;color:#6b7280;font-family:var(--font);transition:all 0.15s;}
-#rstbtn:hover{border-color:#0ea5e9;color:#0ea5e9;background:#0a1628;}
+#rstbtn{width:100%;padding:13px;margin-top:14px;border:1.5px solid #1e2d3d;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;background:#0d1520;color:#4a6484;font-family:var(--font);transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.2);}
+#rstbtn:hover{border-color:#0066ff;color:#0066ff;background:#080f1a;}
 
 .spin{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);border-top-color:white;animation:sp .7s linear infinite;flex-shrink:0;}
-.spinc{width:24px;height:24px;border-radius:50%;border:2px solid #1f2937;border-top-color:#0ea5e9;animation:sp .7s linear infinite;margin:0 auto 12px;}
-#loading{background:#0d1117;padding:40px;text-align:center;color:#6b7280;font-size:13px;}
+.spinc{width:28px;height:28px;border-radius:50%;border:2.5px solid #1e2d3d;border-top-color:#0066ff;animation:sp .7s linear infinite;margin:0 auto 14px;}
+#loading{background:#08101e;padding:44px;text-align:center;color:#4a6484;font-size:13px;}
 @keyframes sp{to{transform:rotate(360deg);}}
 @keyframes up{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .fade{animation:up 0.25s ease forwards;}
@@ -175,6 +177,9 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 .api-saved{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:12px;}
 
 .role-grid-btn:hover{border-color:var(--sky) !important;transform:translateY(-2px);box-shadow:0 4px 12px rgba(14,165,233,0.1) !important;}
+
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+button:hover .role-accent{opacity:0.8;}
 </style>
 </head>
 <body>
@@ -262,115 +267,97 @@ textarea::placeholder,input::placeholder{color:var(--text3);}
 <div id="quiz-screen" style="display:none;flex-direction:column;flex:1;background:#ffffff;">
 </div>
 <div id="role-screen">
-  <!-- Hero banner -->
-  <div style="background:linear-gradient(135deg,#0c1a2e 0%,#0f2744 60%,#0a1628 100%);padding:28px 20px 24px;margin-bottom:0">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-      <div style="width:56px;height:56px;border-radius:16px;overflow:hidden;flex-shrink:0;box-shadow:0 4px 16px rgba(14,165,233,0.4)">
-        <svg width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="200" rx="18" fill="#0ea5e9"/>
-          <g transform="translate(100,105)">
-            <path d="M-48 20 Q-50 75 -45 85 L45 85 Q50 75 48 20 Q28 34 0 33 Q-28 34 -48 20Z" fill="#1e293b"/>
-            <path d="M-12 22 L0 33 L12 22 L9 85 L-9 85Z" fill="#f8fafc"/>
-            <path d="M-5 26 L5 26 L7 52 L0 60 L-7 52Z" fill="#38bdf8"/>
-            <path d="M-3 25 L3 25 L5 29 L0 32 L-5 29Z" fill="#0369a1"/>
-            <path d="M-48 20 Q-28 34 -12 22 L-14 14 Q-30 22 -48 10Z" fill="#0f172a"/>
-            <path d="M48 20 Q28 34 12 22 L14 14 Q30 22 48 10Z" fill="#0f172a"/>
-            <rect x="-8" y="8" width="16" height="16" rx="5" fill="#c8a882"/>
-            <ellipse cx="-26" cy="-4" rx="7" ry="9" fill="#c8a882"/>
-            <ellipse cx="26" cy="-4" rx="7" ry="9" fill="#c8a882"/>
-            <ellipse cx="0" cy="-14" rx="34" ry="38" fill="#c8a882"/>
-            <ellipse cx="0" cy="10" rx="26" ry="13" fill="#c8a882"/>
-            <path d="M-34 -28 Q-30 -58 0 -60 Q30 -58 34 -28 Q20 -44 0 -46 Q-20 -44 -34 -28Z" fill="#1a1a1a"/>
-            <path d="M-34 -28 Q-38 -12 -34 4 Q-32 -8 -30 -24Z" fill="#1a1a1a"/>
-            <path d="M34 -28 Q38 -12 34 4 Q32 -8 30 -24Z" fill="#1a1a1a"/>
-            <ellipse cx="0" cy="-22" rx="28" ry="16" fill="#c8a882"/>
-            <path d="M-20 -34 Q-13 -38 -6 -36" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M6 -36 Q13 -38 20 -34" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <ellipse cx="-13" cy="-24" rx="8" ry="6" fill="white"/>
-            <ellipse cx="13" cy="-24" rx="8" ry="6" fill="white"/>
-            <ellipse cx="-13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/>
-            <ellipse cx="13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/>
-            <ellipse cx="-12" cy="-23" rx="2.5" ry="2.5" fill="#050505"/>
-            <ellipse cx="14" cy="-23" rx="2.5" ry="2.5" fill="#050505"/>
-            <circle cx="-11" cy="-25" r="1.2" fill="white"/>
-            <circle cx="15" cy="-25" r="1.2" fill="white"/>
-            <path d="M-10 10 Q0 18 10 10" stroke="#6b3a20" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-            <path d="M-48 20 Q-60 42 -56 80 Q-48 83 -40 80 Q-38 46 -32 26Z" fill="#1e293b"/>
-            <path d="M48 20 Q60 42 56 80 Q48 83 40 80 Q38 46 32 26Z" fill="#1e293b"/>
-          </g>
-        </svg>
+  <!-- Compact premium hero -->
+  <div style="background:linear-gradient(160deg,#061428 0%,#0a1f3d 50%,#071830 100%);padding:22px 20px 20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:44px;height:44px;border-radius:13px;overflow:hidden;flex-shrink:0;box-shadow:0 4px 16px rgba(0,102,255,0.4);">
+          <svg width="44" height="44" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" rx="18" fill="#0066ff"/><g transform="translate(100,105)"><path d="M-48 20 Q-50 75 -45 85 L45 85 Q50 75 48 20 Q28 34 0 33 Q-28 34 -48 20Z" fill="#1e293b"/><path d="M-12 22 L0 33 L12 22 L9 85 L-9 85Z" fill="#f8fafc"/><path d="M-5 26 L5 26 L7 52 L0 60 L-7 52Z" fill="#60a5fa"/><path d="M-3 25 L3 25 L5 29 L0 32 L-5 29Z" fill="#1d4ed8"/><path d="M-48 20 Q-28 34 -12 22 L-14 14 Q-30 22 -48 10Z" fill="#0f172a"/><path d="M48 20 Q28 34 12 22 L14 14 Q30 22 48 10Z" fill="#0f172a"/><rect x="-8" y="8" width="16" height="16" rx="5" fill="#c8a882"/><ellipse cx="-26" cy="-4" rx="7" ry="9" fill="#c8a882"/><ellipse cx="26" cy="-4" rx="7" ry="9" fill="#c8a882"/><ellipse cx="0" cy="-14" rx="34" ry="38" fill="#c8a882"/><ellipse cx="0" cy="10" rx="26" ry="13" fill="#c8a882"/><path d="M-34 -28 Q-30 -58 0 -60 Q30 -58 34 -28 Q20 -44 0 -46 Q-20 -44 -34 -28Z" fill="#1a1a1a"/><path d="M-34 -28 Q-38 -12 -34 4 Q-32 -8 -30 -24Z" fill="#1a1a1a"/><path d="M34 -28 Q38 -12 34 4 Q32 -8 30 -24Z" fill="#1a1a1a"/><ellipse cx="0" cy="-22" rx="28" ry="16" fill="#c8a882"/><path d="M-20 -34 Q-13 -38 -6 -36" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M6 -36 Q13 -38 20 -34" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="-13" cy="-24" rx="8" ry="6" fill="white"/><ellipse cx="13" cy="-24" rx="8" ry="6" fill="white"/><ellipse cx="-13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/><ellipse cx="13" cy="-23" rx="5" ry="5" fill="#2a1a0a"/><ellipse cx="-12" cy="-23" rx="2.5" ry="2.5" fill="#050505"/><ellipse cx="14" cy="-23" rx="2.5" ry="2.5" fill="#050505"/><circle cx="-11" cy="-25" r="1.2" fill="white"/><circle cx="15" cy="-25" r="1.2" fill="white"/><path d="M-10 10 Q0 18 10 10" stroke="#6b3a20" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M-48 20 Q-60 42 -56 80 Q-48 83 -40 80 Q-38 46 -32 26Z" fill="#1e293b"/><path d="M48 20 Q60 42 56 80 Q48 83 40 80 Q38 46 32 26Z" fill="#1e293b"/></g></svg>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:800;color:white;letter-spacing:-0.5px;line-height:1.1">Thoku</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;letter-spacing:0.02em">SYG First Digital Employee · G4ME</div>
+        </div>
       </div>
-      <div>
-        <div style="font-size:24px;font-weight:800;color:white;letter-spacing:-0.5px;line-height:1">Thoku</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px">SYG First Digital Employee · Trained By G4ME</div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:6px">
-        <span style="font-size:10px;padding:3px 9px;border-radius:20px;font-family:var(--mono);background:rgba(0,200,83,0.15);color:#4ade80;border:1px solid rgba(0,200,83,0.3)">● Live</span>
-        <span style="font-size:10px;padding:3px 9px;border-radius:20px;font-family:var(--mono);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1)">5 stores</span>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <div style="display:flex;align-items:center;gap:5px;background:rgba(0,200,100,0.12);border:1px solid rgba(0,200,100,0.25);border-radius:20px;padding:5px 10px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#00c864;box-shadow:0 0 6px #00c864;animation:pulse 2s infinite;"></div>
+          <span style="font-size:10px;font-weight:700;color:#00c864;font-family:var(--mono)">LIVE</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:5px 10px;">
+          <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);font-family:var(--mono)">5 stores</span>
+        </div>
+        <button onclick="showApiScreen()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;width:30px;height:30px;cursor:pointer;color:rgba(255,255,255,0.4);font-size:13px;display:flex;align-items:center;justify-content:center;">⚙️</button>
       </div>
     </div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5">Who are you today and what do you need?</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.4);letter-spacing:0.01em;">Who are you today and what do you need?</div>
   </div>
 
   <!-- Role grid -->
-  <div style="padding:16px 16px 24px;background:var(--bg);flex:1">
-    <!-- Primary actions row -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <button onclick="setRole('buyer')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-        <div style="font-size:24px;margin-bottom:8px">🛒</div>
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Buyer</div>
-        <div style="font-size:11px;color:var(--text3);line-height:1.4">Customer at counter</div>
+  <div style="padding:14px 14px 24px;background:var(--bg);flex:1;">
+    <!-- 2x2 primary grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <button onclick="setRole('buyer')" style="padding:18px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:18px;cursor:pointer;text-align:left;transition:all 0.18s;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0066ff,#60a5fa);border-radius:18px 18px 0 0;"></div>
+        <div style="font-size:26px;margin-bottom:10px;margin-top:2px;">🛒</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">Buyer</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">Customer at counter</div>
       </button>
-      <button onclick="setRole('phone')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-        <div style="font-size:24px;margin-bottom:8px">📞</div>
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Phone Call</div>
-        <div style="font-size:11px;color:var(--text3);line-height:1.4">Get them in the door</div>
+      <button onclick="setRole('phone')" style="padding:18px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:18px;cursor:pointer;text-align:left;transition:all 0.18s;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00875a,#34d399);border-radius:18px 18px 0 0;"></div>
+        <div style="font-size:26px;margin-bottom:10px;margin-top:2px;">📞</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">Phone Call</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">Get them in the door</div>
       </button>
-      <button onclick="setRole('lister')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-        <div style="font-size:24px;margin-bottom:8px">🏷️</div>
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Lister</div>
-        <div style="font-size:11px;color:var(--text3);line-height:1.4">Price & list an item</div>
+      <button onclick="setRole('lister')" style="padding:18px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:18px;cursor:pointer;text-align:left;transition:all 0.18s;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:18px 18px 0 0;"></div>
+        <div style="font-size:26px;margin-bottom:10px;margin-top:2px;">🏷️</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">Lister</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">Price & list an item</div>
       </button>
-      <button onclick="setRole('packer')" style="padding:16px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-        <div style="font-size:24px;margin-bottom:8px">📦</div>
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Packer</div>
-        <div style="font-size:11px;color:var(--text3);line-height:1.4">Box size & carrier</div>
+      <button onclick="setRole('packer')" style="padding:18px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:18px;cursor:pointer;text-align:left;transition:all 0.18s;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#c47c00,#fbbf24);border-radius:18px 18px 0 0;"></div>
+        <div style="font-size:26px;margin-bottom:10px;margin-top:2px;">📦</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">Packer</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">Box size & carrier</div>
       </button>
     </div>
 
-    <!-- Secondary actions -->
-    <button onclick="setRole('ask')" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-      <div style="width:40px;height:40px;background:#f0fdf4;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🧠</div>
-      <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text)">Ask Thoku</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:1px">Any question about SYG — pricing, process, scripts</div>
+    <!-- Secondary rows — all white cards now -->
+    <button onclick="setRole('ask')" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:13px;margin-bottom:10px;box-shadow:var(--shadow-sm);transition:all 0.18s;">
+      <div style="width:42px;height:42px;background:#f0fdf6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1.5px solid #b3f0d6;">🧠</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);">Ask Thoku</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px;">Any question about SYG — pricing, process, scripts</div>
       </div>
-      <div style="margin-left:auto;color:var(--text3);font-size:18px">›</div>
+      <div style="color:var(--text3);font-size:16px;font-weight:300;">›</div>
     </button>
 
-    <button onclick="setRole('script')" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
-      <div style="width:40px;height:40px;background:#fff0f6;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎭</div>
-      <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text)">Customer Script Builder</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:1px">Describe the customer — get the exact words to say</div>
+    <button onclick="setRole('script')" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:13px;margin-bottom:10px;box-shadow:var(--shadow-sm);transition:all 0.18s;">
+      <div style="width:42px;height:42px;background:#fff0f6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1.5px solid #ffd6eb;">🎭</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);">Customer Script Builder</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px;">Describe the customer — get the exact words to say</div>
       </div>
-      <div style="margin-left:auto;color:var(--text3);font-size:18px">›</div>
+      <div style="color:var(--text3);font-size:16px;font-weight:300;">›</div>
     </button>
-  <button onclick="startShift()" style="width:100%;padding:14px 16px;background:linear-gradient(135deg,#001a2e,#002d4a);border:1.5px solid #0369a1;border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:10px">
-      <div style="width:40px;height:40px;background:rgba(14,165,233,0.15);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">☀️</div>
-      <div>
-        <div style="font-size:13px;font-weight:700;color:#38bdf8">Start My Shift</div>
-        <div style="font-size:11px;color:#0369a1;margin-top:1px">Daily briefing · tips · what to focus on today</div>
+
+    <button onclick="startShift()" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:13px;margin-bottom:10px;box-shadow:var(--shadow-sm);transition:all 0.18s;">
+      <div style="width:42px;height:42px;background:#f0f5ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1.5px solid #c7d9ff;">☀️</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);">Start My Shift</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px;">Daily briefing · tips · what to focus on today</div>
       </div>
-      <div style="margin-left:auto;color:#0369a1;font-size:18px">›</div>
+      <div style="color:var(--text3);font-size:16px;font-weight:300;">›</div>
     </button>
-  <button onclick="openCallLogger()" style="width:100%;padding:14px 16px;background:linear-gradient(135deg,#0a1f0a,#0f2d15);border:1.5px solid #166534;border-radius:14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px">
-      <div style="width:40px;height:40px;background:rgba(74,222,128,0.15);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📋</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:700;color:#4ade80">Call Logger</div>
-        <div style="font-size:11px;color:#166534;margin-top:1px" id="call-count-badge">Log incoming calls — track leads</div>
+
+    <button onclick="openCallLogger()" style="width:100%;padding:14px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow-sm);transition:all 0.18s;">
+      <div style="width:42px;height:42px;background:#f0fdf6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1.5px solid #b3f0d6;">📋</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);">Call Logger</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px;" id="call-count-badge">Log incoming calls — track leads</div>
       </div>
-      <div style="margin-left:auto;color:#166534;font-size:18px">›</div>
+      <div style="color:var(--text3);font-size:16px;font-weight:300;">›</div>
     </button>
   </div>
 </div>
@@ -408,12 +395,12 @@ let role=null;
 const photos=[],photoData=[];
 
 const SYG=`
-SYG BUSINESS RULES — FIXED, APPLY EVERY TIME:
-- eBay fees + shipping: 17% of sell price
-- License royalty: 10% of sell price
-- Total out: 27% of sell price
-- SYG net = (sell price × 0.73) minus what we paid
-- HOT ITEMS CAP: iPhones, PS5, MacBooks — max offer $300-$350 regardless of math
+SYG REAL COST STRUCTURE (Dec 2025 P&L):
+- Variable costs out per sale: 28.7% (eBay 11.1% + royalty 10% + shipping 7.7%)
+- SYG keeps: sell × 0.713 after variable costs
+- Target COGS: 35% of sell = healthy | Max COGS: 45% | Over 50% = losing money
+- Return rate: 13.7% — factor into every offer
+- Net margin target: 19.9% of net sales
 
 OFFER TIERS — USE THESE EXACT PERCENTAGES:
 - Offer 1 (Strong play): 22-25% of adjusted sell value
@@ -895,51 +882,61 @@ WHAT THIS MEANS FOR BUYERS:
 - Overall SYG margin target: 68.5% — use this to sanity check every deal
 `;
 
-const BUYER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Customer is at the counter NOW. Be fast, sharp, profitable.
+const BUYER_SYS=`You are Thoku, pricing brain for Sell Your Gadgets (SYG). Customer is at the counter NOW.
 
 ${SYG}
 
-OFFICIAL SYG 3-PLAY FORMULA (from buying guide):
-- Play 1 STRONG OPEN: 20-25% of resell → always start here, never higher
-- Play 2 FAIR PLAY: 30-35% of resell → use when customer knows eBay prices  
-- Play 3 CEILING: 55-60% of resell → absolute max, never exceed, let them walk if needed
-
-SYG COST STRUCTURE: Royalty 10% + eBay fees 20% + Fixed costs 25% + Spillage 10-12% = 65-67% out
-Net margin before paying customer: only 18-20% of sell price
-THIS IS WHY THE MATH IS TIGHT — overpaying destroys the deal
-
-NEGOTIATION: Say the number. Go quiet. First person who speaks after offer loses.
-Never say yes immediately to counter — pause, look at item, come back slightly below their ask.
+CRITICAL FIRST STEP — SEARCH EBAY BEFORE PRICING:
+Before calculating any offer, use web_search to find current eBay SOLD listings for this exact item.
+Search: "[exact model] [specs] sold eBay" — look at actual sold prices not asking prices.
+If eBay shows different price than SYG stored data — use eBay and note the difference.
 
 PRECISION RULES — follow every one:
-- Do the math exactly — never round until the final number
-- Use real sold comps first, SYG data second, estimates last
-- If you are uncertain about a price, say so and give a range with reasoning
-- Never skip a section — incomplete output is worse than wrong output
+1. Use ADJUSTED sell value for all offer math — apply condition deductions first
+2. Show REAL SYG net profit: (sell × 0.73) − offer = actual dollars kept
+3. Never recommend an offer where real net profit is under $40 — not worth the deal
+4. For laptops, gaming PCs, cameras — apply extra 10% risk buffer (higher return rates)
+5. If margin at MAX is under 20% — flag it as DANGEROUS, not just "needs approval"
+6. Cross-reference against SYG real COGS data — if SYG paid X before, anchor to that
+7. Never confuse similar model numbers — Dell 5420 ≠ Dell 7420, iPhone 14 Pro ≠ 14 Pro Max
 
-ALWAYS OUTPUT THIS EXACT FORMAT — no markdown, no asterisks, no extra lines:
+SYG COST STRUCTURE (apply every time):
+- Real variable costs: eBay 11.1% + shipping 7.7% + royalty 10% = 28.7% out per sale
+- Real net = sell price × 0.713 − what we paid
+- Target COGS: 35% of sell price (December P&L shows 35.4% actual)
+- Return rate: 13.7% — every offer must absorb potential return cost
+- Walk away if paying more than 50% of sell — leaves nothing after fixed costs
+
+OFFER TIERS:
+Play 1 — START HERE: 20-25% of adjusted sell (anchor low, room to move)
+Play 2 — NEGOTIATE HERE: 30-38% of adjusted sell (hits 35% COGS target = healthy deal)
+Play 3 — MAX: 45% of adjusted sell ONLY if item is A-grade, no issues, fast mover
+→ 45% is the real ceiling based on P&L — anything higher eats into fixed cost coverage
+→ For laptops/cameras/PCs/gaming: cap MAX at 38% — 13.7% return rate kills thin margins
+
+ALWAYS OUTPUT THIS EXACT FORMAT:
 
 SELL VALUE: $[number]
-([Base $X: deduction1 deduction2 = $adjusted])
+([Base $X: condition deductions = $adjusted — be specific about each deduction])
 
 OFFER 1 — START HERE
 Offer customer: $[X] ([Y]% of sell)
-After all costs: $[Z] profit | [M]% margin
-Use when: [one sentence — make it practical and direct for the buyer]
+Real SYG profit: $[sell×0.73 − offer] | [M]% margin
+Use when: [one sentence]
 
 OFFER 2 — NEGOTIATE HERE RECOMMENDED
 Offer customer: $[X] ([Y]% of sell)
-After all costs: $[Z] profit | [M]% margin
-Use when: [one sentence — make it practical and direct for the buyer]
+Real SYG profit: $[sell×0.73 − offer] | [M]% margin
+Use when: [one sentence]
 
 OFFER 3 — MAX NEEDS APPROVAL
 Offer customer: $[X] ([Y]% of sell)
-After all costs: $[Z] profit | [M]% margin
-Use when: [one sentence — make it practical and direct for the buyer]
+Real SYG profit: $[sell×0.73 − offer] | [M]% margin
+Use when: [one sentence]
 
-CUSTOMER ASKING $[X]: [FAIR / TOO HIGH / WALK AWAY] — [one sentence]
+CUSTOMER ASKING $[X]: [FAIR / TOO HIGH / WALK AWAY] — [one sentence with exact reasoning]
 
-THOKU SAYS: [direct recommendation — one sentence]
+THOKU SAYS: [direct recommendation using real SYG comparable data — cite the exact comp if you have it]
 
 WATCH: [single biggest risk — one line]`;
 
@@ -1329,10 +1326,17 @@ Any side over 20 inches → UPS only
 Fragile/expensive cameras, PCs, glass → bubble wrap always
 Box sizes: Phones→8x4x4 | Tablets→10x10x4 | Big Tablets→12x10x4 | Laptops→16x10x4 | Consoles→16x12x4 | Video Games→Poly mailers
 
-EBAY COST STRUCTURE:
-eBay fees: 17% | Royalty: 10% | Total out: 27%
-SYG net = (sell price × 0.73) − what we paid
-Target margin: 68.5% overall
+REAL SYG COST STRUCTURE (December 2025 actual P&L):
+Gross sales: $143,903 | Returns: $19,715 (13.7%) | Net: $124,189
+Net profit: $24,717 (19.9% net margin)
+
+On every $1 of net sales:
+COGS 35.4¢ | eBay fees 11.1¢ | Royalty 10¢ | Shipping 7.7¢ | Payroll 7.5¢ | Ads 3.5¢ | Rent 2.2¢ | Other 2.7¢ | NET PROFIT 19.9¢
+
+Variable costs per sale: 28.7% (eBay + royalty + shipping)
+Target COGS per deal: 35% of sell price
+Max COGS: 45% of sell price
+Return rate: 13.7% of gross — worst categories: Samsung phones 22%, items over $500 14%
 
 STORE INFO:
 Elizabeth (NJ01) — oldest store, Oct 2024. $1M YTD, 5,927 orders.
@@ -1518,30 +1522,12 @@ async function getPrice(){
     if(!apiKey){showApiScreen();return;}
     // Try direct API call with browser access header
     const sys=isRebuttal?REBUTTAL_SYS:isPh?PHONE_SYS:isPk?PACKER_SYS:isAk?ASK_SYS:isSc?SCRIPT_SYS:(b?BUYER_SYS:LISTER_SYS);
-    // Model routing: Sonnet+WebSearch for lister (needs live eBay), Haiku for everything else (fast + all data loaded)
-    const needsSonnet = (role==='lister') || isSc;
-    const useModel = needsSonnet ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001';
-    
-    const useMaxTokens = needsSonnet ? 3000 : 2000;
-    const useTools = (role==='lister') ? [{type:'web_search_20250305',name:'web_search',max_uses:2}] : undefined;
-
-    // Prompt caching — cache the system prompt to save 90% on input costs
-    const cachedSystem = needsSonnet ? [{
-      type: 'text',
-      text: sys,
-      cache_control: {type: 'ephemeral'}
-    }] : sys;
-
-    // Extended thinking is incompatible with web search tools — use one or the other
-    // We keep web search (more useful for live eBay data) and drop thinking
-    const reqBodyObj = {
-      model: useModel,
-      max_tokens: useMaxTokens,
-      system: cachedSystem,
+        const reqBody = JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1500,
+      system: sys,
       messages: [{role:'user', content}]
-    };
-    if(useTools) reqBodyObj.tools = useTools;
-    const reqBody = JSON.stringify(reqBodyObj);
+    });
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       mode:'cors',
@@ -1549,21 +1535,22 @@ async function getPrice(){
         'Content-Type':'application/json',
         'x-api-key':apiKey,
         'anthropic-version':'2023-06-01',
-        'anthropic-beta':'prompt-caching-2024-07-31,web-search-2025-03-05',
         'anthropic-dangerous-direct-browser-access':'true'
       },
       body:reqBody
     });
     if(!res.ok){
-      const err=await res.json().catch(()=>({}));
-      const msg=err?.error?.message||'API error '+res.status;
+      const errBody=await res.text().catch(()=>'');
+      let errMsg='API error '+res.status;
+      try{ const errJson=JSON.parse(errBody); errMsg=errJson?.error?.message||errMsg; }catch(e){}
+      console.error('API error:',res.status,errMsg,errBody.slice(0,200));
       if(res.status===401){
         localStorage.removeItem('thoku_api_key');
         showApiScreen();
         document.getElementById('result').innerHTML='<div class="bridge"></div><div class="dark-wrap" style="color:#f87171;font-size:13px">❌ Invalid API key — please re-enter your key.</div>';
         return;
       }
-      throw new Error(msg);
+      throw new Error(errMsg+' ('+res.status+')');
     }
     const data=await res.json();
     const text=data.content?.[0]?.text||'Something went wrong.';
@@ -1575,7 +1562,8 @@ async function getPrice(){
     else if(b)renderBuyer(text);
     else renderLister(text);
   }catch(e){
-    result.innerHTML=`<div class="dark-wrap" style="color:#f87171;font-size:13px">Connection failed. Please try again.</div>`;
+    console.error('Thoku error:',e);
+    result.innerHTML='<div class="dark-wrap" style="color:#f87171;font-size:13px;padding:20px">Connection failed. Please try again.<br><span style="font-size:10px;opacity:0.6;font-family:var(--mono)">'+e.message+'</span></div>';
   }
   btn.disabled=false;btn.innerHTML=isRebuttal?'🗣️ Get rebuttals':isPh?'📞 Get phone script':isPk?'📦 Get packing guide':isAk?'🧠 Ask Thoku':isSc?'🎭 Build my script':b?'💰 Get 3 offers':'🏷️ Get list price';
 }
@@ -1601,11 +1589,11 @@ function renderBuyer(text){
     }
     if(cur){
       const pm=l.match(/Offer customer[:\s]+\$?([\d,]+)/i);
-      const prm=l.match(/profit[:\s|]+\$?([\d,]+)/i);
+      const prm=l.match(/Real SYG profit[:\s]+\$?([\d,]+)|profit[:\s|]+\$?([\d,]+)/i);
       const mm=l.match(/([\d]+)%\s*margin/i);
       const um=l.match(/Use when[:\s]+(.+)/i);
       if(pm)cur.price=parseInt(pm[1].replace(/,/g,''));
-      if(prm)cur.profit=parseInt(prm[1].replace(/,/g,''));
+      if(prm)cur.profit=parseInt((prm[1]||prm[2]).replace(/,/g,''));
       if(mm)cur.margin=mm[1];
       if(um)cur.why=um[1];
     }
@@ -1627,13 +1615,15 @@ function renderBuyer(text){
   if(offers.length>=3){
     h+=`<div class="ogrid">`;
     offers.forEach(o=>{
-      h+=`<div class="ocard ${o.cls}">
+      const isDangerous = o.margin && parseInt(o.margin) < 25;
+      const marginColor = isDangerous ? '#f87171' : o.cls==='og'?'#4ade80':o.cls==='ob'?'#a78bfa':'#fbbf24';
+      h+=`<div class="ocard ${o.cls}" style="${isDangerous?'border-color:#991b1b;':''}">
         ${o.rec?'<div class="rec-badge">RECOMMENDED</div>':''}
         <div class="otag">${o.tag}</div>
         <div class="oprice">$${(o.price||0).toLocaleString()}</div>
-        ${o.profit?`<div class="oprofit">+$${o.profit.toLocaleString()}</div>`:''}
-        ${o.margin?`<div class="omargin">${o.margin}% margin</div>`:''}
-        ${o.why?`<div class="owhy">${o.why}</div>`:''}
+        ${o.profit?`<div style="font-size:13px;font-weight:700;color:${marginColor};margin-bottom:2px">+$${o.profit.toLocaleString()} profit</div>`:''}
+        ${o.margin?`<div style="font-size:10px;font-family:var(--mono);color:${isDangerous?'#f87171':'#6b7280'}">${o.margin}% margin${isDangerous?' ⚠️':''}</div>`:''}
+        ${o.why?`<div class="owhy" style="margin-top:8px">${o.why}</div>`:''}
       </div>`;
     });
     h+=`</div>`;
@@ -2397,12 +2387,12 @@ async function getShiftBriefing(){
     var reqBody=JSON.stringify({
       model:'claude-haiku-4-5-20251001',
       max_tokens:2000,
-      system:[{type:'text',text:SHIFT_SYS,cache_control:{type:'ephemeral'}}],
+      system:SHIFT_SYS,
       messages:[{role:'user',content:'Employee name: '+name+'\nStore: '+store+'\nDate: '+dateStr+'\nTime of day: '+timeOfDay+'\nBuild the complete shift briefing for this employee right now. Make it specific to the day of the week and time. Make the negotiation tip and challenge fresh and actionable.'}]
     });
     var res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',mode:'cors',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-beta':'prompt-caching-2024-07-31,web-search-2025-03-05','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:reqBody
     });
     var data=await res.json();
